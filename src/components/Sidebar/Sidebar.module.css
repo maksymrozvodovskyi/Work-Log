@@ -1,0 +1,22 @@
+.aside {
+    width: 60px;
+    height: 720px;
+    background-color: black;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 36px;
+    padding: 34px 18px;
+}
+
+.icons {
+    fill: #aeb8c2;
+}
+
+.settingsWrapper {
+    display: flex;
+    align-items: center;
+}
