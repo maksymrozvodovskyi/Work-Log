@@ -1,5 +1,19 @@
-import type { Project, SortField, SortDirection } from "../../../types/project";
+import type {
+  Project,
+  SortField,
+  SortDirection,
+  ProjectStatus,
+} from "../../../types/project";
+import { statusMap } from "../../../types/statusMap";
 import css from "../index.module.css";
+import SortArrowUp from "../svg/SortArrowUp";
+import SortArrowDown from "../svg/SortArrowDown";
+import StatusCircle from "../svg/StatusCircle";
+
+const getStatusCircle = (status: ProjectStatus) => {
+  const statusInfo = statusMap[status];
+  return statusInfo ? <StatusCircle color={statusInfo.color} /> : null;
+};
 
 interface ProjectTableProps {
   projects: Project[];
@@ -8,6 +22,7 @@ interface ProjectTableProps {
   sortField: SortField;
   sortDirection: SortDirection;
   onSort: (field: SortField) => void;
+  onEdit: (project: Project) => void;
 }
 
 const ProjectTable = ({
@@ -17,6 +32,7 @@ const ProjectTable = ({
   sortField,
   sortDirection,
   onSort,
+  onEdit,
 }: ProjectTableProps) => {
   if (isError) {
     return <div>{error?.message}</div>;
@@ -37,52 +53,30 @@ const ProjectTable = ({
                   <div className={css.headerContent}>
                     Status
                     <div className={css.arrowsContainer}>
-                      <svg
-                        width="4"
-                        height="3"
-                        viewBox="0 0 4 3"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <SortArrowUp
                         className={`${css.headerArrow} ${
                           sortField === "status" && sortDirection === "asc"
                             ? css.active
                             : ""
                         }`}
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M0 3L2 0L4 3H0Z"
-                          fill={
-                            sortField === "status" && sortDirection === "asc"
-                              ? "#6b7682"
-                              : "#aeb8c2"
-                          }
-                        />
-                      </svg>
-                      <svg
-                        width="4"
-                        height="3"
-                        viewBox="0 0 4 3"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                        fill={
+                          sortField === "status" && sortDirection === "asc"
+                            ? "#6b7682"
+                            : "#aeb8c2"
+                        }
+                      />
+                      <SortArrowDown
                         className={`${css.headerArrow} ${
                           sortField === "status" && sortDirection === "desc"
                             ? css.active
                             : ""
                         }`}
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M0 0L2 3L4 0H0Z"
-                          fill={
-                            sortField === "status" && sortDirection === "desc"
-                              ? "#6b7682"
-                              : "#aeb8c2"
-                          }
-                        />
-                      </svg>
+                        fill={
+                          sortField === "status" && sortDirection === "desc"
+                            ? "#6b7682"
+                            : "#aeb8c2"
+                        }
+                      />
                     </div>
                   </div>
                 </button>
@@ -96,52 +90,30 @@ const ProjectTable = ({
                   <div className={css.headerContent}>
                     Name
                     <div className={css.arrowsContainer}>
-                      <svg
-                        width="4"
-                        height="3"
-                        viewBox="0 0 4 3"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <SortArrowUp
                         className={`${css.headerArrow} ${
                           sortField === "name" && sortDirection === "asc"
                             ? css.active
                             : ""
                         }`}
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M0 3L2 0L4 3H0Z"
-                          fill={
-                            sortField === "name" && sortDirection === "asc"
-                              ? "#6b7682"
-                              : "#aeb8c2"
-                          }
-                        />
-                      </svg>
-                      <svg
-                        width="4"
-                        height="3"
-                        viewBox="0 0 4 3"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                        fill={
+                          sortField === "name" && sortDirection === "asc"
+                            ? "#6b7682"
+                            : "#aeb8c2"
+                        }
+                      />
+                      <SortArrowDown
                         className={`${css.headerArrow} ${
                           sortField === "name" && sortDirection === "desc"
                             ? css.active
                             : ""
                         }`}
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M0 0L2 3L4 0H0Z"
-                          fill={
-                            sortField === "name" && sortDirection === "desc"
-                              ? "#6b7682"
-                              : "#aeb8c2"
-                          }
-                        />
-                      </svg>
+                        fill={
+                          sortField === "name" && sortDirection === "desc"
+                            ? "#6b7682"
+                            : "#aeb8c2"
+                        }
+                      />
                     </div>
                   </div>
                 </button>
@@ -154,6 +126,9 @@ const ProjectTable = ({
               </th>
               <th className={css.tableHeader}>
                 <div className={css.headerContent}>Created At</div>
+              </th>
+              <th className={css.tableHeader}>
+                <div className={css.headerContent}>Actions</div>
               </th>
             </tr>
             <tr className={css.spacerRow}>
@@ -171,6 +146,7 @@ const ProjectTable = ({
               <th className={css.tableHeader}></th>
               <th className={css.tableHeader}></th>
               <th className={css.tableHeader}></th>
+              <th className={css.tableHeader}></th>
             </tr>
             <tr className={css.spacerRow}>
               <td colSpan={5}></td>
@@ -181,39 +157,7 @@ const ProjectTable = ({
               <tr key={project.id} className={css.tableRow}>
                 <td className={css.tableCell}>
                   <div className={css.statusCell}>
-                    {project.status === "INPROGRESS" && (
-                      <svg
-                        width="28"
-                        height="28"
-                        viewBox="0 0 28 28"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle cx="14" cy="14" r="14" fill="#0BAF6D" />
-                      </svg>
-                    )}
-                    {project.status === "COMPLETED" && (
-                      <svg
-                        width="28"
-                        height="28"
-                        viewBox="0 0 28 28"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle cx="14" cy="14" r="14" fill="#f59e0b" />
-                      </svg>
-                    )}
-                    {project.status === "PENDING" && (
-                      <svg
-                        width="28"
-                        height="28"
-                        viewBox="0 0 28 28"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle cx="14" cy="14" r="14" fill="#ec4899" />
-                      </svg>
-                    )}
+                    {getStatusCircle(project.status)}
                   </div>
                 </td>
                 <td className={css.tableCell}>{project.name}</td>
@@ -229,6 +173,15 @@ const ProjectTable = ({
                 </td>
                 <td className={css.tableCell}>
                   {new Date(project.createdAt).toLocaleDateString()}
+                </td>
+                <td className={css.tableCell}>
+                  <button
+                    type="button"
+                    onClick={() => onEdit(project)}
+                    className={css.editButton}
+                  >
+                    Edit
+                  </button>
                 </td>
               </tr>
             ))}

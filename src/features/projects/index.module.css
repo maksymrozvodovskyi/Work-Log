@@ -39,7 +39,6 @@
     line-height: 1.5;
     text-align: center;
     color: #f5f6fa;
-    cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
@@ -125,25 +124,12 @@
 
 .notificationButton {
     position: relative;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.notificationBadge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 7px;
-    height: 7px;
-    transform: translate(25%, -25%);
-}
-
-.notificationBadge svg path {
-    fill: #fc7141;
 }
 
 .profileButton {
@@ -152,7 +138,6 @@
     border: 0.6px solid #aeb8c2;
     border-radius: 50%;
     background: transparent;
-    cursor: pointer;
     padding: 0;
     display: flex;
     align-items: center;
@@ -228,7 +213,6 @@
 
 .clearButton {
     background: transparent;
-    cursor: pointer;
     padding: 2px;
     display: flex;
     align-items: center;
@@ -272,7 +256,6 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -284,16 +267,8 @@
     background-color: #22c55e;
 }
 
-.statusCircleOrange {
-    background-color: #f59e0b;
-}
-
-.statusCirclePink {
-    background-color: #ec4899;
-}
-
-.statusCircleGray {
-    background-color: #8b97a3;
+.statusCircleBlue {
+    background-color: #3b82f6;
 }
 
 .createButton {
@@ -309,7 +284,6 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    cursor: pointer;
 }
 
 .filterButtonsWrapper {
@@ -517,9 +491,35 @@
     box-sizing: border-box;
 }
 
+.editButton {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #fff;
+    background: #4252ea;
+    border-radius: 23px;
+    padding: 8px 16px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.editButton:hover {
+    background: #5258f0;
+}
+
+.editButton:focus {
+    outline: 2px solid #aeb8c2;
+    outline-offset: 2px;
+}
+
 .sortableHeader {
     background: transparent;
-    cursor: pointer;
     padding: 0;
     width: 100%;
     text-align: left;
@@ -577,7 +577,6 @@
     background: #ffffff;
     color: #6b7682;
     border-radius: 4px;
-    cursor: pointer;
     transition: all 0.2s ease;
     font-size: 14px;
     font-weight: 500;

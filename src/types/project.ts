@@ -5,7 +5,13 @@ export type User = {
   role: "ADMIN" | "EMPLOYEE";
 };
 
-export type ProjectStatus = "INPROGRESS" | "COMPLETED" | "PENDING";
+export type ProjectStatus =
+  | "PLANNED"
+  | "INPROGRESS"
+  | "ONHOLD"
+  | "COMPLETED"
+  | "CANCELLED"
+  | "SUPPORT";
 
 export type Project = {
   id: string;
@@ -17,7 +23,7 @@ export type Project = {
   users: User[];
 };
 
-export type SortField = "status" | "name";
+export type SortField = "name" | "status";
 export type SortDirection = "asc" | "desc";
 
 export type GetProjectsParams = {
@@ -26,9 +32,22 @@ export type GetProjectsParams = {
   sortDirection?: SortDirection;
   skip?: number;
   take?: number;
+  status?: ProjectStatus;
 };
 
 export type PaginatedResponse<T> = {
   data: T[];
   total: number;
+};
+
+export type CreateProjectParams = {
+  name: string;
+  description?: string;
+  status: ProjectStatus;
+};
+
+export type UpdateProjectParams = {
+  name?: string;
+  description?: string;
+  status?: ProjectStatus;
 };

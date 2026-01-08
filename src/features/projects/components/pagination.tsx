@@ -7,6 +7,42 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
+interface ArrowButtonProps {
+  direction: "prev" | "next";
+  disabled: boolean;
+  onClick: () => void;
+}
+
+const ArrowButton: React.FC<ArrowButtonProps> = ({
+  direction,
+  disabled,
+  onClick,
+}) => (
+  <button
+    className={`${css.paginationButton} ${disabled ? css.disabled : ""}`}
+    onClick={onClick}
+    disabled={disabled}
+    type="button"
+    aria-label={`${direction === "prev" ? "Previous" : "Next"} page`}
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d={direction === "prev" ? "M10 12L6 8L10 4" : "M6 12L10 8L6 4"}
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </button>
+);
+
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
@@ -15,41 +51,32 @@ const Pagination: React.FC<PaginationProps> = ({
   if (totalPages <= 1) return null;
 
   const getVisiblePages = () => {
-    const pages = [];
-    const maxVisiblePages = 5;
+    const pages: (number | string)[] = [];
+    const maxVisible = 5;
 
-    if (totalPages <= maxVisiblePages) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      const halfVisible = Math.floor(maxVisiblePages / 2);
+    if (totalPages <= maxVisible) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
 
-      if (currentPage <= halfVisible + 1) {
-        for (let i = 1; i <= maxVisiblePages - 1; i++) {
-          pages.push(i);
-        }
-        pages.push("...");
-        pages.push(totalPages);
-      } else if (currentPage >= totalPages - halfVisible) {
-        pages.push(1);
-        pages.push("...");
-        for (let i = totalPages - (maxVisiblePages - 2); i <= totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        pages.push(1);
-        pages.push("...");
-        for (
-          let i = currentPage - halfVisible + 1;
-          i <= currentPage + halfVisible - 1;
-          i++
-        ) {
-          pages.push(i);
-        }
-        pages.push("...");
-        pages.push(totalPages);
-      }
+    pages.push(1);
+
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
+
+    if (start > 2) {
+      pages.push("...");
+    }
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    if (end < totalPages - 1) {
+      pages.push("...");
+    }
+
+    if (totalPages > 1) {
+      pages.push(totalPages);
     }
 
     return pages;
@@ -59,31 +86,11 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className={css.pagination}>
-      <button
-        className={`${css.paginationButton} ${
-          currentPage === 1 ? css.disabled : ""
-        }`}
-        onClick={() => onPageChange(currentPage - 1)}
+      <ArrowButton
+        direction="prev"
         disabled={currentPage === 1}
-        type="button"
-        aria-label="Previous page"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10 12L6 8L10 4"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </button>
+        onClick={() => onPageChange(currentPage - 1)}
+      />
 
       {visiblePages.map((page, index) => (
         <React.Fragment key={index}>
@@ -103,31 +110,11 @@ const Pagination: React.FC<PaginationProps> = ({
         </React.Fragment>
       ))}
 
-      <button
-        className={`${css.paginationButton} ${
-          currentPage === totalPages ? css.disabled : ""
-        }`}
-        onClick={() => onPageChange(currentPage + 1)}
+      <ArrowButton
+        direction="next"
         disabled={currentPage === totalPages}
-        type="button"
-        aria-label="Next page"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M6 12L10 8L6 4"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </button>
+        onClick={() => onPageChange(currentPage + 1)}
+      />
     </div>
   );
 };
