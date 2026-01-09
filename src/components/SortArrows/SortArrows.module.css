@@ -1,0 +1,16 @@
+.arrowsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.headerArrow {
+    flex-shrink: 0;
+}
+
+.headerArrow.active path {
+    fill: #f5f6fa !important;
+}
+
