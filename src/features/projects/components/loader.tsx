@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import css from "../index.module.css";
 
 interface LoaderProps {
@@ -14,8 +15,8 @@ const Loader: React.FC<LoaderProps> = ({ size = "medium", className = "" }) => {
   };
 
   return (
-    <div className={`${css.loaderContainer} ${className}`}>
-      <div className={`${css.loader} ${sizeClasses[size]}`}>
+    <div className={clsx(css.loaderContainer, className)}>
+      <div className={clsx(css.loader, sizeClasses[size])}>
         <div className={css.loaderSpinner}>
           <div className={css.loaderDot}></div>
           <div className={css.loaderDot}></div>

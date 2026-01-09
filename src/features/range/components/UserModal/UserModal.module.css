@@ -13,7 +13,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    height: 100vh;
+    height: 100dvh;
     background: #383d44;
     border: 1px solid #0e0e11;
     border-radius: 8px 0 0 8px;
@@ -60,12 +60,6 @@
     margin: 0;
 }
 
-.headerButtons {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
 .closeButton {
     background: transparent;
     border: none;
@@ -100,18 +94,23 @@
     gap: 8px;
 }
 
-.descriptionField,
-.projectNameField,
-.statusField {
+.nameField,
+.emailField,
+.statusField,
+.mainProjectField {
     gap: 16px;
 }
 
-.descriptionField {
-    margin-top: 40px;
+.emailField {
+    margin-top: 20px;
 }
 
 .statusField {
-    margin-top: 40px;
+    margin-top: 20px;
+}
+
+.mainProjectField {
+    margin-top: 20px;
 }
 
 .label {
@@ -154,7 +153,7 @@
     border: none;
     border-radius: 8px;
     width: 296px;
-    height: 72px;
+    min-height: 72px;
     padding: 8px 15px;
     outline: none;
     transition: border-color 0.2s ease;
@@ -192,6 +191,7 @@
     color: #f5f6fa;
     padding: 8px 15px;
     transition: all 0.2s ease;
+    border: none;
 }
 
 .statusButton:hover {
@@ -243,4 +243,15 @@
 .createButton:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.error {
+    color: #fc7141;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.generalError {
+    color: #fc7141;
+    margin-bottom: 16px;
 }

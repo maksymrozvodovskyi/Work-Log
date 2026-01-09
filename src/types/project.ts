@@ -1,8 +1,10 @@
+export type UserType = "ADMIN" | "EMPLOYEE";
+
 export type User = {
   id: string;
   email: string;
   name: string;
-  role: "ADMIN" | "EMPLOYEE";
+  role: UserType;
 };
 
 export type ProjectStatus =

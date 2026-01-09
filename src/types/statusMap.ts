@@ -1,9 +1,5 @@
-import type { ProjectStatus } from "./project";
-
-export type StatusInfo = {
-  label: string;
-  color: string;
-};
+import type { ProjectStatus } from "./Project";
+import type { StatusInfo } from "./StatusInfo";
 
 export const statusMap: Record<ProjectStatus, StatusInfo> = {
   PLANNED: { label: "Planned", color: "#94a3b8" },

@@ -1,4 +1,7 @@
 import React from "react";
+import clsx from "clsx";
+import ArrowLeftIcon from "../svg/ArrowLeftIcon";
+import ArrowRightPaginationIcon from "../svg/ArrowRightPaginationIcon";
 import css from "../index.module.css";
 
 interface PaginationProps {
@@ -6,42 +9,6 @@ interface PaginationProps {
   totalPages: number;
   onPageChange: (page: number) => void;
 }
-
-interface ArrowButtonProps {
-  direction: "prev" | "next";
-  disabled: boolean;
-  onClick: () => void;
-}
-
-const ArrowButton: React.FC<ArrowButtonProps> = ({
-  direction,
-  disabled,
-  onClick,
-}) => (
-  <button
-    className={`${css.paginationButton} ${disabled ? css.disabled : ""}`}
-    onClick={onClick}
-    disabled={disabled}
-    type="button"
-    aria-label={`${direction === "prev" ? "Previous" : "Next"} page`}
-  >
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d={direction === "prev" ? "M10 12L6 8L10 4" : "M6 12L10 8L6 4"}
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  </button>
-);
 
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
@@ -98,9 +65,10 @@ const Pagination: React.FC<PaginationProps> = ({
             <span className={css.paginationEllipsis}>...</span>
           ) : (
             <button
-              className={`${css.paginationButton} ${
-                currentPage === page ? css.active : ""
-              }`}
+              className={clsx(
+                css.paginationButton,
+                currentPage === page && css.active
+              )}
               onClick={() => onPageChange(page as number)}
               type="button"
             >
@@ -118,5 +86,29 @@ const Pagination: React.FC<PaginationProps> = ({
     </div>
   );
 };
+
+interface ArrowButtonProps {
+  direction: "prev" | "next";
+  disabled: boolean;
+  onClick: () => void;
+}
+
+function ArrowButton({
+  direction,
+  disabled,
+  onClick,
+}: ArrowButtonProps) {
+  return (
+    <button
+      className={clsx(css.paginationButton, disabled && css.disabled)}
+      onClick={onClick}
+      disabled={disabled}
+      type="button"
+      aria-label={`${direction === "prev" ? "Previous" : "Next"} page`}
+    >
+      {direction === "prev" ? <ArrowLeftIcon /> : <ArrowRightPaginationIcon />}
+    </button>
+  );
+}
 
 export default Pagination;

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import clsx from "clsx";
 import css from "./Sidebar.module.css";
 import { SidebarContent } from "./content";
 
@@ -11,9 +12,7 @@ export default function Sidebar() {
             <NavLink
               to={item.path}
               className={({ isActive }) =>
-                isActive && item.path !== "/"
-                  ? `${css.link} ${css.active}`
-                  : css.link
+                clsx(css.link, isActive && item.path !== "/" && css.active)
               }
               aria-label={item.label}
             >

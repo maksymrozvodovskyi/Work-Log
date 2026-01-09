@@ -3,11 +3,10 @@ import type {
   SortField,
   SortDirection,
   ProjectStatus,
-} from "../../../types/project";
-import { statusMap } from "../../../types/statusMap";
+} from "../../../types/Project";
+import { statusMap } from "../../../types/StatusMap";
 import css from "../index.module.css";
-import SortArrowUp from "../svg/SortArrowUp";
-import SortArrowDown from "../svg/SortArrowDown";
+import SortArrows from "@/components/SortArrows/SortArrows";
 import StatusCircle from "../svg/StatusCircle";
 
 const getStatusCircle = (status: ProjectStatus) => {
@@ -15,10 +14,23 @@ const getStatusCircle = (status: ProjectStatus) => {
   return statusInfo ? <StatusCircle color={statusInfo.color} /> : null;
 };
 
+interface TableHeader {
+  label: string;
+  field?: SortField;
+  sortable?: boolean;
+}
+
+const tableHeaders: TableHeader[] = [
+  { label: "Status", field: "status", sortable: true },
+  { label: "Name", field: "name", sortable: true },
+  { label: "Description", sortable: false },
+  { label: "Users", sortable: false },
+  { label: "Created At", sortable: false },
+  { label: "Actions", sortable: false },
+];
+
 interface ProjectTableProps {
   projects: Project[];
-  isError: boolean;
-  error: Error | null;
   sortField: SortField;
   sortDirection: SortDirection;
   onSort: (field: SortField) => void;
@@ -27,126 +39,39 @@ interface ProjectTableProps {
 
 const ProjectTable = ({
   projects,
-  isError,
-  error,
   sortField,
   sortDirection,
   onSort,
   onEdit,
 }: ProjectTableProps) => {
-  if (isError) {
-    return <div>{error?.message}</div>;
-  }
-
   return (
     <div className={css.tableWrapper}>
-      <div className={css.tableHeaderContainer}>
-        <table className={css.table} aria-label="Projects list header">
-          <thead className={css.tableHead}>
-            <tr>
-              <th className={css.tableHeader}>
-                <button
-                  className={css.sortableHeader}
-                  onClick={() => onSort("status")}
-                  type="button"
-                >
-                  <div className={css.headerContent}>
-                    Status
-                    <div className={css.arrowsContainer}>
-                      <SortArrowUp
-                        className={`${css.headerArrow} ${
-                          sortField === "status" && sortDirection === "asc"
-                            ? css.active
-                            : ""
-                        }`}
-                        fill={
-                          sortField === "status" && sortDirection === "asc"
-                            ? "#6b7682"
-                            : "#aeb8c2"
-                        }
-                      />
-                      <SortArrowDown
-                        className={`${css.headerArrow} ${
-                          sortField === "status" && sortDirection === "desc"
-                            ? css.active
-                            : ""
-                        }`}
-                        fill={
-                          sortField === "status" && sortDirection === "desc"
-                            ? "#6b7682"
-                            : "#aeb8c2"
-                        }
-                      />
-                    </div>
-                  </div>
-                </button>
-              </th>
-              <th className={css.tableHeader}>
-                <button
-                  className={css.sortableHeader}
-                  onClick={() => onSort("name")}
-                  type="button"
-                >
-                  <div className={css.headerContent}>
-                    Name
-                    <div className={css.arrowsContainer}>
-                      <SortArrowUp
-                        className={`${css.headerArrow} ${
-                          sortField === "name" && sortDirection === "asc"
-                            ? css.active
-                            : ""
-                        }`}
-                        fill={
-                          sortField === "name" && sortDirection === "asc"
-                            ? "#6b7682"
-                            : "#aeb8c2"
-                        }
-                      />
-                      <SortArrowDown
-                        className={`${css.headerArrow} ${
-                          sortField === "name" && sortDirection === "desc"
-                            ? css.active
-                            : ""
-                        }`}
-                        fill={
-                          sortField === "name" && sortDirection === "desc"
-                            ? "#6b7682"
-                            : "#aeb8c2"
-                        }
-                      />
-                    </div>
-                  </div>
-                </button>
-              </th>
-              <th className={css.tableHeader}>
-                <div className={css.headerContent}>Description</div>
-              </th>
-              <th className={css.tableHeader}>
-                <div className={css.headerContent}>Users</div>
-              </th>
-              <th className={css.tableHeader}>
-                <div className={css.headerContent}>Created At</div>
-              </th>
-              <th className={css.tableHeader}>
-                <div className={css.headerContent}>Actions</div>
-              </th>
-            </tr>
-            <tr className={css.spacerRow}>
-              <td colSpan={5}></td>
-            </tr>
-          </thead>
-        </table>
-      </div>
       <div className={css.tableContainer}>
         <table className={css.table} aria-label="Projects list">
-          <thead className={css.tableHeadHidden}>
+          <thead className={css.tableHead}>
             <tr>
-              <th className={css.tableHeader}></th>
-              <th className={css.tableHeader}></th>
-              <th className={css.tableHeader}></th>
-              <th className={css.tableHeader}></th>
-              <th className={css.tableHeader}></th>
-              <th className={css.tableHeader}></th>
+              {tableHeaders.map((header) => (
+                <th key={header.label} className={css.tableHeader}>
+                  {header.sortable && header.field ? (
+                    <button
+                      className={css.sortableHeader}
+                      onClick={() => onSort(header.field!)}
+                      type="button"
+                    >
+                      <div className={css.headerContent}>
+                        {header.label}
+                        <SortArrows
+                          field={header.field}
+                          currentSortField={sortField}
+                          sortDirection={sortDirection}
+                        />
+                      </div>
+                    </button>
+                  ) : (
+                    <div className={css.headerContent}>{header.label}</div>
+                  )}
+                </th>
+              ))}
             </tr>
             <tr className={css.spacerRow}>
               <td colSpan={5}></td>

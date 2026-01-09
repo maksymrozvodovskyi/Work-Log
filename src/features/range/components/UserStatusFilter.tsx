@@ -1,19 +1,19 @@
 import css from "../../../components/StatusFilter.module.css";
-import type { ProjectStatus } from "../../../types/Project";
-import { statusMap } from "../../../types/StatusMap";
-import { PROJECT_STATUS_ORDER } from "../../../types/ProjectStatusOrder";
-import CheckmarkIcon from "../svg/CheckmarkIcon";
+import type { UserStatus } from "../../../types/User";
+import { userStatusMap } from "../../../types/UserStatusMap";
+import { USER_STATUS_ORDER } from "../../../types/UserStatusOrder";
+import CheckmarkIcon from "../../projects/svg/CheckmarkIcon";
 
-type StatusFilterProps = {
-  selectedStatus?: ProjectStatus | null;
-  onStatusChange: (status: ProjectStatus | null) => void;
+type UserStatusFilterProps = {
+  selectedStatus?: UserStatus | null;
+  onStatusChange: (status: UserStatus | null) => void;
 };
 
-const StatusFilter = ({
+const UserStatusFilter = ({
   selectedStatus,
   onStatusChange,
-}: StatusFilterProps) => {
-  const handleStatusClick = (status: ProjectStatus) => {
+}: UserStatusFilterProps) => {
+  const handleStatusClick = (status: UserStatus) => {
     if (selectedStatus === status) {
       onStatusChange(null);
     } else {
@@ -23,8 +23,8 @@ const StatusFilter = ({
 
   return (
     <div className={css.statusCircles}>
-      {PROJECT_STATUS_ORDER.map((status) => {
-        const statusInfo = statusMap[status];
+      {USER_STATUS_ORDER.map((status) => {
+        const statusInfo = userStatusMap[status];
         if (!statusInfo) return null;
 
         const isSelected = selectedStatus === status;
@@ -34,7 +34,7 @@ const StatusFilter = ({
             key={status}
             type="button"
             className={css.statusCircle}
-            aria-label={`Filter by ${statusInfo.label.toLowerCase()} projects`}
+            aria-label={`Filter by ${statusInfo.label.toLowerCase()} users`}
             onClick={() => handleStatusClick(status)}
             style={{ backgroundColor: statusInfo.color }}
           >
@@ -46,4 +46,4 @@ const StatusFilter = ({
   );
 };
 
-export default StatusFilter;
+export default UserStatusFilter;

@@ -1,45 +1,102 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getProjects } from "@/api/projects/projects";
+import {
+  useQueryStates,
+  parseAsString,
+  parseAsInteger,
+  createParser,
+} from "nuqs";
+import clsx from "clsx";
+import { getProjects } from "@/api/projects";
 import { useDebounce } from "@/hooks/useDebounce";
+import { PROJECTS_QUERY_KEY } from "@/features/projects/queryKeys";
 import type {
   SortField,
   SortDirection,
   ProjectStatus,
   Project,
-} from "@/types/project";
+} from "@/types/Project";
+import { PROJECT_STATUS_ORDER } from "@/types/ProjectStatusOrder";
 import css from "@/features/projects/index.module.css";
-import ProjectTable from "@/features/projects/components/projectTable";
-import SearchInput from "@/features/projects/components/searchInput";
-import StatusFilter from "@/features/projects/components/statusFilter";
-import Pagination from "@/features/projects/components/pagination";
-import Loader from "@/features/projects/components/loader";
-import CreateProjectModal from "@/features/projects/components/createProjectModal";
-import EditProjectModal from "@/features/projects/components/editProjectModal";
+import ProjectTable from "@/features/projects/components/ProjectTable";
+import SearchInput from "@/features/projects/components/SearchInput";
+import StatusFilter from "@/features/projects/components/StatusFilter";
+import Pagination from "@/features/projects/components/Pagination";
+import Loader from "@/features/projects/components/Loader";
+import ProjectModal from "@/features/projects/components/ProjectModal/ProjectModal";
+import PlusIcon from "@/features/projects/svg/PlusIcon";
 
 const PROJECTS_PER_PAGE = 10;
 
-const ProjectsPage = () => {
-  const [globalFilter, setGlobalFilter] = useState("");
-  const [sortField, setSortField] = useState<SortField>("name");
-  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingProject, setEditingProject] = useState<Project | null>(null);
-  const [selectedStatus, setSelectedStatus] = useState<ProjectStatus | null>(
-    null
-  );
+const parseAsSortField = createParser({
+  parse: (value: string): SortField => {
+    if (value === "name" || value === "status") {
+      return value as SortField;
+    }
+    return "name";
+  },
+  serialize: (value: SortField) => value,
+});
 
-  const debouncedSearchTerm = useDebounce(globalFilter, 500);
+const parseAsSortDirection = createParser({
+  parse: (value: string): SortDirection => {
+    if (value === "asc" || value === "desc") {
+      return value as SortDirection;
+    }
+    return "asc";
+  },
+  serialize: (value: SortDirection) => value,
+});
+
+const parseAsProjectStatus = createParser<ProjectStatus | null>({
+  parse: (value: string | null): ProjectStatus | null => {
+    if (!value) return null;
+    if (PROJECT_STATUS_ORDER.includes(value as ProjectStatus)) {
+      return value as ProjectStatus;
+    }
+    return null;
+  },
+  serialize: (value: ProjectStatus | null): string => value || "",
+});
+
+type StatisticItem = {
+  value: number | ((totalProjects: number) => number);
+  label: string;
+  isMain?: boolean;
+};
+
+const statisticsConfig: StatisticItem[] = [
+  {
+    value: (totalProjects) => totalProjects,
+    label: "All projects",
+    isMain: true,
+  },
+  { value: 100, label: "Time & material" },
+  { value: 56, label: "Fixed time" },
+  { value: 5, label: "Archived" },
+];
+
+const ProjectsPage = () => {
+  const [{ search, sortField, sortDirection, page, status }, setFilters] =
+    useQueryStates({
+      search: parseAsString.withDefault(""),
+      sortField: parseAsSortField.withDefault("name"),
+      sortDirection: parseAsSortDirection.withDefault("asc"),
+      page: parseAsInteger.withDefault(1),
+      status: parseAsProjectStatus,
+    });
+
+  const [modalProject, setModalProject] = useState<Project | null>(null);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const debouncedSearchTerm = useDebounce(search, 500);
 
   const handleSearchChange = (value: string) => {
-    setGlobalFilter(value);
-    setCurrentPage(1);
+    setFilters({ search: value, page: 1 });
   };
 
-  const handleStatusChange = (status: ProjectStatus | null) => {
-    setSelectedStatus(status);
-    setCurrentPage(1);
+  const handleStatusChange = (newStatus: ProjectStatus | null) => {
+    setFilters({ status: newStatus, page: 1 });
   };
 
   const {
@@ -49,21 +106,21 @@ const ProjectsPage = () => {
     error,
   } = useQuery({
     queryKey: [
-      "projects",
+      PROJECTS_QUERY_KEY,
       debouncedSearchTerm,
       sortField,
       sortDirection,
-      currentPage,
-      selectedStatus,
+      page,
+      status,
     ],
     queryFn: () =>
       getProjects({
         search: debouncedSearchTerm || undefined,
         sortField,
         sortDirection,
-        skip: (currentPage - 1) * PROJECTS_PER_PAGE,
+        skip: (page - 1) * PROJECTS_PER_PAGE,
         take: PROJECTS_PER_PAGE,
-        status: selectedStatus || undefined,
+        status: status || undefined,
       }),
   });
 
@@ -73,32 +130,41 @@ const ProjectsPage = () => {
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      setFilters({
+        sortDirection: sortDirection === "asc" ? "desc" : "asc",
+        page: 1,
+      });
     } else {
-      setSortField(field);
-      setSortDirection("asc");
+      setFilters({
+        sortField: field,
+        sortDirection: "asc",
+        page: 1,
+      });
     }
-    setCurrentPage(1);
   };
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const handlePageChange = (newPage: number) => {
+    setFilters({ page: newPage });
   };
 
   const handleEditClick = (project: Project) => {
-    setEditingProject(project);
+    setModalProject(project);
+    setIsCreateModalOpen(false);
   };
 
-  const handleCloseEditModal = () => {
-    setEditingProject(null);
+  const handleCloseModal = () => {
+    setModalProject(null);
+    setIsCreateModalOpen(false);
   };
 
   const handleClearFilters = () => {
-    setGlobalFilter("");
-    setSelectedStatus(null);
-    setSortField("name");
-    setSortDirection("asc");
-    setCurrentPage(1);
+    setFilters({
+      search: "",
+      status: null,
+      sortField: "name",
+      sortDirection: "asc",
+      page: 1,
+    });
   };
 
   return (
@@ -113,24 +179,32 @@ const ProjectsPage = () => {
           </div>
 
           <ul className={css.list}>
-            <li className={css.item}>
-              <span className={css.headerAllProjectsNumbers}>
-                {totalProjects}
-              </span>
-              <span className={css.headerAllProjects}>All projects</span>
-            </li>
-            <li className={css.item}>
-              <span className={css.headerNumbers}>100</span>
-              <span className={css.headerText}>Time & material</span>
-            </li>
-            <li className={css.item}>
-              <span className={css.headerNumbers}>56</span>
-              <span className={css.headerText}>Fixed time</span>
-            </li>
-            <li className={css.item}>
-              <span className={css.headerNumbers}>5</span>
-              <span className={css.headerText}>Archived</span>
-            </li>
+            {statisticsConfig.map((item, index) => {
+              const value =
+                typeof item.value === "function"
+                  ? item.value(totalProjects)
+                  : item.value;
+              return (
+                <li key={index} className={css.item}>
+                  <span
+                    className={clsx(
+                      item.isMain && css.headerAllProjectsNumbers,
+                      !item.isMain && css.headerNumbers
+                    )}
+                  >
+                    {value}
+                  </span>
+                  <span
+                    className={clsx(
+                      item.isMain && css.headerAllProjects,
+                      !item.isMain && css.headerText
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         </div>
 
@@ -153,7 +227,7 @@ const ProjectsPage = () => {
       </header>
 
       <section className={css.filterWrapper} aria-labelledby="filter-section">
-        <SearchInput value={globalFilter ?? ""} onChange={handleSearchChange} />
+        <SearchInput value={search} onChange={handleSearchChange} />
 
         <div className={css.filterButtonsWrapper}>
           <div className={css.filterControls}>
@@ -167,7 +241,7 @@ const ProjectsPage = () => {
             </button>
 
             <StatusFilter
-              selectedStatus={selectedStatus}
+              selectedStatus={status}
               onStatusChange={handleStatusChange}
             />
           </div>
@@ -175,23 +249,13 @@ const ProjectsPage = () => {
           <button
             type="button"
             className={css.createButton}
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => {
+              setIsCreateModalOpen(true);
+              setModalProject(null);
+            }}
           >
             Create project
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M6 1V11M1 6H11"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
+            <PlusIcon />
           </button>
         </div>
       </section>
@@ -201,8 +265,6 @@ const ProjectsPage = () => {
 
       <ProjectTable
         projects={projects}
-        isError={isError}
-        error={error}
         sortField={sortField}
         sortDirection={sortDirection}
         onSort={handleSort}
@@ -210,20 +272,15 @@ const ProjectsPage = () => {
       />
 
       <Pagination
-        currentPage={currentPage}
+        currentPage={page}
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
 
-      <CreateProjectModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
-
-      <EditProjectModal
-        isOpen={editingProject !== null}
-        project={editingProject}
-        onClose={handleCloseEditModal}
+      <ProjectModal
+        isOpen={isCreateModalOpen || modalProject !== null}
+        project={modalProject}
+        onClose={handleCloseModal}
       />
     </div>
   );

@@ -1,0 +1,257 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100dvh;
+    background: #383d44;
+    border: 1px solid #0e0e11;
+    border-radius: 8px 0 0 8px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.modal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: #2b2c32;
+    border-radius: 4px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background: #8b97a3;
+    border-radius: 4px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background: #aeb8c2;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 20px 20px 20px;
+    width: 336px;
+    height: 104px;
+}
+
+.title {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #f5f6fa;
+    margin: 0;
+}
+
+.headerButtons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.closeButton {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aeb8c2;
+    transition: color 0.2s ease;
+}
+
+.closeButton:hover {
+    color: #f5f6fa;
+}
+
+.closeButton:focus {
+    outline: 2px solid #aeb8c2;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 20px 20px 20px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.descriptionField,
+.projectNameField,
+.statusField {
+    gap: 16px;
+}
+
+.descriptionField {
+    margin-top: 40px;
+}
+
+.statusField {
+    margin-top: 40px;
+}
+
+.label {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.input {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+    background: #2a2c32;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.input::placeholder {
+    color: rgba(245, 246, 250, 0.5);
+}
+
+.input:focus {
+    outline: none;
+}
+
+.textarea {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+    background: #2a2c32;
+    border: none;
+    border-radius: 8px;
+    width: 296px;
+    height: 72px;
+    padding: 8px 15px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    resize: vertical;
+}
+
+.textarea::placeholder {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.textarea:focus {
+    outline: none;
+}
+
+.statusGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.statusButton {
+    border-radius: 8px;
+    width: 140px;
+    height: 36px;
+    background: #2a2c32;
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #f5f6fa;
+    padding: 8px 15px;
+    transition: all 0.2s ease;
+}
+
+.statusButton:hover {
+    background: #32343a;
+    color: #f5f6fa;
+}
+
+.statusButton:focus {
+    outline: 2px solid #aeb8c2;
+    outline-offset: 2px;
+}
+
+.statusButtonActive {
+    background: #fc7141;
+    color: #f5f6fa;
+}
+
+.statusButtonActive:hover {
+    background: #fc7141;
+}
+
+.createButton {
+    border-radius: 8px;
+    width: 240px;
+    height: 36px;
+    background: #4252ea;
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #f5f6fa;
+    border: none;
+    padding: 0 48px;
+    transition: background-color 0.2s ease;
+    align-self: center;
+    margin-top: auto;
+}
+
+.createButton:hover:not(:disabled) {
+    background: #5258f0;
+}
+
+.createButton:focus:not(:disabled) {
+    outline: 2px solid #aeb8c2;
+    outline-offset: 2px;
+}
+
+.createButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.error {
+    color: #fc7141;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.errorGeneral {
+    color: #fc7141;
+    margin-bottom: 16px;
+}

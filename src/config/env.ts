@@ -3,19 +3,19 @@ interface EnvConfig {
   accessToken: string;
 }
 
-export const getEnvVar = (key: string, defaultValue?: string): string => {
+export const getEnvVar = (key: string): string => {
   const value = import.meta.env[key];
 
-  if (!value && !defaultValue) {
+  if (!value) {
     throw new Error(
       `Environment variable ${key} is required but not found. Please check your .env file.`
     );
   }
 
-  return value || defaultValue!;
+  return value;
 };
 
 export const config: EnvConfig = {
-  apiUrl: getEnvVar("VITE_API_URL", "http://localhost:3000"),
+  apiUrl: getEnvVar("VITE_API_URL"),
   accessToken: getEnvVar("VITE_ACCESS_TOKEN"),
 };
