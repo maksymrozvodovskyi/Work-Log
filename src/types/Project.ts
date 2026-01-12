@@ -1,5 +1,7 @@
 export type UserType = "ADMIN" | "EMPLOYEE";
 
+export const USER_TYPES: UserType[] = ["ADMIN", "EMPLOYEE"];
+
 export type User = {
   id: string;
   email: string;

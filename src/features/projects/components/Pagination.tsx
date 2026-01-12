@@ -105,7 +105,7 @@ function ArrowButton({ direction, disabled, onClick }: ArrowButtonProps) {
         style={{
           width: "16px",
           height: "16px",
-          transform: direction === "prev" ? "rotate(-90deg)" : "rotate(90deg)",
+          transform: direction === "prev" ? "rotate(90deg)" : "rotate(-90deg)",
           transformOrigin: "center",
         }}
       />

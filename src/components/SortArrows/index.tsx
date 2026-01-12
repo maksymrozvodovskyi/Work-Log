@@ -5,7 +5,7 @@ import css from "./SortArrows.module.css";
 interface SortArrowsProps {
   field: string;
   currentSortField: string;
-  sortDirection: "asc" | "desc";
+  sortDirection: "asc" | "desc" | null;
   className?: string;
 }
 

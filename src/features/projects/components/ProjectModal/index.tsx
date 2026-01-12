@@ -9,6 +9,7 @@ import { statusMap } from "@/types/StatusMap";
 import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatusOrder";
 import { useKeyboard } from "@/hooks/useKeyboard";
 import ArrowIcon from "@/features/projects/svg/ArrowIcon";
+import { getButtonText } from "@/utils/modal";
 import css from "./ProjectModal.module.css";
 
 interface ProjectModalProps {
@@ -22,13 +23,6 @@ interface FormData {
   description: string;
   status: ProjectStatus;
 }
-
-const getButtonText = (isLoading: boolean, isEditing: boolean): string => {
-  if (isLoading) {
-    return isEditing ? "Saving..." : "Creating...";
-  }
-  return isEditing ? "Save" : "Create";
-};
 
 const ProjectModal = ({
   isOpen,

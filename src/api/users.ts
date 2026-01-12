@@ -13,24 +13,34 @@ import { config } from "@/config/env";
 const API_URL = `${config.apiUrl}/users`;
 const ACCESS_TOKEN = config.accessToken;
 
+type ApiProject = {
+  id: string;
+  name: string;
+  description: string | null;
+  status: string;
+  createdAt: string;
+};
+
 type ApiUser = {
   id: string;
   email: string;
   name: string;
   role: UserType;
   createdAt: string;
+  projects?: ApiProject[];
 };
 
 export const getUsers = async (
   params?: GetUsersParams
 ): Promise<PaginatedResponse<UserRange>> => {
   const requestParams: Record<string, unknown> = {
-    search: params?.search,
-    sortField: params?.sortField,
-    sortDirection: params?.sortDirection,
     skip: params?.skip,
     take: params?.take,
   };
+
+  if (params?.name) {
+    requestParams.name = params.name;
+  }
 
   if (params?.status) {
     requestParams.status = params.status;
@@ -44,29 +54,37 @@ export const getUsers = async (
     requestParams.project = params.project;
   }
 
-  const { data } = await axios.get<ApiUser[]>(API_URL, {
+  if (params?.sortOrder) {
+    requestParams.sortOrder = params.sortOrder;
+  }
+
+  const { data } = await axios.get<PaginatedResponse<ApiUser>>(API_URL, {
     headers: {
       Authorization: `Bearer ${ACCESS_TOKEN}`,
     },
     params: requestParams,
   });
 
-  const transformedUsers: UserRange[] = data.map((user) => ({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    createdAt: user.createdAt,
-    avatar: undefined,
-    managers: [],
-    mainProject: null,
-    otherProjects: [],
-    status: "GREEN" as UserStatus,
-    userType: user.role,
-  }));
+  const transformedUsers: UserRange[] = data.data.map((user) => {
+    const projectNames = (user.projects || []).map((p) => p.name);
+    const mainProject = projectNames.length > 0 ? projectNames[0] : null;
+    const otherProjects = projectNames.length > 1 ? projectNames.slice(1) : [];
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      createdAt: user.createdAt,
+      mainProject,
+      otherProjects,
+      status: "GREEN" as UserStatus,
+      userType: user.role,
+    };
+  });
 
   return {
     data: transformedUsers,
-    total: transformedUsers.length,
+    total: data.total,
   };
 };
 
@@ -79,17 +97,19 @@ export const createUser = async (
     },
   });
 
+  const projectNames = (data.projects || []).map((p) => p.name);
+  const mainProject = projectNames.length > 0 ? projectNames[0] : null;
+  const otherProjects = projectNames.length > 1 ? projectNames.slice(1) : [];
+
   return {
     id: data.id,
     name: data.name,
     email: data.email,
     createdAt: data.createdAt,
-    avatar: params.avatar,
-    managers: [],
-    mainProject: params.mainProject || null,
-    otherProjects: params.otherProjects || [],
-    status: params.status,
-    userType: params.userType || data.role,
+    mainProject,
+    otherProjects,
+    status: params.status || "GREEN",
+    userType: data.role,
   };
 };
 
@@ -103,15 +123,17 @@ export const updateUser = async (
     },
   });
 
+  const projectNames = (data.projects || []).map((p) => p.name);
+  const mainProject = projectNames.length > 0 ? projectNames[0] : null;
+  const otherProjects = projectNames.length > 1 ? projectNames.slice(1) : [];
+
   return {
     id: data.id,
     name: data.name,
     email: data.email,
     createdAt: data.createdAt,
-    avatar: params.avatar,
-    managers: [],
-    mainProject: params.mainProject || null,
-    otherProjects: params.otherProjects || [],
+    mainProject,
+    otherProjects,
     status: params.status || "GREEN",
     userType: params.userType || data.role,
   };

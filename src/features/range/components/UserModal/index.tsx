@@ -1,15 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
 import { createUser, updateUser } from "@/api/users";
-import { getProjects } from "@/api/projects";
 import type { UserRange, UserStatus } from "@/types/User";
 import type { UserType } from "@/types/Project";
 import { userStatusMap } from "@/types/UserStatusMap";
 import { USER_STATUS_ORDER } from "@/types/UserStatusOrder";
+import { USER_QUERY_KEYS } from "@/features/projects/queryKeys";
 import { useKeyboard } from "@/hooks/useKeyboard";
 import ArrowIcon from "@/features/projects/svg/ArrowIcon";
+import { getButtonText } from "@/utils/modal";
 import css from "./UserModal.module.css";
 
 interface UserModalProps {
@@ -21,28 +22,14 @@ interface UserModalProps {
 interface FormData {
   name: string;
   email: string;
+  password: string;
   status: UserStatus;
-  mainProject: string;
   userType: UserType;
 }
-
-const getButtonText = (isLoading: boolean, isEditing: boolean): string => {
-  if (isLoading) {
-    return isEditing ? "Saving..." : "Creating...";
-  }
-  return isEditing ? "Save" : "Create";
-};
 
 const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
   const isEditing = !!user;
   const idPrefix = isEditing ? "edit-" : "";
-
-  const { data: projectsData } = useQuery({
-    queryKey: ["projects", { take: 100 }],
-    queryFn: () => getProjects({ take: 100 }),
-  });
-
-  const projects = projectsData?.data ?? [];
 
   const {
     register,
@@ -63,8 +50,8 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
     reset({
       name: user?.name || "",
       email: user?.email || "",
+      password: "",
       status: user?.status || "GREEN",
-      mainProject: user?.mainProject || "",
       userType: user?.userType || "EMPLOYEE",
     });
   }, [user, reset]);
@@ -73,8 +60,8 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
     reset({
       name: "",
       email: "",
+      password: "",
       status: "GREEN",
-      mainProject: "",
       userType: "EMPLOYEE",
     });
     clearErrors("root");
@@ -91,21 +78,19 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
           name: data.name.trim(),
           email: data.email.trim(),
           status: data.status,
-          mainProject: data.mainProject || undefined,
           userType: data.userType,
         });
       } else {
         await createUser({
           name: data.name.trim(),
           email: data.email.trim(),
-          status: data.status,
-          mainProject: data.mainProject || undefined,
-          userType: data.userType,
+          password: data.password,
+          role: data.userType,
         });
       }
 
       queryClient.invalidateQueries({
-        queryKey: ["users"],
+        queryKey: [USER_QUERY_KEYS.users],
       });
       handleClose();
     } catch (err) {
@@ -195,6 +180,30 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
             )}
           </div>
 
+          {!isEditing && (
+            <div className={clsx(css.field, css.emailField)}>
+              <label htmlFor={`${idPrefix}password`} className={css.label}>
+                Password
+              </label>
+              <input
+                id={`${idPrefix}password`}
+                type="password"
+                className={css.input}
+                {...register("password", {
+                  required: !isEditing ? "Password is required" : false,
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                placeholder="Enter password"
+              />
+              {errors.password && (
+                <div className={css.error}>{errors.password.message}</div>
+              )}
+            </div>
+          )}
+
           <div className={clsx(css.field, css.statusField)}>
             <label className={css.label}>Status</label>
             <Controller
@@ -235,38 +244,6 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
             {errors.status && (
               <div className={css.error}>{errors.status.message}</div>
             )}
-          </div>
-
-          <div className={clsx(css.field, css.mainProjectField)}>
-            <label htmlFor={`${idPrefix}mainProject`} className={css.label}>
-              Main project
-            </label>
-            <Controller
-              name="mainProject"
-              control={control}
-              render={({
-                field,
-              }: {
-                field: {
-                  value: string;
-                  onChange: (value: string) => void;
-                };
-              }) => (
-                <select
-                  id={`${idPrefix}mainProject`}
-                  className={css.input}
-                  value={field.value}
-                  onChange={(e) => field.onChange(e.target.value)}
-                >
-                  <option value="">Select project</option>
-                  {projects.map((project) => (
-                    <option key={project.id} value={project.id}>
-                      {project.name}
-                    </option>
-                  ))}
-                </select>
-              )}
-            />
           </div>
 
           <div className={clsx(css.field, css.statusField)}>

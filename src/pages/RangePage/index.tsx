@@ -1,76 +1,28 @@
 import { useState, useMemo } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  useQueryStates,
-  parseAsString,
-  parseAsInteger,
-  createParser,
-} from "nuqs";
+import { useQuery } from "@tanstack/react-query";
+import { useQueryStates, parseAsString, parseAsInteger } from "nuqs";
 import clsx from "clsx";
 import { getUsers } from "@/api/users";
 import { useDebounce } from "@/hooks/useDebounce";
-import type {
-  UserSortField,
-  SortDirection,
-  UserStatus,
-  UserRange,
-} from "@/types/User";
+import type { UserSortField, UserStatus, UserRange } from "@/types/User";
 import type { UserType } from "@/types/Project";
+import { USER_TYPES } from "@/types/Project";
 import { USER_STATUS_ORDER } from "@/types/UserStatusOrder";
+import { userStatusMap } from "@/types/UserStatusMap";
+import { USER_QUERY_KEYS } from "@/features/projects/queryKeys";
+import { parsers } from "@/utils/parsers";
+import { createSearchHandler, createStatusHandler } from "@/utils/filters";
+import { SORT_FIELDS, DEFAULT_SORT_FIELD } from "@/constants/sort";
 import css from "@/features/range/index.module.css";
 import UserTable from "@/features/range/components/UserTable";
 import SearchInput from "@/features/projects/components/SearchInput";
-import UserStatusFilter from "@/features/range/components/UserStatusFilter";
+import StatusFilter from "@/components/StatusFilter";
 import DropdownFilter from "@/features/range/components/DropdownFilter";
-import RefreshIcon from "@/features/projects/svg/RefreshIcon";
 import Pagination from "@/features/projects/components/Pagination";
 import Loader from "@/features/projects/components/Loader";
-import UserModal from "@/features/range/components/UserModal/UserModal";
+import UserModal from "@/features/range/components/UserModal";
 import PlusIcon from "@/features/projects/svg/PlusIcon";
-
-const USERS_PER_PAGE = 10;
-
-const parseAsUserSortField = createParser({
-  parse: (value: string): UserSortField => {
-    if (value === "name" || value === "status") {
-      return value as UserSortField;
-    }
-    return "name";
-  },
-  serialize: (value: UserSortField) => value,
-});
-
-const parseAsSortDirection = createParser({
-  parse: (value: string): SortDirection => {
-    if (value === "asc" || value === "desc") {
-      return value as SortDirection;
-    }
-    return "asc";
-  },
-  serialize: (value: SortDirection) => value,
-});
-
-const parseAsUserStatus = createParser<UserStatus | null>({
-  parse: (value: string | null): UserStatus | null => {
-    if (!value) return null;
-    if (USER_STATUS_ORDER.includes(value as UserStatus)) {
-      return value as UserStatus;
-    }
-    return null;
-  },
-  serialize: (value: UserStatus | null): string => value || "",
-});
-
-const parseAsUserType = createParser<UserType | null>({
-  parse: (value: string | null): UserType | null => {
-    if (!value) return null;
-    if (value === "ADMIN" || value === "EMPLOYEE") {
-      return value as UserType;
-    }
-    return null;
-  },
-  serialize: (value: UserType | null): string => value || "",
-});
+import { USERS_PER_PAGE } from "@/features/range/constants";
 
 type Statistics = {
   all: number;
@@ -79,7 +31,6 @@ type Statistics = {
   green: number;
   clean: number;
   archived: number;
-  my: number;
 };
 
 interface StatisticItem {
@@ -88,6 +39,17 @@ interface StatisticItem {
   isMain?: boolean;
 }
 
+const parseAsUserSortField = parsers.sortField<UserSortField>(
+  [...SORT_FIELDS],
+  DEFAULT_SORT_FIELD
+);
+
+const parseAsSortDirection = parsers.sortDirection();
+
+const parseAsUserStatus = parsers.status<UserStatus>(USER_STATUS_ORDER);
+
+const parseAsUserType = parsers.enum<UserType>(USER_TYPES);
+
 const statisticsConfig: StatisticItem[] = [
   { key: "all", label: "All users", isMain: true },
   { key: "red", label: "Red" },
@@ -95,7 +57,6 @@ const statisticsConfig: StatisticItem[] = [
   { key: "green", label: "Green" },
   { key: "clean", label: "Clean" },
   { key: "archived", label: "Archived" },
-  { key: "my", label: "My users" },
 ];
 
 const useStatistics = (users: UserRange[], totalUsers: number): Statistics => {
@@ -105,7 +66,6 @@ const useStatistics = (users: UserRange[], totalUsers: number): Statistics => {
     const greenUsers = users.filter((u) => u.status === "GREEN").length;
     const cleanUsers = users.filter((u) => u.status === "CLEAN").length;
     const archivedUsers = users.filter((u) => u.status === "ARCHIVED").length;
-    const myUsers = 13;
 
     return {
       all: totalUsers,
@@ -114,38 +74,29 @@ const useStatistics = (users: UserRange[], totalUsers: number): Statistics => {
       green: greenUsers,
       clean: cleanUsers,
       archived: archivedUsers,
-      my: myUsers,
     };
   }, [users, totalUsers]);
 };
 
 const RangePage = () => {
   const [
-    { search, sortField, sortDirection, page, status, userType, project },
+    { search, sortField, sortDirection, page, status, userType },
     setFilters,
   ] = useQueryStates({
     search: parseAsString.withDefault(""),
     sortField: parseAsUserSortField.withDefault("name"),
-    sortDirection: parseAsSortDirection.withDefault("asc"),
+    sortDirection: parseAsSortDirection,
     page: parseAsInteger.withDefault(1),
     status: parseAsUserStatus,
     userType: parseAsUserType,
-    project: parseAsString,
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState<UserRange | null>(null);
 
-  const queryClient = useQueryClient();
   const debouncedSearchTerm = useDebounce(search, 500);
 
-  const handleSearchChange = (value: string) => {
-    setFilters({ search: value, page: 1 });
-  };
-
-  const handleStatusChange = (newStatus: UserStatus | null) => {
-    setFilters({ status: newStatus, page: 1 });
-  };
+  const handleSearchChange = createSearchHandler(setFilters);
+  const handleStatusChange = createStatusHandler<UserStatus>(setFilters);
 
   const {
     data: paginatedUsers,
@@ -154,25 +105,22 @@ const RangePage = () => {
     error,
   } = useQuery({
     queryKey: [
-      "users",
+      USER_QUERY_KEYS.users,
       debouncedSearchTerm,
       sortField,
       sortDirection,
       page,
       status,
       userType,
-      project,
     ],
     queryFn: () =>
       getUsers({
-        search: debouncedSearchTerm || undefined,
-        sortField,
-        sortDirection,
+        name: debouncedSearchTerm || undefined,
+        sortOrder: sortField === "name" ? sortDirection || "asc" : undefined,
         skip: (page - 1) * USERS_PER_PAGE,
         take: USERS_PER_PAGE,
         status: status || undefined,
         userType: userType || undefined,
-        project: project || undefined,
       }),
   });
 
@@ -182,19 +130,11 @@ const RangePage = () => {
 
   const statistics = useStatistics(users, totalUsers);
 
-  const projects = useMemo(() => {
-    const projectSet = new Set<string>();
-    users.forEach((user) => {
-      if (user.mainProject) projectSet.add(user.mainProject);
-      user.otherProjects.forEach((project) => projectSet.add(project));
-    });
-    return Array.from(projectSet).sort();
-  }, [users]);
-
   const handleSort = (field: UserSortField) => {
+    const currentDirection = sortDirection || "asc";
     if (sortField === field) {
       setFilters({
-        sortDirection: sortDirection === "asc" ? "desc" : "asc",
+        sortDirection: currentDirection === "asc" ? "desc" : "asc",
         page: 1,
       });
     } else {
@@ -210,20 +150,11 @@ const RangePage = () => {
     setFilters({ page: newPage });
   };
 
-  const handleEditClick = (user: UserRange) => {
-    setEditingUser(user);
-  };
-
-  const handleCloseEditModal = () => {
-    setEditingUser(null);
-  };
-
   const handleClearFilters = () => {
     setFilters({
       search: "",
       status: null,
       userType: null,
-      project: null,
       sortField: "name",
       sortDirection: "asc",
       page: 1,
@@ -294,39 +225,23 @@ const RangePage = () => {
               <img src="/filter.svg" alt="" width="16" height="18" />
             </button>
 
-            <UserStatusFilter
+            <StatusFilter
+              statusOrder={USER_STATUS_ORDER}
+              statusMap={userStatusMap}
               selectedStatus={status}
               onStatusChange={handleStatusChange}
+              entityType="users"
             />
 
             <DropdownFilter
               label="User types"
-              options={["ADMIN", "EMPLOYEE"]}
+              options={USER_TYPES}
               selectedValue={userType}
               onSelect={(value) =>
                 setFilters({ userType: (value as UserType) || null, page: 1 })
               }
               placeholder="All user types"
             />
-
-            <DropdownFilter
-              label="Projects"
-              options={projects}
-              selectedValue={project}
-              onSelect={(value) => setFilters({ project: value, page: 1 })}
-              placeholder="All projects"
-            />
-
-            <button
-              type="button"
-              className={css.refreshButton}
-              aria-label="Refresh"
-              onClick={() => {
-                queryClient.invalidateQueries({ queryKey: ["users"] });
-              }}
-            >
-              <RefreshIcon />
-            </button>
           </div>
 
           <button
@@ -350,7 +265,6 @@ const RangePage = () => {
         sortField={sortField}
         sortDirection={sortDirection}
         onSort={handleSort}
-        onEdit={handleEditClick}
       />
 
       <Pagination
@@ -360,12 +274,6 @@ const RangePage = () => {
       />
 
       <UserModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
-      <UserModal
-        isOpen={editingUser !== null}
-        user={editingUser}
-        onClose={handleCloseEditModal}
-      />
     </div>
   );
 };
