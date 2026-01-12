@@ -9,14 +9,14 @@ import {
 import clsx from "clsx";
 import { getProjects } from "@/api/projects";
 import { useDebounce } from "@/hooks/useDebounce";
-import { PROJECTS_QUERY_KEY } from "@/features/projects/queryKeys";
+import { PROJECT_QUERY_KEYS } from "@/features/projects/queryKeys";
 import type {
   SortField,
   SortDirection,
   ProjectStatus,
   Project,
 } from "@/types/Project";
-import { PROJECT_STATUS_ORDER } from "@/types/ProjectStatusOrder";
+import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatusOrder";
 import css from "@/features/projects/index.module.css";
 import ProjectTable from "@/features/projects/components/ProjectTable";
 import SearchInput from "@/features/projects/components/SearchInput";
@@ -86,8 +86,8 @@ const ProjectsPage = () => {
       status: parseAsProjectStatus,
     });
 
-  const [modalProject, setModalProject] = useState<Project | null>(null);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const debouncedSearchTerm = useDebounce(search, 500);
 
@@ -106,7 +106,7 @@ const ProjectsPage = () => {
     error,
   } = useQuery({
     queryKey: [
-      PROJECTS_QUERY_KEY,
+      PROJECT_QUERY_KEYS.projects,
       debouncedSearchTerm,
       sortField,
       sortDirection,
@@ -148,13 +148,13 @@ const ProjectsPage = () => {
   };
 
   const handleEditClick = (project: Project) => {
-    setModalProject(project);
-    setIsCreateModalOpen(false);
+    setSelectedProject(project);
+    setIsModalOpen(false);
   };
 
   const handleCloseModal = () => {
-    setModalProject(null);
-    setIsCreateModalOpen(false);
+    setSelectedProject(null);
+    setIsModalOpen(false);
   };
 
   const handleClearFilters = () => {
@@ -250,8 +250,8 @@ const ProjectsPage = () => {
             type="button"
             className={css.createButton}
             onClick={() => {
-              setIsCreateModalOpen(true);
-              setModalProject(null);
+              setIsModalOpen(true);
+              setSelectedProject(null);
             }}
           >
             Create project
@@ -278,8 +278,8 @@ const ProjectsPage = () => {
       />
 
       <ProjectModal
-        isOpen={isCreateModalOpen || modalProject !== null}
-        project={modalProject}
+        isOpen={isModalOpen || selectedProject !== null}
+        project={selectedProject}
         onClose={handleCloseModal}
       />
     </div>

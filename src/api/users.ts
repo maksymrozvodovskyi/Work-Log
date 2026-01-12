@@ -6,9 +6,9 @@ import type {
   PaginatedResponse,
   CreateUserParams,
   UpdateUserParams,
-} from "../types/User";
-import type { UserType } from "../types/Project";
-import { config } from "../config/env";
+} from "@/types/User";
+import type { UserType } from "@/types/Project";
+import { config } from "@/config/env";
 
 const API_URL = `${config.apiUrl}/users`;
 const ACCESS_TOKEN = config.accessToken;

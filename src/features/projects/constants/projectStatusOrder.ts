@@ -1,4 +1,4 @@
-import type { ProjectStatus } from "./Project";
+import type { ProjectStatus } from "@/types/Project";
 
 export const PROJECT_STATUS_ORDER: ProjectStatus[] = [
   "PLANNED",
@@ -8,4 +8,3 @@ export const PROJECT_STATUS_ORDER: ProjectStatus[] = [
   "CANCELLED",
   "SUPPORT",
 ];
-

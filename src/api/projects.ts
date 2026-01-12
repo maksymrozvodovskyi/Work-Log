@@ -5,8 +5,8 @@ import type {
   PaginatedResponse,
   CreateProjectParams,
   UpdateProjectParams,
-} from "../types/Project";
-import { config } from "../config/env";
+} from "@/types/Project";
+import { config } from "@/config/env";
 
 const API_URL = `${config.apiUrl}/projects`;
 const ACCESS_TOKEN = config.accessToken;

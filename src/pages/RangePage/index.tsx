@@ -25,8 +25,7 @@ import DropdownFilter from "@/features/range/components/DropdownFilter";
 import RefreshIcon from "@/features/projects/svg/RefreshIcon";
 import Pagination from "@/features/projects/components/Pagination";
 import Loader from "@/features/projects/components/Loader";
-import CreateUserModal from "@/features/range/components/UserModal/CreateUserModal";
-import EditUserModal from "@/features/range/components/UserModal/EditUserModal";
+import UserModal from "@/features/range/components/UserModal/UserModal";
 import PlusIcon from "@/features/projects/svg/PlusIcon";
 
 const USERS_PER_PAGE = 10;
@@ -360,12 +359,9 @@ const RangePage = () => {
         onPageChange={handlePageChange}
       />
 
-      <CreateUserModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <UserModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-      <EditUserModal
+      <UserModal
         isOpen={editingUser !== null}
         user={editingUser}
         onClose={handleCloseEditModal}

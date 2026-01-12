@@ -2,12 +2,13 @@ import { useState, useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
-import { createProject, updateProject } from "../../../../api/projects";
-import { PROJECTS_QUERY_KEY } from "../../queryKeys";
-import type { Project, ProjectStatus } from "../../../../types/Project";
-import { statusMap } from "../../../../types/StatusMap";
-import { PROJECT_STATUS_ORDER } from "../../../../types/ProjectStatusOrder";
-import ArrowRightIcon from "../../svg/ArrowRightIcon";
+import { createProject, updateProject } from "@/api/projects";
+import { PROJECT_QUERY_KEYS } from "@/features/projects/queryKeys";
+import type { Project, ProjectStatus } from "@/types/Project";
+import { statusMap } from "@/types/StatusMap";
+import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatusOrder";
+import { useKeyboard } from "@/hooks/useKeyboard";
+import ArrowIcon from "@/features/projects/svg/ArrowIcon";
 import css from "./ProjectModal.module.css";
 
 interface ProjectModalProps {
@@ -22,12 +23,20 @@ interface FormData {
   status: ProjectStatus;
 }
 
+const getButtonText = (isLoading: boolean, isEditing: boolean): string => {
+  if (isLoading) {
+    return isEditing ? "Saving..." : "Creating...";
+  }
+  return isEditing ? "Save" : "Create";
+};
+
 const ProjectModal = ({
   isOpen,
   onClose,
   project = null,
 }: ProjectModalProps) => {
   const isEditing = !!project;
+  const idPrefix = isEditing ? "edit-" : "";
 
   const {
     register,
@@ -35,12 +44,13 @@ const ProjectModal = ({
     control,
     formState: { errors },
     reset,
+    setError,
+    clearErrors,
   } = useForm<FormData>({
     mode: "onChange",
   });
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -53,21 +63,21 @@ const ProjectModal = ({
 
   const handleClose = useCallback(() => {
     reset({
-      projectName: project?.name || "",
-      description: project?.description || "",
-      status: (project?.status || "PLANNED") as ProjectStatus,
+      projectName: "",
+      description: "",
+      status: "PLANNED" as ProjectStatus,
     });
-    setError(null);
+    clearErrors("root");
     onClose();
-  }, [onClose, project, reset]);
+  }, [onClose, reset, clearErrors]);
 
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
-    setError(null);
+    clearErrors("root");
 
     try {
-      if (isEditing && project) {
-        await updateProject(project.id, {
+      if (isEditing) {
+        await updateProject(project!.id, {
           name: data.projectName.trim(),
           description: data.description.trim() || undefined,
           status: data.status,
@@ -80,42 +90,27 @@ const ProjectModal = ({
         });
       }
 
-      queryClient.invalidateQueries({ queryKey: [PROJECTS_QUERY_KEY] });
+      queryClient.invalidateQueries({
+        queryKey: [PROJECT_QUERY_KEYS.projects],
+      });
       handleClose();
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : isEditing
-          ? "Failed to update project"
-          : "Failed to create project"
-      );
+      setError("root", {
+        message:
+          err instanceof Error
+            ? err.message
+            : isEditing
+            ? "Failed to update project"
+            : "Failed to create project",
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
-        handleClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden";
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen, handleClose]);
+  useKeyboard(isOpen, handleClose);
 
   if (!isOpen) return null;
-
-  const idPrefix = isEditing ? "edit-" : "";
 
   return (
     <>
@@ -131,7 +126,15 @@ const ProjectModal = ({
             onClick={handleClose}
             aria-label="Close modal"
           >
-            <ArrowRightIcon />
+            <ArrowIcon
+              fill="#F5F6FA"
+              style={{
+                width: "7px",
+                height: "12px",
+                transform: "rotate(-90deg)",
+                transformOrigin: "center",
+              }}
+            />
           </button>
         </div>
 
@@ -211,20 +214,16 @@ const ProjectModal = ({
             )}
           </div>
 
-          {error && <div className={css.errorGeneral}>{error}</div>}
+          {errors.root?.message && (
+            <div className={css.errorGeneral}>{errors.root.message}</div>
+          )}
 
           <button
             type="submit"
             className={css.createButton}
             disabled={isLoading}
           >
-            {isLoading
-              ? isEditing
-                ? "Saving..."
-                : "Creating..."
-              : isEditing
-              ? "Save"
-              : "Create"}
+            {getButtonText(isLoading, isEditing)}
           </button>
         </form>
       </div>

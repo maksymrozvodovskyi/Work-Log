@@ -1,8 +1,7 @@
 import React from "react";
 import clsx from "clsx";
-import ArrowLeftIcon from "../svg/ArrowLeftIcon";
-import ArrowRightPaginationIcon from "../svg/ArrowRightPaginationIcon";
-import css from "../index.module.css";
+import ArrowIcon from "@/features/projects/svg/ArrowIcon";
+import css from "@/features/projects/index.module.css";
 
 interface PaginationProps {
   currentPage: number;
@@ -93,11 +92,7 @@ interface ArrowButtonProps {
   onClick: () => void;
 }
 
-function ArrowButton({
-  direction,
-  disabled,
-  onClick,
-}: ArrowButtonProps) {
+function ArrowButton({ direction, disabled, onClick }: ArrowButtonProps) {
   return (
     <button
       className={clsx(css.paginationButton, disabled && css.disabled)}
@@ -106,7 +101,14 @@ function ArrowButton({
       type="button"
       aria-label={`${direction === "prev" ? "Previous" : "Next"} page`}
     >
-      {direction === "prev" ? <ArrowLeftIcon /> : <ArrowRightPaginationIcon />}
+      <ArrowIcon
+        style={{
+          width: "16px",
+          height: "16px",
+          transform: direction === "prev" ? "rotate(-90deg)" : "rotate(90deg)",
+          transformOrigin: "center",
+        }}
+      />
     </button>
   );
 }

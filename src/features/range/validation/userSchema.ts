@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { USER_STATUS_ORDER } from "../../../types/UserStatusOrder";
+import { USER_STATUS_ORDER } from "@/types/UserStatusOrder";
 
 export const userStatusSchema = z.enum(USER_STATUS_ORDER);
 

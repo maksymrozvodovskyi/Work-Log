@@ -1,10 +1,6 @@
 import clsx from "clsx";
-import type {
-  UserRange,
-  UserSortField,
-  SortDirection,
-} from "../../../types/User";
-import css from "../index.module.css";
+import type { UserRange, UserSortField, SortDirection } from "@/types/User";
+import css from "@/features/range/index.module.css";
 import SortArrows from "@/components/SortArrows/SortArrows";
 
 interface TableHeader {

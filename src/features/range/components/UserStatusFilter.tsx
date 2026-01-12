@@ -1,8 +1,8 @@
-import css from "../../../components/StatusFilter.module.css";
-import type { UserStatus } from "../../../types/User";
-import { userStatusMap } from "../../../types/UserStatusMap";
-import { USER_STATUS_ORDER } from "../../../types/UserStatusOrder";
-import CheckmarkIcon from "../../projects/svg/CheckmarkIcon";
+import css from "@/components/StatusFilter.module.css";
+import type { UserStatus } from "@/types/User";
+import { userStatusMap } from "@/types/UserStatusMap";
+import { USER_STATUS_ORDER } from "@/types/UserStatusOrder";
+import CheckmarkIcon from "@/features/projects/svg/CheckmarkIcon";
 
 type UserStatusFilterProps = {
   selectedStatus?: UserStatus | null;

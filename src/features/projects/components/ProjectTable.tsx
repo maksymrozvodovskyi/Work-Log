@@ -3,11 +3,11 @@ import type {
   SortField,
   SortDirection,
   ProjectStatus,
-} from "../../../types/Project";
-import { statusMap } from "../../../types/StatusMap";
-import css from "../index.module.css";
+} from "@/types/Project";
+import { statusMap } from "@/types/StatusMap";
+import css from "@/features/projects/index.module.css";
 import SortArrows from "@/components/SortArrows/SortArrows";
-import StatusCircle from "../svg/StatusCircle";
+import StatusCircle from "@/features/projects/svg/StatusCircle";
 
 const getStatusCircle = (status: ProjectStatus) => {
   const statusInfo = statusMap[status];

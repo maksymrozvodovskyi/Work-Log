@@ -1,8 +1,8 @@
-import css from "../../../components/StatusFilter.module.css";
-import type { ProjectStatus } from "../../../types/Project";
-import { statusMap } from "../../../types/StatusMap";
-import { PROJECT_STATUS_ORDER } from "../../../types/ProjectStatusOrder";
-import CheckmarkIcon from "../svg/CheckmarkIcon";
+import css from "@/components/StatusFilter.module.css";
+import type { ProjectStatus } from "@/types/Project";
+import { statusMap } from "@/types/StatusMap";
+import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatusOrder";
+import CheckmarkIcon from "@/features/projects/svg/CheckmarkIcon";
 
 type StatusFilterProps = {
   selectedStatus?: ProjectStatus | null;

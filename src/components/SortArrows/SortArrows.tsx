@@ -1,6 +1,5 @@
 import clsx from "clsx";
-import SortArrowUp from "../../features/projects/svg/SortArrowUp";
-import SortArrowDown from "../../features/projects/svg/SortArrowDown";
+import ArrowIcon from "@/features/projects/svg/ArrowIcon";
 import css from "./SortArrows.module.css";
 
 interface SortArrowsProps {
@@ -24,17 +23,26 @@ function SortArrows({
 
   return (
     <div className={clsx(css.arrowsContainer, className)}>
-      <SortArrowUp
+      <ArrowIcon
         className={clsx(css.headerArrow, isAscActive && css.active)}
         fill={isAscActive ? activeColor : inactiveColor}
+        style={{
+          width: "4px",
+          height: "3px",
+          transform: "rotate(180deg)",
+          transformOrigin: "center",
+        }}
       />
-      <SortArrowDown
+      <ArrowIcon
         className={clsx(css.headerArrow, isDescActive && css.active)}
         fill={isDescActive ? activeColor : inactiveColor}
+        style={{
+          width: "4px",
+          height: "3px",
+        }}
       />
     </div>
   );
 }
 
 export default SortArrows;
-

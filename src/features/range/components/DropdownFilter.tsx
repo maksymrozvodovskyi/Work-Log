@@ -1,6 +1,8 @@
-import { useState, useRef, useEffect } from "react";
-import ArrowDownIcon from "../../projects/svg/ArrowDownIcon";
-import css from "../index.module.css";
+import { useState, Activity } from "react";
+import clsx from "clsx";
+import ArrowIcon from "@/features/projects/svg/ArrowIcon";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import css from "@/features/range/index.module.css";
 
 interface DropdownFilterProps {
   label: string;
@@ -18,26 +20,10 @@ const DropdownFilter = ({
   placeholder = "All",
 }: DropdownFilterProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
+  const dropdownRef = useClickOutside<HTMLDivElement>(
+    () => setIsOpen(false),
+    isOpen
+  );
 
   const displayValue = selectedValue || placeholder;
 
@@ -51,20 +37,19 @@ const DropdownFilter = ({
         aria-expanded={isOpen}
       >
         <span>{displayValue}</span>
-        <ArrowDownIcon
-          className={`${css.dropdownArrow} ${
-            isOpen ? css.dropdownArrowOpen : ""
-          }`}
+        <ArrowIcon
+          className={clsx(css.dropdownArrow, isOpen && css.dropdownArrowOpen)}
         />
       </button>
 
-      {isOpen && (
+      <Activity mode={isOpen ? "visible" : "hidden"}>
         <div className={css.dropdownMenu}>
           <button
             type="button"
-            className={`${css.dropdownItem} ${
-              !selectedValue ? css.dropdownItemActive : ""
-            }`}
+            className={clsx(
+              css.dropdownItem,
+              !selectedValue && css.dropdownItemActive
+            )}
             onClick={() => {
               onSelect(null);
               setIsOpen(false);
@@ -76,9 +61,10 @@ const DropdownFilter = ({
             <button
               key={option}
               type="button"
-              className={`${css.dropdownItem} ${
-                selectedValue === option ? css.dropdownItemActive : ""
-              }`}
+              className={clsx(
+                css.dropdownItem,
+                selectedValue === option && css.dropdownItemActive
+              )}
               onClick={() => {
                 onSelect(option);
                 setIsOpen(false);
@@ -88,7 +74,7 @@ const DropdownFilter = ({
             </button>
           ))}
         </div>
-      )}
+      </Activity>
     </div>
   );
 };

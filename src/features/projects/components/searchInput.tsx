@@ -1,6 +1,6 @@
-import css from "../index.module.css";
-import SearchIcon from "../svg/SearchIcon";
-import CloseIcon from "../svg/CloseIcon";
+import css from "@/features/projects/index.module.css";
+import SearchIcon from "@/features/projects/svg/SearchIcon";
+import CloseIcon from "@/features/projects/svg/CloseIcon";
 
 interface SearchInputProps {
   value: string;
