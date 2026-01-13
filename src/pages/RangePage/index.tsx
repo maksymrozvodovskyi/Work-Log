@@ -1,18 +1,25 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useQueryStates, parseAsString, parseAsInteger } from "nuqs";
-import clsx from "clsx";
 import { getUsers } from "@/api/users";
 import { useDebounce } from "@/hooks/useDebounce";
-import type { UserSortField, UserStatus, UserRange } from "@/types/User";
-import type { UserType } from "@/types/Project";
+import type {
+  UserSortFieldType,
+  UserStatusType,
+  PaginatedResponseType,
+} from "@/types/User";
+import type { UserRoleType } from "@/types/Project";
 import { USER_TYPES } from "@/types/Project";
 import { USER_STATUS_ORDER } from "@/types/UserStatusOrder";
 import { userStatusMap } from "@/types/UserStatusMap";
-import { USER_QUERY_KEYS } from "@/features/projects/queryKeys";
+import { USER_QUERY_KEYS } from "@/lib/queryKeys";
 import { parsers } from "@/utils/parsers";
 import { createSearchHandler, createStatusHandler } from "@/utils/filters";
 import { SORT_FIELDS, DEFAULT_SORT_FIELD } from "@/constants/sort";
+import {
+  transformApiUserToUserRange,
+  type ApiUserType,
+} from "@/utils/userTransformers";
 import css from "@/features/range/index.module.css";
 import UserTable from "@/features/range/components/UserTable";
 import SearchInput from "@/features/projects/components/SearchInput";
@@ -22,61 +29,19 @@ import Pagination from "@/features/projects/components/Pagination";
 import Loader from "@/features/projects/components/Loader";
 import UserModal from "@/features/range/components/UserModal";
 import PlusIcon from "@/features/projects/svg/PlusIcon";
+import UserStatistics from "@/features/range/components/UserStatistics";
 import { USERS_PER_PAGE } from "@/features/range/constants";
 
-type Statistics = {
-  all: number;
-  red: number;
-  yellow: number;
-  green: number;
-  clean: number;
-  archived: number;
-};
-
-interface StatisticItem {
-  key: keyof Statistics;
-  label: string;
-  isMain?: boolean;
-}
-
-const parseAsUserSortField = parsers.sortField<UserSortField>(
+const parseAsUserSortField = parsers.sortField<UserSortFieldType>(
   [...SORT_FIELDS],
   DEFAULT_SORT_FIELD
 );
 
 const parseAsSortDirection = parsers.sortDirection();
 
-const parseAsUserStatus = parsers.status<UserStatus>(USER_STATUS_ORDER);
+const parseAsUserStatus = parsers.status<UserStatusType>(USER_STATUS_ORDER);
 
-const parseAsUserType = parsers.enum<UserType>(USER_TYPES);
-
-const statisticsConfig: StatisticItem[] = [
-  { key: "all", label: "All users", isMain: true },
-  { key: "red", label: "Red" },
-  { key: "yellow", label: "Yellow" },
-  { key: "green", label: "Green" },
-  { key: "clean", label: "Clean" },
-  { key: "archived", label: "Archived" },
-];
-
-const useStatistics = (users: UserRange[], totalUsers: number): Statistics => {
-  return useMemo(() => {
-    const redUsers = users.filter((u) => u.status === "RED").length;
-    const yellowUsers = users.filter((u) => u.status === "YELLOW").length;
-    const greenUsers = users.filter((u) => u.status === "GREEN").length;
-    const cleanUsers = users.filter((u) => u.status === "CLEAN").length;
-    const archivedUsers = users.filter((u) => u.status === "ARCHIVED").length;
-
-    return {
-      all: totalUsers,
-      red: redUsers,
-      yellow: yellowUsers,
-      green: greenUsers,
-      clean: cleanUsers,
-      archived: archivedUsers,
-    };
-  }, [users, totalUsers]);
-};
+const parseAsUserType = parsers.enum<UserRoleType>(USER_TYPES);
 
 const RangePage = () => {
   const [
@@ -96,7 +61,7 @@ const RangePage = () => {
   const debouncedSearchTerm = useDebounce(search, 500);
 
   const handleSearchChange = createSearchHandler(setFilters);
-  const handleStatusChange = createStatusHandler<UserStatus>(setFilters);
+  const handleStatusChange = createStatusHandler<UserStatusType>(setFilters);
 
   const {
     data: paginatedUsers,
@@ -122,15 +87,19 @@ const RangePage = () => {
         status: status || undefined,
         userType: userType || undefined,
       }),
+    select: (data: PaginatedResponseType<ApiUserType>) => {
+      return {
+        data: data.data.map((user) => transformApiUserToUserRange(user)),
+        total: data.total,
+      };
+    },
   });
 
   const users = paginatedUsers?.data ?? [];
   const totalUsers = paginatedUsers?.total ?? 0;
   const totalPages = Math.ceil(totalUsers / USERS_PER_PAGE);
 
-  const statistics = useStatistics(users, totalUsers);
-
-  const handleSort = (field: UserSortField) => {
+  const handleSort = (field: UserSortFieldType) => {
     const currentDirection = sortDirection || "asc";
     if (sortField === field) {
       setFilters({
@@ -169,28 +138,7 @@ const RangePage = () => {
             <h1 className={css.link}>Range</h1>
           </div>
 
-          <ul className={css.list}>
-            {statisticsConfig.map((item) => (
-              <li key={item.key} className={css.item}>
-                <span
-                  className={clsx(
-                    item.isMain && css.headerAllUsersNumbers,
-                    !item.isMain && css.headerNumbers
-                  )}
-                >
-                  {statistics[item.key]}
-                </span>
-                <span
-                  className={clsx(
-                    item.isMain && css.headerAllUsers,
-                    !item.isMain && css.headerText
-                  )}
-                >
-                  {item.label}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <UserStatistics users={users} totalUsers={totalUsers} />
         </div>
 
         <div className={css.headerActions}>
@@ -238,7 +186,10 @@ const RangePage = () => {
               options={USER_TYPES}
               selectedValue={userType}
               onSelect={(value) =>
-                setFilters({ userType: (value as UserType) || null, page: 1 })
+                setFilters({
+                  userType: (value as UserRoleType) || null,
+                  page: 1,
+                })
               }
               placeholder="All user types"
             />

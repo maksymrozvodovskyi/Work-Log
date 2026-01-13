@@ -1,19 +1,23 @@
 import clsx from "clsx";
-import type { UserRange, UserSortField, SortDirection } from "@/types/User";
+import type {
+  UserRangeType,
+  UserSortFieldType,
+  SortDirectionType,
+} from "@/types/User";
 import css from "@/features/range/index.module.css";
 import SortArrows from "@/components/SortArrows";
 
 interface TableHeader {
   label: string;
-  field?: UserSortField;
+  field?: UserSortFieldType;
   sortable?: boolean;
 }
 
 interface UserTableProps {
-  users: UserRange[];
-  sortField: UserSortField;
-  sortDirection: SortDirection | null;
-  onSort: (field: UserSortField) => void;
+  users: UserRangeType[];
+  sortField: UserSortFieldType;
+  sortDirection: SortDirectionType | null;
+  onSort: (field: UserSortFieldType) => void;
 }
 
 const tableHeaders: TableHeader[] = [

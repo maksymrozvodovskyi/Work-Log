@@ -1,5 +1,5 @@
 import { createParser } from "nuqs";
-import type { SortDirection } from "@/types/User";
+import type { SortDirectionType } from "@/types/User";
 
 const createSortFieldParser = <T extends string>(
   validFields: T[],
@@ -17,14 +17,14 @@ const createSortFieldParser = <T extends string>(
 };
 
 const createSortDirectionParser = () => {
-  return createParser<SortDirection>({
-    parse: (value: string): SortDirection => {
+  return createParser<SortDirectionType>({
+    parse: (value: string): SortDirectionType => {
       if (value === "asc" || value === "desc") {
-        return value as SortDirection;
+        return value as SortDirectionType;
       }
       return "asc";
     },
-    serialize: (value: SortDirection) => value,
+    serialize: (value: SortDirectionType) => value,
   });
 };
 

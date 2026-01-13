@@ -5,7 +5,11 @@ import clsx from "clsx";
 import { getProjects } from "@/api/projects";
 import { useDebounce } from "@/hooks/useDebounce";
 import { PROJECT_QUERY_KEYS } from "@/features/projects/queryKeys";
-import type { SortField, ProjectStatus, Project } from "@/types/Project";
+import type {
+  SortFieldType,
+  ProjectStatusType,
+  ProjectType,
+} from "@/types/Project";
 import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatusOrder";
 import { statusMap } from "@/types/StatusMap";
 import { parsers } from "@/utils/parsers";
@@ -27,7 +31,7 @@ type StatisticItem = {
   isMain?: boolean;
 };
 
-const parseAsSortField = parsers.sortField<SortField>(
+const parseAsSortField = parsers.sortField<SortFieldType>(
   [...SORT_FIELDS],
   DEFAULT_SORT_FIELD
 );
@@ -35,7 +39,7 @@ const parseAsSortField = parsers.sortField<SortField>(
 const parseAsSortDirection = parsers.sortDirection();
 
 const parseAsProjectStatus =
-  parsers.status<ProjectStatus>(PROJECT_STATUS_ORDER);
+  parsers.status<ProjectStatusType>(PROJECT_STATUS_ORDER);
 
 const statisticsConfig: StatisticItem[] = [
   {
@@ -58,13 +62,15 @@ const ProjectsPage = () => {
       status: parseAsProjectStatus,
     });
 
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectType | null>(
+    null
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const debouncedSearchTerm = useDebounce(search, 500);
 
   const handleSearchChange = createSearchHandler(setFilters);
-  const handleStatusChange = createStatusHandler<ProjectStatus>(setFilters);
+  const handleStatusChange = createStatusHandler<ProjectStatusType>(setFilters);
 
   const {
     data: paginatedProjects,
@@ -95,7 +101,7 @@ const ProjectsPage = () => {
   const totalProjects = paginatedProjects?.total ?? 0;
   const totalPages = Math.ceil(totalProjects / PROJECTS_PER_PAGE);
 
-  const handleSort = (field: SortField) => {
+  const handleSort = (field: SortFieldType) => {
     if (sortField === field) {
       setFilters({
         sortDirection: sortDirection === "asc" ? "desc" : "asc",
@@ -114,7 +120,7 @@ const ProjectsPage = () => {
     setFilters({ page: newPage });
   };
 
-  const handleEditClick = (project: Project) => {
+  const handleEditClick = (project: ProjectType) => {
     setSelectedProject(project);
     setIsModalOpen(false);
   };

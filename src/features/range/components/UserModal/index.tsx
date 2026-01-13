@@ -3,11 +3,11 @@ import { useForm, Controller } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
 import { createUser, updateUser } from "@/api/users";
-import type { UserRange, UserStatus } from "@/types/User";
-import type { UserType } from "@/types/Project";
+import type { UserRangeType, UserStatusType } from "@/types/User";
+import type { UserRoleType } from "@/types/Project";
 import { userStatusMap } from "@/types/UserStatusMap";
 import { USER_STATUS_ORDER } from "@/types/UserStatusOrder";
-import { USER_QUERY_KEYS } from "@/features/projects/queryKeys";
+import { USER_QUERY_KEYS } from "@/lib/queryKeys";
 import { useKeyboard } from "@/hooks/useKeyboard";
 import ArrowIcon from "@/features/projects/svg/ArrowIcon";
 import { getButtonText } from "@/utils/modal";
@@ -16,15 +16,15 @@ import css from "./UserModal.module.css";
 interface UserModalProps {
   isOpen: boolean;
   onClose: () => void;
-  user?: UserRange | null;
+  user?: UserRangeType | null;
 }
 
 interface FormData {
   name: string;
   email: string;
   password: string;
-  status: UserStatus;
-  userType: UserType;
+  status: UserStatusType;
+  userType: UserRoleType;
 }
 
 const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
@@ -214,8 +214,8 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
                 field,
               }: {
                 field: {
-                  value: UserStatus;
-                  onChange: (value: UserStatus) => void;
+                  value: UserStatusType;
+                  onChange: (value: UserStatusType) => void;
                 };
               }) => (
                 <div className={css.statusGrid}>
@@ -256,8 +256,8 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
                 field,
               }: {
                 field: {
-                  value: UserType;
-                  onChange: (value: UserType) => void;
+                  value: UserRoleType;
+                  onChange: (value: UserRoleType) => void;
                 };
               }) => (
                 <div className={css.statusGrid}>

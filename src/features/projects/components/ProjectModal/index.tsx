@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
 import { createProject, updateProject } from "@/api/projects";
 import { PROJECT_QUERY_KEYS } from "@/features/projects/queryKeys";
-import type { Project, ProjectStatus } from "@/types/Project";
+import type { ProjectType, ProjectStatusType } from "@/types/Project";
 import { statusMap } from "@/types/StatusMap";
 import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatusOrder";
 import { useKeyboard } from "@/hooks/useKeyboard";
@@ -15,13 +15,13 @@ import css from "./ProjectModal.module.css";
 interface ProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
-  project?: Project | null;
+  project?: ProjectType | null;
 }
 
 interface FormData {
   projectName: string;
   description: string;
-  status: ProjectStatus;
+  status: ProjectStatusType;
 }
 
 const ProjectModal = ({
@@ -51,7 +51,7 @@ const ProjectModal = ({
     reset({
       projectName: project?.name || "",
       description: project?.description || "",
-      status: (project?.status || "PLANNED") as ProjectStatus,
+      status: (project?.status || "PLANNED") as ProjectStatusType,
     });
   }, [project, reset]);
 
@@ -59,7 +59,7 @@ const ProjectModal = ({
     reset({
       projectName: "",
       description: "",
-      status: "PLANNED" as ProjectStatus,
+      status: "PLANNED" as ProjectStatusType,
     });
     clearErrors("root");
     onClose();
@@ -176,8 +176,8 @@ const ProjectModal = ({
                 field,
               }: {
                 field: {
-                  value: ProjectStatus;
-                  onChange: (value: ProjectStatus) => void;
+                  value: ProjectStatusType;
+                  onChange: (value: ProjectStatusType) => void;
                 };
               }) => (
                 <div className={css.statusGrid}>

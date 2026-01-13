@@ -1,52 +1,52 @@
-import type { UserType } from "./Project";
+import type { UserRoleType } from "./Project";
 
-export type UserStatus = "RED" | "YELLOW" | "GREEN" | "CLEAN" | "ARCHIVED";
+export type UserStatusType = "RED" | "YELLOW" | "GREEN" | "CLEAN" | "ARCHIVED";
 
-export type UserRange = {
+export type UserRangeType = {
   id: string;
   name: string;
   email: string;
   mainProject: string | null;
   otherProjects: string[];
-  status: UserStatus;
-  userType?: UserType;
+  status: UserStatusType;
+  userType?: UserRoleType;
   createdAt?: string;
   updatedAt?: string;
 };
 
-export type UserSortField = "name" | "status";
-export type SortDirection = "asc" | "desc";
+export type UserSortFieldType = "name" | "status";
+export type SortDirectionType = "asc" | "desc";
 
-export type GetUsersParams = {
+export type GetUsersParamsType = {
   name?: string;
-  status?: UserStatus;
-  userType?: UserType;
+  status?: UserStatusType;
+  userType?: UserRoleType;
   project?: string;
   skip?: number;
   take?: number;
   sortOrder?: "asc" | "desc";
 };
 
-export type PaginatedResponse<T> = {
+export type PaginatedResponseType<T> = {
   data: T[];
   total: number;
 };
 
-export type CreateUserParams = {
+export type CreateUserParamsType = {
   name: string;
   email: string;
   password: string;
-  role: UserType;
-  status?: UserStatus;
+  role: UserRoleType;
+  status?: UserStatusType;
   mainProject?: string;
   otherProjects?: string[];
 };
 
-export type UpdateUserParams = {
+export type UpdateUserParamsType = {
   name?: string;
   email?: string;
-  status?: UserStatus;
+  status?: UserStatusType;
   mainProject?: string;
   otherProjects?: string[];
-  userType?: UserType;
+  userType?: UserRoleType;
 };

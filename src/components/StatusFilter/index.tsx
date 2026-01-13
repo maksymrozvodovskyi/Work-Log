@@ -1,10 +1,10 @@
 import css from "./StatusFilter.module.css";
-import type { StatusInfo } from "@/types/StatusInfo";
+import type { StatusInfoType } from "@/types/StatusInfo";
 import CheckmarkIcon from "@/features/projects/svg/CheckmarkIcon";
 
 type StatusFilterProps<T extends string> = {
   statusOrder: T[];
-  statusMap: Record<T, StatusInfo>;
+  statusMap: Record<T, StatusInfoType>;
   selectedStatus?: T | null;
   onStatusChange: (status: T | null) => void;
   entityType?: string;
