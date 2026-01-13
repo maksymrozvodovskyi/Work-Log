@@ -1,19 +1,23 @@
-import css from "@/components/StatusFilter.module.css";
-import type { ProjectStatus } from "@/types/Project";
-import { statusMap } from "@/types/StatusMap";
-import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatusOrder";
+import css from "./StatusFilter.module.css";
+import type { StatusInfoType } from "@/types/StatusInfo";
 import CheckmarkIcon from "@/features/projects/svg/CheckmarkIcon";
 
-type StatusFilterProps = {
-  selectedStatus?: ProjectStatus | null;
-  onStatusChange: (status: ProjectStatus | null) => void;
+type StatusFilterProps<T extends string> = {
+  statusOrder: T[];
+  statusMap: Record<T, StatusInfoType>;
+  selectedStatus?: T | null;
+  onStatusChange: (status: T | null) => void;
+  entityType?: string;
 };
 
-const StatusFilter = ({
+const StatusFilter = <T extends string>({
+  statusOrder,
+  statusMap,
   selectedStatus,
   onStatusChange,
-}: StatusFilterProps) => {
-  const handleStatusClick = (status: ProjectStatus) => {
+  entityType = "items",
+}: StatusFilterProps<T>) => {
+  const handleStatusClick = (status: T) => {
     if (selectedStatus === status) {
       onStatusChange(null);
     } else {
@@ -23,7 +27,7 @@ const StatusFilter = ({
 
   return (
     <div className={css.statusCircles}>
-      {PROJECT_STATUS_ORDER.map((status) => {
+      {statusOrder.map((status) => {
         const statusInfo = statusMap[status];
         if (!statusInfo) return null;
 
@@ -34,7 +38,7 @@ const StatusFilter = ({
             key={status}
             type="button"
             className={css.statusCircle}
-            aria-label={`Filter by ${statusInfo.label.toLowerCase()} projects`}
+            aria-label={`Filter by ${statusInfo.label.toLowerCase()} ${entityType}`}
             onClick={() => handleStatusClick(status)}
             style={{ backgroundColor: statusInfo.color }}
           >

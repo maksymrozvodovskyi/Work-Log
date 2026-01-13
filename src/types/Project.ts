@@ -1,13 +1,15 @@
-export type UserType = "ADMIN" | "EMPLOYEE";
+export type UserRoleType = "ADMIN" | "EMPLOYEE";
 
-export type User = {
+export const USER_TYPES: UserRoleType[] = ["ADMIN", "EMPLOYEE"];
+
+export type UserType = {
   id: string;
   email: string;
   name: string;
-  role: UserType;
+  role: UserRoleType;
 };
 
-export type ProjectStatus =
+export type ProjectStatusType =
   | "PLANNED"
   | "INPROGRESS"
   | "ONHOLD"
@@ -15,41 +17,41 @@ export type ProjectStatus =
   | "CANCELLED"
   | "SUPPORT";
 
-export type Project = {
+export type ProjectType = {
   id: string;
   name: string;
   description: string | null;
-  status: ProjectStatus;
+  status: ProjectStatusType;
   createdAt: string;
   updatedAt: string;
-  users: User[];
+  users: UserType[];
 };
 
-export type SortField = "name" | "status";
-export type SortDirection = "asc" | "desc";
+export type SortFieldType = "name" | "status";
+export type SortDirectionType = "asc" | "desc";
 
-export type GetProjectsParams = {
+export type GetProjectsParamsType = {
   search?: string;
-  sortField?: SortField;
-  sortDirection?: SortDirection;
+  sortField?: SortFieldType;
+  sortDirection?: SortDirectionType;
   skip?: number;
   take?: number;
-  status?: ProjectStatus;
+  status?: ProjectStatusType;
 };
 
-export type PaginatedResponse<T> = {
+export type PaginatedResponseType<T> = {
   data: T[];
   total: number;
 };
 
-export type CreateProjectParams = {
+export type CreateProjectParamsType = {
   name: string;
   description?: string;
-  status: ProjectStatus;
+  status: ProjectStatusType;
 };
 
-export type UpdateProjectParams = {
+export type UpdateProjectParamsType = {
   name?: string;
   description?: string;
-  status?: ProjectStatus;
+  status?: ProjectStatusType;
 };

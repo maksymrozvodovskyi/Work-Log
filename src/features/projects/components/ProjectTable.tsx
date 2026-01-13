@@ -1,22 +1,22 @@
 import type {
-  Project,
-  SortField,
-  SortDirection,
-  ProjectStatus,
+  ProjectType,
+  SortFieldType,
+  SortDirectionType,
+  ProjectStatusType,
 } from "@/types/Project";
 import { statusMap } from "@/types/StatusMap";
 import css from "@/features/projects/index.module.css";
-import SortArrows from "@/components/SortArrows/SortArrows";
+import SortArrows from "@/components/SortArrows";
 import StatusCircle from "@/features/projects/svg/StatusCircle";
 
-const getStatusCircle = (status: ProjectStatus) => {
+const getStatusCircle = (status: ProjectStatusType) => {
   const statusInfo = statusMap[status];
   return statusInfo ? <StatusCircle color={statusInfo.color} /> : null;
 };
 
 interface TableHeader {
   label: string;
-  field?: SortField;
+  field?: SortFieldType;
   sortable?: boolean;
 }
 
@@ -30,11 +30,11 @@ const tableHeaders: TableHeader[] = [
 ];
 
 interface ProjectTableProps {
-  projects: Project[];
-  sortField: SortField;
-  sortDirection: SortDirection;
-  onSort: (field: SortField) => void;
-  onEdit: (project: Project) => void;
+  projects: ProjectType[];
+  sortField: SortFieldType;
+  sortDirection: SortDirectionType;
+  onSort: (field: SortFieldType) => void;
+  onEdit: (project: ProjectType) => void;
 }
 
 const ProjectTable = ({

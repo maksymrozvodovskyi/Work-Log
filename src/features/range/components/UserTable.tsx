@@ -1,55 +1,37 @@
 import clsx from "clsx";
-import type { UserRange, UserSortField, SortDirection } from "@/types/User";
+import type {
+  UserRangeType,
+  UserSortFieldType,
+  SortDirectionType,
+} from "@/types/User";
 import css from "@/features/range/index.module.css";
-import SortArrows from "@/components/SortArrows/SortArrows";
+import SortArrows from "@/components/SortArrows";
+import Avatar from "./Avatar";
 
 interface TableHeader {
   label: string;
-  field?: UserSortField;
+  field?: UserSortFieldType;
   sortable?: boolean;
+}
+
+interface UserTableProps {
+  users: UserRangeType[];
+  sortField: UserSortFieldType;
+  sortDirection: SortDirectionType | null;
+  onSort: (field: UserSortFieldType) => void;
 }
 
 const tableHeaders: TableHeader[] = [
   { label: "Name", field: "name", sortable: true },
-  { label: "Managers", sortable: false },
   { label: "Main project", sortable: false },
   { label: "Other projects", sortable: false },
 ];
-
-interface UserTableProps {
-  users: UserRange[];
-  sortField: UserSortField;
-  sortDirection: SortDirection;
-  onSort: (field: UserSortField) => void;
-  onEdit: (user: UserRange) => void;
-}
-
-const UserAvatar = ({ color, name }: { color?: string; name: string }) => {
-  const avatarColor = color || "#94a3b8";
-  const initials = name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
-
-  return (
-    <div
-      className={css.userAvatar}
-      style={{ backgroundColor: avatarColor }}
-      aria-label={`Avatar for ${name}`}
-    >
-      {initials}
-    </div>
-  );
-};
 
 const UserTable = ({
   users,
   sortField,
   sortDirection,
   onSort,
-  onEdit,
 }: UserTableProps) => {
   return (
     <div className={css.tableWrapper}>
@@ -81,7 +63,7 @@ const UserTable = ({
               ))}
             </tr>
             <tr className={css.spacerRow}>
-              <td colSpan={4}></td>
+              <td colSpan={3}></td>
             </tr>
           </thead>
         </table>
@@ -95,41 +77,31 @@ const UserTable = ({
               ))}
             </tr>
             <tr className={css.spacerRow}>
-              <td colSpan={4}></td>
+              <td colSpan={3}></td>
             </tr>
           </thead>
           <tbody className={css.tableBody}>
             {users.map((user) => (
-              <tr
-                key={user.id}
-                className={clsx(css.tableRow)}
-                onDoubleClick={() => onEdit(user)}
-              >
+              <tr key={user.id} className={clsx(css.tableRow)}>
                 <td className={css.tableCell}>
                   <div className={css.nameCell}>
-                    <UserAvatar color={user.avatar} name={user.name} />
+                    <Avatar name={user.name} status={user.status} />
                     <span>{user.name}</span>
-                  </div>
-                </td>
-                <td className={css.tableCell}>
-                  <div className={css.managersCell}>
-                    {user.managers.length > 0
-                      ? user.managers
-                          .map((m) => `${m.name} ${m.date}`)
-                          .join(", ")
-                      : "—"}
                   </div>
                 </td>
                 <td className={css.tableCell}>{user.mainProject || "—"}</td>
                 <td className={css.tableCell}>
                   <div className={css.projectsCell}>
-                    {user.otherProjects.length > 0
-                      ? `${user.otherProjects[0]}${
-                          user.otherProjects.length > 1
-                            ? `, +${user.otherProjects.length - 1} projects`
-                            : ""
-                        }`
-                      : "—"}
+                    {user.otherProjects.length > 0 ? (
+                      <>
+                        {user.otherProjects.slice(0, 3).join(", ")}
+                        {user.otherProjects.length > 3
+                          ? `, +${user.otherProjects.length - 3} projects`
+                          : ""}
+                      </>
+                    ) : (
+                      "—"
+                    )}
                   </div>
                 </td>
               </tr>

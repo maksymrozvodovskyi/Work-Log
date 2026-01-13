@@ -1,7 +1,7 @@
-import type { UserStatus } from "./User";
-import type { StatusInfo } from "./StatusInfo";
+import type { UserStatusType } from "./User";
+import type { StatusInfoType } from "./StatusInfo";
 
-export const userStatusMap: Record<UserStatus, StatusInfo> = {
+export const userStatusMap: Record<UserStatusType, StatusInfoType> = {
   RED: { label: "Red", color: "#ef4444" },
   YELLOW: { label: "Yellow", color: "#f59e0b" },
   GREEN: { label: "Green", color: "#22c55e" },

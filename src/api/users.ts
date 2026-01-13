@@ -1,36 +1,27 @@
 import axios from "axios";
 import type {
-  UserRange,
-  UserStatus,
-  GetUsersParams,
-  PaginatedResponse,
-  CreateUserParams,
-  UpdateUserParams,
+  GetUsersParamsType,
+  PaginatedResponseType,
+  CreateUserParamsType,
+  UpdateUserParamsType,
 } from "@/types/User";
-import type { UserType } from "@/types/Project";
 import { config } from "@/config/env";
+import type { ApiUserType } from "@/utils/userTransformers";
 
 const API_URL = `${config.apiUrl}/users`;
 const ACCESS_TOKEN = config.accessToken;
 
-type ApiUser = {
-  id: string;
-  email: string;
-  name: string;
-  role: UserType;
-  createdAt: string;
-};
-
 export const getUsers = async (
-  params?: GetUsersParams
-): Promise<PaginatedResponse<UserRange>> => {
+  params?: GetUsersParamsType
+): Promise<PaginatedResponseType<ApiUserType>> => {
   const requestParams: Record<string, unknown> = {
-    search: params?.search,
-    sortField: params?.sortField,
-    sortDirection: params?.sortDirection,
     skip: params?.skip,
     take: params?.take,
   };
+
+  if (params?.name) {
+    requestParams.name = params.name;
+  }
 
   if (params?.status) {
     requestParams.status = params.status;
@@ -44,75 +35,44 @@ export const getUsers = async (
     requestParams.project = params.project;
   }
 
-  const { data } = await axios.get<ApiUser[]>(API_URL, {
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`,
-    },
-    params: requestParams,
-  });
+  if (params?.sortOrder) {
+    requestParams.sortOrder = params.sortOrder;
+  }
 
-  const transformedUsers: UserRange[] = data.map((user) => ({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    createdAt: user.createdAt,
-    avatar: undefined,
-    managers: [],
-    mainProject: null,
-    otherProjects: [],
-    status: "GREEN" as UserStatus,
-    userType: user.role,
-  }));
+  const { data } = await axios.get<PaginatedResponseType<ApiUserType>>(
+    API_URL,
+    {
+      headers: {
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      params: requestParams,
+    }
+  );
 
-  return {
-    data: transformedUsers,
-    total: transformedUsers.length,
-  };
+  return data;
 };
 
 export const createUser = async (
-  params: CreateUserParams
-): Promise<UserRange> => {
-  const { data } = await axios.post<ApiUser>(API_URL, params, {
+  params: CreateUserParamsType
+): Promise<ApiUserType> => {
+  const { data } = await axios.post<ApiUserType>(API_URL, params, {
     headers: {
       Authorization: `Bearer ${ACCESS_TOKEN}`,
     },
   });
 
-  return {
-    id: data.id,
-    name: data.name,
-    email: data.email,
-    createdAt: data.createdAt,
-    avatar: params.avatar,
-    managers: [],
-    mainProject: params.mainProject || null,
-    otherProjects: params.otherProjects || [],
-    status: params.status,
-    userType: params.userType || data.role,
-  };
+  return data;
 };
 
 export const updateUser = async (
   id: string,
-  params: UpdateUserParams
-): Promise<UserRange> => {
-  const { data } = await axios.put<ApiUser>(`${API_URL}/${id}`, params, {
+  params: UpdateUserParamsType
+): Promise<ApiUserType> => {
+  const { data } = await axios.put<ApiUserType>(`${API_URL}/${id}`, params, {
     headers: {
       Authorization: `Bearer ${ACCESS_TOKEN}`,
     },
   });
 
-  return {
-    id: data.id,
-    name: data.name,
-    email: data.email,
-    createdAt: data.createdAt,
-    avatar: params.avatar,
-    managers: [],
-    mainProject: params.mainProject || null,
-    otherProjects: params.otherProjects || [],
-    status: params.status || "GREEN",
-    userType: params.userType || data.role,
-  };
+  return data;
 };

@@ -1,7 +1,7 @@
-import type { ProjectStatus } from "./Project";
-import type { StatusInfo } from "./StatusInfo";
+import type { ProjectStatusType } from "./Project";
+import type { StatusInfoType } from "./StatusInfo";
 
-export const statusMap: Record<ProjectStatus, StatusInfo> = {
+export const statusMap: Record<ProjectStatusType, StatusInfoType> = {
   PLANNED: { label: "Planned", color: "#94a3b8" },
   INPROGRESS: { label: "In progress", color: "#22c55e" },
   ONHOLD: { label: "On hold", color: "#f59e0b" },
