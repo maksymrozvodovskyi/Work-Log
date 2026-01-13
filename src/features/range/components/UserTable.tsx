@@ -6,6 +6,7 @@ import type {
 } from "@/types/User";
 import css from "@/features/range/index.module.css";
 import SortArrows from "@/components/SortArrows";
+import Avatar from "./Avatar";
 
 interface TableHeader {
   label: string;
@@ -84,6 +85,7 @@ const UserTable = ({
               <tr key={user.id} className={clsx(css.tableRow)}>
                 <td className={css.tableCell}>
                   <div className={css.nameCell}>
+                    <Avatar name={user.name} status={user.status} />
                     <span>{user.name}</span>
                   </div>
                 </td>

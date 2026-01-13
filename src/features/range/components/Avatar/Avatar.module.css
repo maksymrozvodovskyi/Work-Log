@@ -1,0 +1,21 @@
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #2a2c32;
+    border: 3px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.initials {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    color: #f5f6fa;
+    user-select: none;
+}
+

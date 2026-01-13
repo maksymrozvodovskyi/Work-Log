@@ -16,6 +16,7 @@ export type ApiUserType = {
   role: UserRoleType;
   createdAt: string;
   projects: ApiProjectType[];
+  status?: UserStatusType;
 };
 
 export const transformApiUserToUserRange = (
@@ -33,7 +34,7 @@ export const transformApiUserToUserRange = (
     createdAt: user.createdAt,
     mainProject,
     otherProjects,
-    status: status || "GREEN",
+    status: user.status || status || "GREEN",
     userType: user.role,
   };
 };

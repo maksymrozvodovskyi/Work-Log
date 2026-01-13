@@ -86,6 +86,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
           email: data.email.trim(),
           password: data.password,
           role: data.userType,
+          status: data.status,
         });
       }
 
