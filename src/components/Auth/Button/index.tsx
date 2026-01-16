@@ -1,4 +1,5 @@
 import { type ButtonHTMLAttributes } from "react";
+import clsx from "clsx";
 import css from "./Button.module.css";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,5 +14,5 @@ export default function Button({
   const variantClass =
     variant === "primary" ? css.primaryButton : css.secondaryButton;
 
-  return <button className={`${variantClass} ${className || ""}`} {...props} />;
+  return <button className={clsx(variantClass, className)} {...props} />;
 }

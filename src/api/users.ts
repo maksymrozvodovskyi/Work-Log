@@ -1,5 +1,4 @@
 import axiosInstance from "@/lib/apiClient";
-import { useAuthStore } from "@/stores/authStore";
 import type {
   GetUsersParamsType,
   PaginatedResponseType,
@@ -36,11 +35,9 @@ export const getUsers = async (
     requestParams.sortOrder = params.sortOrder;
   }
 
-  const token = useAuthStore.getState().accessToken;
   const { data } = await axiosInstance.get<PaginatedResponseType<ApiUserType>>(
     "/users",
     {
-      headers: { Authorization: `Bearer ${token}` },
       params: requestParams,
     }
   );
@@ -51,10 +48,7 @@ export const getUsers = async (
 export const createUser = async (
   params: CreateUserParamsType
 ): Promise<ApiUserType> => {
-  const token = useAuthStore.getState().accessToken;
-  const { data } = await axiosInstance.post<ApiUserType>("/users", params, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const { data } = await axiosInstance.post<ApiUserType>("/users", params);
 
   return data;
 };
@@ -63,14 +57,7 @@ export const updateUser = async (
   id: string,
   params: UpdateUserParamsType
 ): Promise<ApiUserType> => {
-  const token = useAuthStore.getState().accessToken;
-  const { data } = await axiosInstance.put<ApiUserType>(
-    `/users/${id}`,
-    params,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  const { data } = await axiosInstance.put<ApiUserType>(`/users/${id}`, params);
 
   return data;
 };

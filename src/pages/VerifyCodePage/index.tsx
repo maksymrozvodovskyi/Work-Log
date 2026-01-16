@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Logo from "@/components/Auth/Logo";
+import AuthPageHeader from "@/components/Auth/AuthPageHeader";
 import Input from "@/components/Auth/Input";
 import Button from "@/components/Auth/Button";
 import {
@@ -15,7 +15,7 @@ import {
   type VerifyCodeFormData,
 } from "@/features/forgot-password/validation/forgotPasswordSchema";
 import { verifyResetCode } from "@/api/auth";
-import { getAxiosErrorMessage } from "@/utils/axiosError";
+import { handleAxiosError } from "@/utils/axiosError";
 import css from "./index.module.css";
 
 export default function VerifyCodePage() {
@@ -58,7 +58,7 @@ export default function VerifyCodePage() {
         search: createSearchParams({ token: response.resetToken }).toString(),
       });
     } catch (err: unknown) {
-      const errorMsg = getAxiosErrorMessage(
+      const errorMsg = handleAxiosError(
         err,
         "Failed to verify code. Please try again."
       );
@@ -70,61 +70,54 @@ export default function VerifyCodePage() {
   };
 
   return (
-    <div className={css.container}>
-      <div className={css.content}>
-        <Logo />
-
-        <div className={css.textContent}>
-          <h1 className={css.title}>Verify code</h1>
-          <p className={css.description}>
-            Enter the 6-digit code sent to your email
-          </p>
+    <>
+      <AuthPageHeader
+        title="Verify code"
+        description="Enter the 6-digit code sent to your email"
+      />
+      <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <Controller
+            name="code"
+            control={control}
+            render={({ field }) => (
+              <Input
+                type="text"
+                placeholder="Enter 6-digit code"
+                maxLength={6}
+                {...field}
+                error={!!errors.code}
+              />
+            )}
+          />
+          {errors.code && (
+            <div className={css.error}>{errors.code.message}</div>
+          )}
         </div>
 
-        <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <Controller
-              name="code"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  type="text"
-                  placeholder="Enter 6-digit code"
-                  maxLength={6}
-                  {...field}
-                  error={!!errors.code}
-                />
-              )}
-            />
-            {errors.code && (
-              <div className={css.error}>{errors.code.message}</div>
-            )}
-          </div>
+        <Activity mode={errors.root ? "visible" : "hidden"}>
+          <div className={css.error}>{errors.root?.message}</div>
+        </Activity>
 
-          <Activity mode={errors.root ? "visible" : "hidden"}>
-            <div className={css.error}>{errors.root?.message}</div>
-          </Activity>
-
-          <div className={css.buttons}>
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={handleBack}
-              className={css.backButton}
-            >
-              Back
-            </Button>
-            <Button
-              type="submit"
-              variant="primary"
-              className={css.submitButton}
-              disabled={isSubmitting}
-            >
-              Verify
-            </Button>
-          </div>
-        </form>
-      </div>
-    </div>
+        <div className={css.buttons}>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={handleBack}
+            className={css.backButton}
+          >
+            Back
+          </Button>
+          <Button
+            type="submit"
+            variant="primary"
+            className={css.submitButton}
+            disabled={isSubmitting}
+          >
+            Verify
+          </Button>
+        </div>
+      </form>
+    </>
   );
 }

@@ -8,7 +8,6 @@ type AuthStoreType = {
   isAuthenticated: boolean;
   setAuth: (token: string, user: UserType) => void;
   clearAuth: () => void;
-  initializeAuth: () => void;
 };
 
 const STORAGE_KEY = "auth-storage";
@@ -32,14 +31,6 @@ export const useAuthStore = create<AuthStoreType>()(
           user: null,
           isAuthenticated: false,
         });
-      },
-      initializeAuth: () => {
-        const state = useAuthStore.getState();
-        if (state.accessToken && state.user) {
-          set({
-            isAuthenticated: true,
-          });
-        }
       },
     }),
     {

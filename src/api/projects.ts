@@ -1,5 +1,4 @@
 import axiosInstance from "@/lib/apiClient";
-import { useAuthStore } from "@/stores/authStore";
 import type {
   ProjectType,
   GetProjectsParamsType,
@@ -23,11 +22,9 @@ export const getProjects = async (
     requestParams.status = params.status;
   }
 
-  const token = useAuthStore.getState().accessToken;
   const { data } = await axiosInstance.get<PaginatedResponseType<ProjectType>>(
     "/projects",
     {
-      headers: { Authorization: `Bearer ${token}` },
       params: requestParams,
     }
   );
@@ -38,10 +35,7 @@ export const getProjects = async (
 export const createProject = async (
   params: CreateProjectParamsType
 ): Promise<ProjectType> => {
-  const token = useAuthStore.getState().accessToken;
-  const { data } = await axiosInstance.post<ProjectType>("/projects", params, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const { data } = await axiosInstance.post<ProjectType>("/projects", params);
 
   return data;
 };
@@ -50,13 +44,9 @@ export const updateProject = async (
   id: string,
   params: UpdateProjectParamsType
 ): Promise<ProjectType> => {
-  const token = useAuthStore.getState().accessToken;
   const { data } = await axiosInstance.put<ProjectType>(
     `/projects/${id}`,
-    params,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
+    params
   );
 
   return data;

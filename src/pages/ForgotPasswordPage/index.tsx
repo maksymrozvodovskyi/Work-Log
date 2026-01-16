@@ -2,7 +2,7 @@ import { Activity } from "react";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Logo from "@/components/Auth/Logo";
+import AuthPageHeader from "@/components/Auth/AuthPageHeader";
 import Input from "@/components/Auth/Input";
 import Button from "@/components/Auth/Button";
 import {
@@ -10,7 +10,7 @@ import {
   type ForgotPasswordFormData,
 } from "@/features/forgot-password/validation/forgotPasswordSchema";
 import { forgotPassword } from "@/api/auth";
-import { getAxiosErrorMessage } from "@/utils/axiosError";
+import { handleAxiosError } from "@/utils/axiosError";
 import css from "./index.module.css";
 
 export default function ForgotPasswordPage() {
@@ -41,7 +41,7 @@ export default function ForgotPasswordPage() {
         search: createSearchParams({ email: data.email }).toString(),
       });
     } catch (err: unknown) {
-      const errorMsg = getAxiosErrorMessage(
+      const errorMsg = handleAxiosError(
         err,
         "Failed to send code. Please try again."
       );
@@ -53,61 +53,53 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className={css.container}>
-      <div className={css.content}>
-        <Logo />
-
-        <div className={css.textContent}>
-          <h1 className={css.title}>Forgot password</h1>
-          <p className={css.description}>
-            Enter the email address associated with your account or contact your
-            admin
-          </p>
+    <>
+      <AuthPageHeader
+        title="Forgot password"
+        description="Enter the email address associated with your account or contact your admin"
+      />
+      <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <Input
+                type="email"
+                placeholder="Email"
+                {...field}
+                error={!!errors.email}
+              />
+            )}
+          />
+          {errors.email && (
+            <div className={css.error}>{errors.email.message}</div>
+          )}
         </div>
 
-        <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  {...field}
-                  error={!!errors.email}
-                />
-              )}
-            />
-            {errors.email && (
-              <div className={css.error}>{errors.email.message}</div>
-            )}
-          </div>
+        <Activity mode={errors.root ? "visible" : "hidden"}>
+          <div className={css.error}>{errors.root?.message}</div>
+        </Activity>
 
-          <Activity mode={errors.root ? "visible" : "hidden"}>
-            <div className={css.error}>{errors.root?.message}</div>
-          </Activity>
-
-          <div className={css.buttons}>
-            <Button
-              type="button"
-              variant="secondary"
-              onClick={handleBackToSignIn}
-              className={css.backButton}
-            >
-              Back to Sign in
-            </Button>
-            <Button
-              type="submit"
-              variant="primary"
-              className={css.submitButton}
-              disabled={isSubmitting}
-            >
-              Send
-            </Button>
-          </div>
-        </form>
-      </div>
-    </div>
+        <div className={css.buttons}>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={handleBackToSignIn}
+            className={css.backButton}
+          >
+            Back to Sign in
+          </Button>
+          <Button
+            type="submit"
+            variant="primary"
+            className={css.submitButton}
+            disabled={isSubmitting}
+          >
+            Send
+          </Button>
+        </div>
+      </form>
+    </>
   );
 }

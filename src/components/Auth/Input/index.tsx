@@ -1,4 +1,5 @@
 import { useState, type InputHTMLAttributes } from "react";
+import clsx from "clsx";
 import EyeIcon from "../EyeIcon";
 import css from "./Input.module.css";
 
@@ -25,9 +26,12 @@ export default function Input({
     <div className={css.inputWrapper}>
       <input
         type={inputType}
-        className={`${css.input} ${error ? css.inputError : ""} ${
-          isPassword ? css.inputWithToggle : ""
-        } ${className || ""}`}
+        className={clsx(
+          css.input,
+          error && css.inputError,
+          isPassword && css.inputWithToggle,
+          className
+        )}
         {...props}
       />
       {isPassword && (

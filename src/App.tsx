@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NuqsAdapter } from "nuqs/adapters/react-router";
 import MainLayout from "@/layout/MainLayout";
+import AuthLayout from "@/layout/AuthLayout";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import HomePage from "@/pages/HomePage";
 import RangePage from "@/pages/RangePage";
@@ -22,10 +23,12 @@ export default function App() {
     <NuqsAdapter>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/verify-code" element={<VerifyCodePage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/verify-code" element={<VerifyCodePage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+          </Route>
           <Route
             element={
               <ProtectedRoute>

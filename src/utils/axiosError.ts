@@ -4,7 +4,7 @@ type AxiosError = {
   };
 };
 
-export function getAxiosErrorMessage(
+export function handleAxiosError(
   error: unknown,
   defaultMessage: string
 ): string {
