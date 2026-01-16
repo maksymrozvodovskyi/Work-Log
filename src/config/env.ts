@@ -1,6 +1,5 @@
 interface EnvConfig {
   apiUrl: string;
-  accessToken: string;
 }
 
 export const getEnvVar = (key: string): string => {
@@ -17,5 +16,4 @@ export const getEnvVar = (key: string): string => {
 
 export const config: EnvConfig = {
   apiUrl: getEnvVar("VITE_API_URL"),
-  accessToken: getEnvVar("VITE_ACCESS_TOKEN"),
 };

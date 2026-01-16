@@ -1,15 +1,11 @@
-import axios from "axios";
+import axiosInstance from "@/lib/apiClient";
 import type {
   GetUsersParamsType,
   PaginatedResponseType,
   CreateUserParamsType,
   UpdateUserParamsType,
 } from "@/types/User";
-import { config } from "@/config/env";
 import type { ApiUserType } from "@/utils/userTransformers";
-
-const API_URL = `${config.apiUrl}/users`;
-const ACCESS_TOKEN = config.accessToken;
 
 export const getUsers = async (
   params?: GetUsersParamsType
@@ -39,12 +35,9 @@ export const getUsers = async (
     requestParams.sortOrder = params.sortOrder;
   }
 
-  const { data } = await axios.get<PaginatedResponseType<ApiUserType>>(
-    API_URL,
+  const { data } = await axiosInstance.get<PaginatedResponseType<ApiUserType>>(
+    "/users",
     {
-      headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
-      },
       params: requestParams,
     }
   );
@@ -55,11 +48,7 @@ export const getUsers = async (
 export const createUser = async (
   params: CreateUserParamsType
 ): Promise<ApiUserType> => {
-  const { data } = await axios.post<ApiUserType>(API_URL, params, {
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`,
-    },
-  });
+  const { data } = await axiosInstance.post<ApiUserType>("/users", params);
 
   return data;
 };
@@ -68,11 +57,7 @@ export const updateUser = async (
   id: string,
   params: UpdateUserParamsType
 ): Promise<ApiUserType> => {
-  const { data } = await axios.put<ApiUserType>(`${API_URL}/${id}`, params, {
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`,
-    },
-  });
+  const { data } = await axiosInstance.put<ApiUserType>(`/users/${id}`, params);
 
   return data;
 };

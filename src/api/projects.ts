@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/lib/apiClient";
 import type {
   ProjectType,
   GetProjectsParamsType,
@@ -6,10 +6,6 @@ import type {
   CreateProjectParamsType,
   UpdateProjectParamsType,
 } from "@/types/Project";
-import { config } from "@/config/env";
-
-const API_URL = `${config.apiUrl}/projects`;
-const ACCESS_TOKEN = config.accessToken;
 
 export const getProjects = async (
   params?: GetProjectsParamsType
@@ -26,12 +22,9 @@ export const getProjects = async (
     requestParams.status = params.status;
   }
 
-  const { data } = await axios.get<PaginatedResponseType<ProjectType>>(
-    API_URL,
+  const { data } = await axiosInstance.get<PaginatedResponseType<ProjectType>>(
+    "/projects",
     {
-      headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
-      },
       params: requestParams,
     }
   );
@@ -42,11 +35,7 @@ export const getProjects = async (
 export const createProject = async (
   params: CreateProjectParamsType
 ): Promise<ProjectType> => {
-  const { data } = await axios.post<ProjectType>(API_URL, params, {
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`,
-    },
-  });
+  const { data } = await axiosInstance.post<ProjectType>("/projects", params);
 
   return data;
 };
@@ -55,11 +44,10 @@ export const updateProject = async (
   id: string,
   params: UpdateProjectParamsType
 ): Promise<ProjectType> => {
-  const { data } = await axios.put<ProjectType>(`${API_URL}/${id}`, params, {
-    headers: {
-      Authorization: `Bearer ${ACCESS_TOKEN}`,
-    },
-  });
+  const { data } = await axiosInstance.put<ProjectType>(
+    `/projects/${id}`,
+    params
+  );
 
   return data;
 };

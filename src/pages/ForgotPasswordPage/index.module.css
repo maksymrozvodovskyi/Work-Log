@@ -1,0 +1,36 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 380px;
+    margin-top: calc(26px - 40px);
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: calc(40px - 32px);
+}
+
+.backButton {
+    padding: 8px 15px;
+}
+
+.submitButton {
+    padding: 8px 15px;
+}
+
+.error {
+    color: #ff4444;
+    font-family: "Cera Pro", sans-serif;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.success {
+    color: #22c55e;
+    font-family: "Cera Pro", sans-serif;
+    font-size: 14px;
+    margin-top: 8px;
+}
