@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
@@ -36,7 +36,7 @@ const ProjectModal = ({
     register,
     handleSubmit: handleFormSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
     setError,
     clearErrors,
@@ -44,7 +44,6 @@ const ProjectModal = ({
     mode: "onChange",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -66,7 +65,6 @@ const ProjectModal = ({
   }, [onClose, reset, clearErrors]);
 
   const onSubmit = async (data: FormData) => {
-    setIsLoading(true);
     clearErrors("root");
 
     try {
@@ -97,8 +95,6 @@ const ProjectModal = ({
             ? "Failed to update project"
             : "Failed to create project",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -215,9 +211,9 @@ const ProjectModal = ({
           <button
             type="submit"
             className={css.createButton}
-            disabled={isLoading}
+            disabled={isSubmitting}
           >
-            {getButtonText(isLoading, isEditing)}
+            {getButtonText(isSubmitting, isEditing)}
           </button>
         </form>
       </div>

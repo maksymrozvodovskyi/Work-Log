@@ -1,0 +1,80 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    background: #191a1f;
+    padding: 20px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.textContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    max-width: 380px;
+}
+
+.title {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.55556;
+    color: #f5f6fa;
+    margin: 0;
+}
+
+.description {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #aeb8c2;
+    margin: 0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    max-width: 380px;
+    margin-top: calc(26px - 32px);
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 165px;
+    margin-top: calc(40px - 32px);
+}
+
+.backButton {
+    padding: 8px 15px;
+}
+
+.submitButton {
+    padding: 8px 15px;
+}
+
+.error {
+    color: #ff4444;
+    font-family: "Cera Pro", sans-serif;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.success {
+    color: #22c55e;
+    font-family: "Cera Pro", sans-serif;
+    font-size: 14px;
+    margin-top: 8px;
+}

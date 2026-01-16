@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import clsx from "clsx";
@@ -35,7 +35,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
     register,
     handleSubmit: handleFormSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
     setError,
     clearErrors,
@@ -43,7 +43,6 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
     mode: "onChange",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -69,7 +68,6 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
   }, [onClose, reset, clearErrors]);
 
   const onSubmit = async (data: FormData) => {
-    setIsLoading(true);
     clearErrors("root");
 
     try {
@@ -103,8 +101,6 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
             ? "Failed to update user"
             : "Failed to create user",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -297,9 +293,9 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
           <button
             type="submit"
             className={css.createButton}
-            disabled={isLoading}
+            disabled={isSubmitting}
           >
-            {getButtonText(isLoading, isEditing)}
+            {getButtonText(isSubmitting, isEditing)}
           </button>
         </form>
       </div>
