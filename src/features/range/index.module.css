@@ -25,6 +25,13 @@
     font-size: 20px;
     line-height: 1.4;
     color: #f5f6fa;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.link:hover {
+    opacity: 0.8;
 }
 
 .list {
@@ -87,6 +94,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.notificationDot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    background: #fc7141;
+    border-radius: 50%;
+    border: 2px solid #1e1f24;
 }
 
 .profileButton {
@@ -99,14 +120,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.profileAvatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: #2a2c32;
-    overflow: hidden;
+    cursor: pointer;
 }
 
 .filterWrapper {
@@ -194,29 +208,6 @@
     justify-content: center;
     padding: 0;
 }
-
-.refreshButton {
-    border-radius: 100%;
-    background-color: #2a2c32;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border: none;
-    transition: background-color 0.2s ease;
-}
-
-.refreshButton:hover {
-    background-color: #32343a;
-}
-
-.refreshButton:focus {
-    outline: 2px solid #aeb8c2;
-    outline-offset: 2px;
-}
-
 
 .createButton {
     display: flex;
@@ -387,16 +378,6 @@
     table-layout: fixed;
 }
 
-.tableHead {
-    border: 5px solid #191a1f;
-    border-radius: 5px;
-    background: #2b2c32;
-}
-
-.tableHead tr {
-    height: 36px;
-}
-
 .tableHeader {
     font-family: "Cera Pro", sans-serif;
     font-weight: 500;
@@ -430,10 +411,6 @@
 
 .spacerRow {
     height: 5px !important;
-    min-height: 5px;
-    max-height: 5px;
-    line-height: 0;
-    margin: 0;
 }
 
 .spacerRow td {
@@ -493,6 +470,19 @@
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
+.userNameLink {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+    text-decoration: none;
+}
+
+.userNameLink:hover {
+    text-decoration: underline;
 }
 
 

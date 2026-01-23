@@ -6,7 +6,6 @@
 .list {
     display: flex;
     flex-direction: column;
-    align-items: baseline;
     gap: 36px;
     padding: 34px 18px;
 }

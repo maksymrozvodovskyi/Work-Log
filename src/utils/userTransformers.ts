@@ -17,6 +17,11 @@ export type ApiUserType = {
   createdAt: string;
   projects: ApiProjectType[];
   status?: UserStatusType;
+  skype?: string | null;
+  phoneNumber?: string | null;
+  dateOfBirth?: string | null;
+  location?: string | null;
+  skills?: string[] | null;
 };
 
 export const transformApiUserToUserRange = (

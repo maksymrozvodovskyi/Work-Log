@@ -1,9 +1,9 @@
-interface CheckmarkIconProps {
+type CheckmarkIconPropsType = {
   className?: string;
   fill?: string;
-}
+};
 
-const CheckmarkIcon = ({ className, fill = "#F5F6FA" }: CheckmarkIconProps) => (
+const CheckmarkIcon = ({ className, fill = "#F5F6FA" }: CheckmarkIconPropsType) => (
   <svg
     width="12"
     height="12"

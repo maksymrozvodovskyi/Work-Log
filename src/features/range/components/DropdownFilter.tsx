@@ -4,13 +4,13 @@ import ArrowIcon from "@/features/projects/svg/ArrowIcon";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import css from "@/features/range/index.module.css";
 
-interface DropdownFilterProps {
+type DropdownFilterPropsType = {
   label: string;
   options: string[];
   selectedValue?: string | null;
   onSelect: (value: string | null) => void;
   placeholder?: string;
-}
+};
 
 const DropdownFilter = ({
   label,
@@ -18,7 +18,7 @@ const DropdownFilter = ({
   selectedValue,
   onSelect,
   placeholder = "All",
-}: DropdownFilterProps) => {
+}: DropdownFilterPropsType) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useClickOutside<HTMLDivElement>(
     () => setIsOpen(false),

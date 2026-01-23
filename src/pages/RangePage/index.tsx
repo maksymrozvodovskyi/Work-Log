@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useQueryStates, parseAsString, parseAsInteger } from "nuqs";
 import { getUsers } from "@/api/users";
@@ -12,7 +13,7 @@ import type { UserRoleType } from "@/types/Project";
 import { USER_TYPES } from "@/types/Project";
 import { USER_STATUS_ORDER } from "@/types/UserStatusOrder";
 import { userStatusMap } from "@/types/UserStatusMap";
-import { USER_QUERY_KEYS } from "@/lib/queryKeys";
+import { USER_QUERY_KEYS } from "@/features/range/queryKeys";
 import { parsers } from "@/utils/parsers";
 import { createSearchHandler, createStatusHandler } from "@/utils/filters";
 import { SORT_FIELDS, DEFAULT_SORT_FIELD } from "@/constants/sort";
@@ -20,16 +21,19 @@ import {
   transformApiUserToUserRange,
   type ApiUserType,
 } from "@/utils/userTransformers";
+import { useAuthStore } from "@/stores/authStore";
 import css from "@/features/range/index.module.css";
 import UserTable from "@/features/range/components/UserTable";
 import SearchInput from "@/features/projects/components/SearchInput";
 import StatusFilter from "@/components/StatusFilter";
+import FilterButton from "@/components/FilterButton";
 import DropdownFilter from "@/features/range/components/DropdownFilter";
 import Pagination from "@/features/projects/components/Pagination";
 import Loader from "@/features/projects/components/Loader";
 import UserModal from "@/features/range/components/UserModal";
 import PlusIcon from "@/features/projects/svg/PlusIcon";
 import UserStatistics from "@/features/range/components/UserStatistics";
+import Avatar from "@/features/range/components/Avatar";
 import { USERS_PER_PAGE } from "@/features/range/constants";
 
 const parseAsUserSortField = parsers.sortField<UserSortFieldType>(
@@ -57,6 +61,7 @@ const RangePage = () => {
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user: currentUser } = useAuthStore();
 
   const debouncedSearchTerm = useDebounce(search, 500);
 
@@ -135,7 +140,7 @@ const RangePage = () => {
       <header className={css.header}>
         <div className={css.headerLeft}>
           <div className={css.buttonsWrapper}>
-            <h1 className={css.link}>Range</h1>
+            <Link to="/range" className={css.link}>Range</Link>
           </div>
 
           <UserStatistics users={users} totalUsers={totalUsers} />
@@ -148,13 +153,16 @@ const RangePage = () => {
             aria-label="Notifications"
           >
             <img src="/notification.svg" alt="" width="24" height="24" />
+            <span className={css.notificationDot}></span>
           </button>
           <button
             type="button"
             className={css.profileButton}
             aria-label="User profile"
           >
-            <div className={css.profileAvatar}></div>
+            {currentUser && (
+              <Avatar name={currentUser.name} status="GREEN" />
+            )}
           </button>
         </div>
       </header>
@@ -164,14 +172,10 @@ const RangePage = () => {
 
         <div className={css.filterButtonsWrapper}>
           <div className={css.filterControls}>
-            <button
-              type="button"
-              aria-label="Clear all filters"
-              className={css.filterButton}
+            <FilterButton
+              ariaLabel="Clear all filters"
               onClick={handleClearFilters}
-            >
-              <img src="/filter.svg" alt="" width="16" height="18" />
-            </button>
+            />
 
             <StatusFilter
               statusOrder={USER_STATUS_ORDER}

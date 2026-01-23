@@ -1,0 +1,168 @@
+.resumeContainer {
+    background: #1e1f24;
+    min-height: 100%;
+}
+
+.resumeContent {
+    display: flex;
+}
+
+.loaderWrapper,
+.errorWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    min-height: 400px;
+}
+
+.errorText {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.section {
+    margin-bottom: 32px;
+}
+
+.sectionTitle {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #f5f6fa;
+    margin-bottom: 16px;
+}
+
+.contactItem {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.contactLabel {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.contactValue {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.infoItem {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.infoLabel {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.infoValue {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.skillsText {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+    margin: 0;
+}
+
+.leftColumn {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.rightColumn {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.dividerWrapper {
+    margin: 0 40px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    align-self: stretch;
+}
+
+.divider {
+    stroke-width: 1px;
+    stroke: #494c55;
+    height: 100%;
+    width: 1px;
+}
+
+.projectsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.projectsList::-webkit-scrollbar {
+    width: 6px;
+}
+
+.projectsList::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.projectsList::-webkit-scrollbar-thumb {
+    background: #494c55;
+    border-radius: 3px;
+}
+
+.projectsList::-webkit-scrollbar-thumb:hover {
+    background: #555a67;
+}
+
+.projectItem {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: #2a2c32;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.projectItem:hover {
+    background: #32343a;
+}
+
+.projectName {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}

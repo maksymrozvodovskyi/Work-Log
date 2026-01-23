@@ -25,6 +25,13 @@
     font-size: 20px;
     line-height: 1.4;
     color: #f5f6fa;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.link:hover {
+    opacity: 0.8;
 }
 
 .tableButton {
@@ -42,27 +49,9 @@
     transition: background-color 0.2s ease;
 }
 
-.tableButton:hover {
-    background: #fc7141;
-}
-
 .tableButton:focus {
     outline: 2px solid #aeb8c2;
     outline-offset: 2px;
-}
-
-.cardsButton {
-    border-radius: 8px;
-    padding: 6px 8px;
-    width: 60px;
-    height: 36px;
-    background: #2a2c32;
-    font-family: "Cera Pro", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.5;
-    text-align: center;
-    color: #aeb8c2;
 }
 
 .list {
@@ -130,6 +119,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.notificationDot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    background: #fc7141;
+    border-radius: 50%;
+    border: 2px solid #1e1f24;
 }
 
 .profileButton {
@@ -163,7 +166,6 @@
     margin-top: 40px;
     margin-bottom: 20px;
     justify-content: space-between;
-    width: 100%;
     padding: 0 10px;
 }
 
@@ -299,19 +301,6 @@
     table-layout: fixed;
 }
 
-.tableHead {
-    border: 5px solid #191a1f;
-    border-radius: 5px;
-    background: #2b2c32;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-.tableHead tr {
-    height: 36px;
-}
-
 .tableHeader {
     font-family: "Cera Pro", sans-serif;
     font-weight: 500;
@@ -336,20 +325,9 @@
     background: transparent;
 }
 
-.spacerRow {
-    height: 5px !important;
-    min-height: 5px;
-    max-height: 5px;
-    line-height: 0;
-    margin: 0;
-}
-
 .spacerRow td {
-    height: 5px !important;
-    min-height: 5px;
-    max-height: 5px;
+    height: 7px !important;
     padding: 0 !important;
-    margin: 0;
     background: #191a1f;
     line-height: 0;
     vertical-align: top;
@@ -378,16 +356,6 @@
     color: #f5f6fa;
     padding: 10px;
     vertical-align: middle;
-}
-
-.tableCell:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-.tableCell:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
 }
 
 .statusCell {
@@ -485,7 +453,6 @@
     justify-content: center;
     gap: 4px;
     margin-top: 20px;
-    padding: 12px 0;
 }
 
 .paginationButton {

@@ -14,13 +14,13 @@ const getStatusCircle = (status: ProjectStatusType) => {
   return statusInfo ? <StatusCircle color={statusInfo.color} /> : null;
 };
 
-interface TableHeader {
+type TableHeaderType = {
   label: string;
   field?: SortFieldType;
   sortable?: boolean;
-}
+};
 
-const tableHeaders: TableHeader[] = [
+const tableHeaders: TableHeaderType[] = [
   { label: "Status", field: "status", sortable: true },
   { label: "Name", field: "name", sortable: true },
   { label: "Description", sortable: false },
@@ -29,13 +29,13 @@ const tableHeaders: TableHeader[] = [
   { label: "Actions", sortable: false },
 ];
 
-interface ProjectTableProps {
+type ProjectTablePropsType = {
   projects: ProjectType[];
   sortField: SortFieldType;
   sortDirection: SortDirectionType;
   onSort: (field: SortFieldType) => void;
   onEdit: (project: ProjectType) => void;
-}
+};
 
 const ProjectTable = ({
   projects,
@@ -43,7 +43,7 @@ const ProjectTable = ({
   sortDirection,
   onSort,
   onEdit,
-}: ProjectTableProps) => {
+}: ProjectTablePropsType) => {
   return (
     <div className={css.tableWrapper}>
       <div className={css.tableContainer}>
@@ -74,7 +74,7 @@ const ProjectTable = ({
               ))}
             </tr>
             <tr className={css.spacerRow}>
-              <td colSpan={5}></td>
+              <td colSpan={6}></td>
             </tr>
           </thead>
           <tbody className={css.tableBody}>

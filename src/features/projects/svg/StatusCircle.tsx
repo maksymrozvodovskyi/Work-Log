@@ -1,9 +1,9 @@
-interface StatusCircleProps {
+type StatusCirclePropsType = {
   color: string;
   className?: string;
-}
+};
 
-const StatusCircle = ({ color, className }: StatusCircleProps) => (
+const StatusCircle = ({ color, className }: StatusCirclePropsType) => (
   <svg
     width="28"
     height="28"

@@ -1,0 +1,99 @@
+.columns {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnTitle {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.55556;
+  color: #f5f6fa;
+  margin: 0 0 20px 0;
+}
+
+.cardsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  background: #2a2c32;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+}
+
+.cardType {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+}
+
+.cardDuration {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+}
+
+.cardDate {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #aeb8c2;
+}
+
+.emptyState {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #aeb8c2;
+  border-radius: 10px;
+  width: 360px;
+  height: 50px;
+  background: #2b2c32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.errorWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.errorText {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #ff6b6b;
+}

@@ -3,13 +3,13 @@ import clsx from "clsx";
 import ArrowIcon from "@/features/projects/svg/ArrowIcon";
 import css from "@/features/projects/index.module.css";
 
-interface PaginationProps {
+type PaginationPropsType = {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-}
+};
 
-const Pagination: React.FC<PaginationProps> = ({
+const Pagination: React.FC<PaginationPropsType> = ({
   currentPage,
   totalPages,
   onPageChange,
@@ -86,13 +86,13 @@ const Pagination: React.FC<PaginationProps> = ({
   );
 };
 
-interface ArrowButtonProps {
+type ArrowButtonPropsType = {
   direction: "prev" | "next";
   disabled: boolean;
   onClick: () => void;
-}
+};
 
-function ArrowButton({ direction, disabled, onClick }: ArrowButtonProps) {
+function ArrowButton({ direction, disabled, onClick }: ArrowButtonPropsType) {
   return (
     <button
       className={clsx(css.paginationButton, disabled && css.disabled)}

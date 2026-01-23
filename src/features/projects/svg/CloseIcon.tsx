@@ -1,14 +1,14 @@
-interface CloseIconProps {
+type CloseIconPropsType = {
   className?: string;
   fill?: string;
   stroke?: string;
-}
+};
 
 const CloseIcon = ({
   className,
   fill = "#AEB8C2",
   stroke = "#AEB8C2",
-}: CloseIconProps) => (
+}: CloseIconPropsType) => (
   <svg
     width="9"
     height="9"

@@ -1,14 +1,14 @@
-interface PlusIconProps {
+type PlusIconPropsType = {
   className?: string;
   stroke?: string;
   strokeWidth?: string;
-}
+};
 
 const PlusIcon = ({
   className,
   stroke = "white",
   strokeWidth = "1.5",
-}: PlusIconProps) => (
+}: PlusIconPropsType) => (
   <svg
     width="12"
     height="12"

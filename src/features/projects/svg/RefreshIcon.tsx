@@ -1,8 +1,8 @@
-interface RefreshIconProps {
+type RefreshIconPropsType = {
   className?: string;
-}
+};
 
-const RefreshIcon = ({ className }: RefreshIconProps) => (
+const RefreshIcon = ({ className }: RefreshIconPropsType) => (
   <svg
     width="16"
     height="16"

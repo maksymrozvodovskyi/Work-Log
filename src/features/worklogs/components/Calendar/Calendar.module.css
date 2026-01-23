@@ -1,0 +1,128 @@
+.calendarSection {
+    flex: 1;
+    min-width: 400px;
+}
+
+.calendarNav {
+    display: flex;
+    align-items: center;
+}
+
+.calendarNavArrows {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.calendarNavArrow {
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    color: #8b97a3;
+    transition: opacity 0.2s ease;
+}
+
+.calendarNavArrow:hover {
+    opacity: 0.7;
+}
+
+.calendarMonth {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.calendarMonthName,
+.calendarMonthYear {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.55556;
+    color: #f5f6fa;
+}
+
+.todayButton {
+    border-radius: 8px;
+    padding: 6px 15px;
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #494c55;
+    background: #f5f6fa;
+    border: none;
+    margin-left: 23px;
+    transition: opacity 0.2s ease;
+}
+
+.todayButton:hover {
+    opacity: 0.7;
+}
+
+.calendarGrid {
+    margin-top: 24px;
+}
+
+.calendarWeekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.calendarWeekdays span {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.42857;
+    color: #8b97a3;
+    text-align: center;
+}
+
+.calendarDays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+}
+
+.calendarDay,
+.calendarDayOther,
+.calendarDaySelected,
+.calendarDayBrown {
+    background: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+    position: relative;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.calendarDayOther {
+    color: #8b97a3;
+}
+
+.calendarDaySelected {
+    background: #ff6b35;
+    color: #f5f6fa;
+}
+
+.calendarDayBrown {
+    background: #8b4513;
+    color: #f5f6fa;
+}

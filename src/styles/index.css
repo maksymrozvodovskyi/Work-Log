@@ -46,8 +46,9 @@ a {
     text-decoration: none;
 }
 
-button {
+button,
+button[type="button"],
+button[type="submit"] {
     border: none;
-    background: none;
     cursor: pointer;
 }

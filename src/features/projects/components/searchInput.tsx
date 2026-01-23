@@ -2,19 +2,19 @@ import css from "@/features/projects/index.module.css";
 import SearchIcon from "@/features/projects/svg/SearchIcon";
 import CloseIcon from "@/features/projects/svg/CloseIcon";
 
-interface SearchInputProps {
+type SearchInputPropsType = {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
   ariaLabel?: string;
-}
+};
 
 const SearchInput = ({
   value,
   onChange,
   placeholder = "Search by name, skills etc.",
   ariaLabel = "Search projects by name, skills etc.",
-}: SearchInputProps) => {
+}: SearchInputPropsType) => {
   const handleClear = () => {
     onChange("");
   };

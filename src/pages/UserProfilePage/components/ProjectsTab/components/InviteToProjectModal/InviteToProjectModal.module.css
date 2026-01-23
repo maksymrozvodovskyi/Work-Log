@@ -1,0 +1,249 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 20px 20px 20px;
+    width: 100%;
+}
+
+.title {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #f5f6fa;
+    margin: 0;
+}
+
+.headerButtons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.headerIconButton {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #aeb8c2;
+    transition: color 0.2s ease;
+}
+
+.headerIconButton:hover {
+    color: #f5f6fa;
+}
+
+.closeButton {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aeb8c2;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.closeButton:hover {
+    color: #f5f6fa;
+}
+
+.closeButton:focus {
+    outline: 2px solid #aeb8c2;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 20px 20px 20px;
+    min-height: 0;
+}
+
+.searchSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.searchInputWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    border-radius: 8px;
+    width: 100%;
+    height: 32px;
+    position: relative;
+    background: transparent;
+}
+
+.searchInput {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: rgba(245, 246, 250, 0.5);
+    background: transparent;
+    outline: none;
+    flex: 1;
+    width: 100%;
+    border: none;
+}
+
+.searchInput::placeholder {
+    color: rgba(245, 246, 250, 0.5);
+}
+
+.clearButton {
+    background: transparent;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.clearButton:hover {
+    opacity: 1;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: #494c55;
+}
+
+.counter {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.projectsList {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.projectsList::-webkit-scrollbar {
+    width: 8px;
+}
+
+.projectsList::-webkit-scrollbar-track {
+    background: #2b2c32;
+    border-radius: 4px;
+}
+
+.projectsList::-webkit-scrollbar-thumb {
+    background: #8b97a3;
+    border-radius: 4px;
+}
+
+.projectsList::-webkit-scrollbar-thumb:hover {
+    background: #aeb8c2;
+}
+
+.projectItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background: #2b2c32;
+    border-radius: 8px;
+}
+
+.projectName {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+    flex: 1;
+}
+
+.loaderWrapper,
+.errorWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    min-height: 200px;
+    flex: 1;
+}
+
+.errorText {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    border-top: 1px solid #494c55;
+}
+
+.inviteButton {
+    border-radius: 8px;
+    width: 256px;
+    height: 36px;
+    background: #4252ea;
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #f5f6fa;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.inviteButton:hover:not(:disabled) {
+    background: #5258f0;
+}
+
+.inviteButton:focus:not(:disabled) {
+    outline: 2px solid #aeb8c2;
+    outline-offset: 2px;
+}
+
+.inviteButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    min-height: 200px;
+}
+
+.emptyText {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}

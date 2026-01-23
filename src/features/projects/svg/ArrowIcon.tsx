@@ -1,12 +1,12 @@
 import React from "react";
 
-interface ArrowIconProps {
+type ArrowIconPropsType = {
   className?: string;
   style?: React.CSSProperties;
   fill?: string;
-}
+};
 
-const ArrowIcon = ({ className, style, fill }: ArrowIconProps) => (
+const ArrowIcon = ({ className, style, fill }: ArrowIconPropsType) => (
   <svg
     width="12"
     height="8"

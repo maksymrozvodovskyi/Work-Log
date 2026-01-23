@@ -1,14 +1,14 @@
 import css from "./index.module.css";
 
-interface AuthPageHeaderProps {
+type AuthPageHeaderPropsType = {
   title?: string;
   description?: string;
-}
+};
 
 export default function AuthPageHeader({
   title,
   description,
-}: AuthPageHeaderProps) {
+}: AuthPageHeaderPropsType) {
   if (!title && !description) {
     return null;
   }

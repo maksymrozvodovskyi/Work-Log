@@ -1,9 +1,9 @@
-interface SearchIconProps {
+type SearchIconPropsType = {
   className?: string;
   fill?: string;
-}
+};
 
-const SearchIcon = ({ className, fill = "#AEB8C2" }: SearchIconProps) => (
+const SearchIcon = ({ className, fill = "#AEB8C2" }: SearchIconPropsType) => (
   <svg
     width="16"
     height="16"
