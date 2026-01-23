@@ -1,6 +1,6 @@
 import css from "./StatusFilter.module.css";
 import type { StatusInfoType } from "@/types/StatusInfo";
-import CheckmarkIcon from "@/features/projects/svg/CheckmarkIcon";
+import CheckmarkIcon from "@/components/svg/CheckmarkIcon";
 
 type StatusFilterPropsType<T extends string> = {
   statusOrder: T[];

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import ArrowIcon from "@/features/projects/svg/ArrowIcon";
+import ArrowIcon from "@/components/svg/ArrowIcon";
 import { MONTH_NAMES, WEEKDAYS } from "@/features/worklogs/constants/calendar";
 import type { CalendarDayType } from "@/hooks/useCalendar";
 import css from "./Calendar.module.css";

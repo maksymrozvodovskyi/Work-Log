@@ -1,6 +1,6 @@
 import { useState, Activity } from "react";
 import clsx from "clsx";
-import ArrowIcon from "@/features/projects/svg/ArrowIcon";
+import ArrowIcon from "@/components/svg/ArrowIcon";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import css from "@/features/range/index.module.css";
 

@@ -18,13 +18,13 @@ import { parsers } from "@/utils/parsers";
 import { createSearchHandler, createStatusHandler } from "@/utils/filters";
 import css from "@/features/projects/index.module.css";
 import ProjectTable from "@/features/projects/components/ProjectTable";
-import SearchInput from "@/features/projects/components/SearchInput";
+import SearchInput from "@/components/SearchInput";
 import StatusFilter from "@/components/StatusFilter";
 import FilterButton from "@/components/FilterButton";
-import Pagination from "@/features/projects/components/Pagination";
-import Loader from "@/features/projects/components/Loader";
+import Pagination from "@/components/Pagination";
+import Loader from "@/components/Loader";
 import ProjectModal from "@/features/projects/components/ProjectModal";
-import PlusIcon from "@/features/projects/svg/PlusIcon";
+import PlusIcon from "@/components/svg/PlusIcon";
 import { PROJECTS_PER_PAGE } from "@/features/projects/constants/pagination";
 
 type StatisticItemType = {

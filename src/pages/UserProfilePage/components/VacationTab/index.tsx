@@ -8,7 +8,7 @@ import {
   getVacationStatus,
   type VacationPeriod,
 } from "@/utils/dateUtils";
-import Loader from "@/features/projects/components/Loader";
+import Loader from "@/components/Loader";
 import VacationColumn from "./components/VacationColumn";
 import { VACATION_ACTIVITY_TYPES } from "./constants";
 import css from "./VacationTab.module.css";

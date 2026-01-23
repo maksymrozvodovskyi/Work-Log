@@ -6,7 +6,7 @@ import type {
 } from "@/types/User";
 import css from "@/features/range/index.module.css";
 import SortArrows from "@/components/SortArrows";
-import Avatar from "./Avatar";
+import Avatar from "@/components/Avatar";
 
 type TableHeaderType = {
   label: string;

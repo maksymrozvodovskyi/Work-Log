@@ -24,16 +24,16 @@ import {
 import { useAuthStore } from "@/stores/authStore";
 import css from "@/features/range/index.module.css";
 import UserTable from "@/features/range/components/UserTable";
-import SearchInput from "@/features/projects/components/SearchInput";
+import SearchInput from "@/components/SearchInput";
 import StatusFilter from "@/components/StatusFilter";
 import FilterButton from "@/components/FilterButton";
 import DropdownFilter from "@/features/range/components/DropdownFilter";
-import Pagination from "@/features/projects/components/Pagination";
-import Loader from "@/features/projects/components/Loader";
+import Pagination from "@/components/Pagination";
+import Loader from "@/components/Loader";
 import UserModal from "@/features/range/components/UserModal";
-import PlusIcon from "@/features/projects/svg/PlusIcon";
+import PlusIcon from "@/components/svg/PlusIcon";
 import UserStatistics from "@/features/range/components/UserStatistics";
-import Avatar from "@/features/range/components/Avatar";
+import Avatar from "@/components/Avatar";
 import { USERS_PER_PAGE } from "@/features/range/constants";
 
 const parseAsUserSortField = parsers.sortField<UserSortFieldType>(

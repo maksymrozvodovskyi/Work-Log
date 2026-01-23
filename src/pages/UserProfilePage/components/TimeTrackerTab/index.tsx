@@ -5,7 +5,7 @@ import VerticalDividerIcon from "@/components/svg/VerticalDividerIcon";
 import SquaresIcon from "@/components/svg/SquaresIcon";
 import ProjectsSelectModal from "@/features/worklogs/components/ProjectsSelectModal";
 import { getWorkLogsByTime } from "@/api/worklogs";
-import Loader from "@/features/projects/components/Loader";
+import Loader from "@/components/Loader";
 import { WORKLOG_QUERY_KEYS } from "@/features/worklogs/queryKeys";
 import { groupWorkLogsByProject } from "@/features/worklogs/utils/groupWorkLogs";
 import { Calendar } from "@/features/worklogs/components/Calendar";

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserById } from "@/api/users";
 import { USER_QUERY_KEYS } from "@/features/range/queryKeys";
 import { formatDateOfBirth } from "@/utils/dateUtils";
-import Loader from "@/features/projects/components/Loader";
+import Loader from "@/components/Loader";
 import VerticalDividerIcon from "@/components/svg/VerticalDividerIcon";
 import css from "./ResumeTab.module.css";
 

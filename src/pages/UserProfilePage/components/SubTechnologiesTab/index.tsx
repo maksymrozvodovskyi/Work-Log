@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getUserById } from "@/api/users";
 import { USER_QUERY_KEYS } from "@/features/range/queryKeys";
-import Loader from "@/features/projects/components/Loader";
+import Loader from "@/components/Loader";
 import css from "./SubTechnologiesTab.module.css";
 
 const SubTechnologiesTab = () => {

@@ -1,9 +1,9 @@
 import { useEffect, Activity, useCallback } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import BaseModal from "@/components/BaseModal";
-import SearchInput from "@/features/projects/components/SearchInput";
+import SearchInput from "@/components/SearchInput";
 import ToggleSwitch from "@/components/ToggleSwitch";
-import ArrowIcon from "@/features/projects/svg/ArrowIcon";
+import ArrowIcon from "@/components/svg/ArrowIcon";
 import { useProjectSelection } from "@/hooks/useProjectSelection";
 import { useProjectSearch } from "@/hooks/useProjectSearch";
 import { useInviteUsers } from "@/hooks/useInviteUsers";

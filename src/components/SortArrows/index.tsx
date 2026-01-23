@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import ArrowIcon from "@/features/projects/svg/ArrowIcon";
+import ArrowIcon from "@/components/svg/ArrowIcon";
 import css from "./SortArrows.module.css";
 
 const ACTIVE_COLOR = "#6b7682";

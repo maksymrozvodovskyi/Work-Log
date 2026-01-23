@@ -2,11 +2,11 @@ import { useState, useCallback } from "react";
 import { useProjectSearch } from "@/hooks/useProjectSearch";
 import { useInviteUsers } from "@/hooks/useInviteUsers";
 import BaseModal from "@/components/BaseModal";
-import SearchIcon from "@/features/projects/svg/SearchIcon";
-import CloseIcon from "@/features/projects/svg/CloseIcon";
+import SearchIcon from "@/components/svg/SearchIcon";
+import CloseIcon from "@/components/svg/CloseIcon";
 import ToggleSwitch from "@/components/ToggleSwitch";
-import ArrowIcon from "@/features/projects/svg/ArrowIcon";
-import Loader from "@/features/projects/components/Loader";
+import ArrowIcon from "@/components/svg/ArrowIcon";
+import Loader from "@/components/Loader";
 import css from "./InviteToProjectModal.module.css";
 
 type InviteToProjectModalPropsType = {

@@ -7,8 +7,8 @@ import { USER_QUERY_KEYS } from "@/features/range/queryKeys";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import BackButton from "@/components/BackButton";
 import ThreeDotsIcon from "@/components/svg/ThreeDotsIcon";
-import Avatar from "@/features/range/components/Avatar";
-import Loader from "@/features/projects/components/Loader";
+import Avatar from "@/components/Avatar";
+import Loader from "@/components/Loader";
 import UserProfileDropdown from "@/components/UserProfileDropdown";
 import css from "./index.module.css";
 

@@ -7,7 +7,7 @@ import type {
 import { statusMap } from "@/types/StatusMap";
 import css from "@/features/projects/index.module.css";
 import SortArrows from "@/components/SortArrows";
-import StatusCircle from "@/features/projects/svg/StatusCircle";
+import StatusCircle from "@/components/svg/StatusCircle";
 
 const getStatusCircle = (status: ProjectStatusType) => {
   const statusInfo = statusMap[status];

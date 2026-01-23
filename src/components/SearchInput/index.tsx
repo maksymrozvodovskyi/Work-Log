@@ -1,6 +1,6 @@
-import css from "@/features/projects/index.module.css";
-import SearchIcon from "@/features/projects/svg/SearchIcon";
-import CloseIcon from "@/features/projects/svg/CloseIcon";
+import css from "./SearchInput.module.css";
+import SearchIcon from "@/components/svg/SearchIcon";
+import CloseIcon from "@/components/svg/CloseIcon";
 
 type SearchInputPropsType = {
   value: string;
@@ -46,3 +46,4 @@ const SearchInput = ({
 };
 
 export default SearchInput;
+

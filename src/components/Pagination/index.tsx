@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
-import ArrowIcon from "@/features/projects/svg/ArrowIcon";
-import css from "@/features/projects/index.module.css";
+import ArrowIcon from "@/components/svg/ArrowIcon";
+import css from "./Pagination.module.css";
 
 type PaginationPropsType = {
   currentPage: number;
@@ -114,3 +114,4 @@ function ArrowButton({ direction, disabled, onClick }: ArrowButtonPropsType) {
 }
 
 export default Pagination;
+
