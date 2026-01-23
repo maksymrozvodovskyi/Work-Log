@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { Link } from "react-router-dom";
 import type {
   UserRangeType,
   UserSortFieldType,
@@ -6,22 +6,22 @@ import type {
 } from "@/types/User";
 import css from "@/features/range/index.module.css";
 import SortArrows from "@/components/SortArrows";
-import Avatar from "./Avatar";
+import Avatar from "@/components/Avatar";
 
-interface TableHeader {
+type TableHeaderType = {
   label: string;
   field?: UserSortFieldType;
   sortable?: boolean;
-}
+};
 
-interface UserTableProps {
+type UserTablePropsType = {
   users: UserRangeType[];
   sortField: UserSortFieldType;
   sortDirection: SortDirectionType | null;
   onSort: (field: UserSortFieldType) => void;
-}
+};
 
-const tableHeaders: TableHeader[] = [
+const tableHeaders: TableHeaderType[] = [
   { label: "Name", field: "name", sortable: true },
   { label: "Main project", sortable: false },
   { label: "Other projects", sortable: false },
@@ -32,7 +32,7 @@ const UserTable = ({
   sortField,
   sortDirection,
   onSort,
-}: UserTableProps) => {
+}: UserTablePropsType) => {
   return (
     <div className={css.tableWrapper}>
       <div className={css.tableHeaderContainer}>
@@ -82,11 +82,13 @@ const UserTable = ({
           </thead>
           <tbody className={css.tableBody}>
             {users.map((user) => (
-              <tr key={user.id} className={clsx(css.tableRow)}>
+              <tr key={user.id} className={css.tableRow}>
                 <td className={css.tableCell}>
                   <div className={css.nameCell}>
-                    <Avatar name={user.name} status={user.status} />
-                    <span>{user.name}</span>
+                    <Avatar name={user.name} status={user.status} showStatus={true} />
+                    <Link to={`/users/${user.id}`} className={css.userNameLink}>
+                      {user.name}
+                    </Link>
                   </div>
                 </td>
                 <td className={css.tableCell}>{user.mainProject || "—"}</td>

@@ -1,0 +1,349 @@
+.timeTrackerWrapper {
+    display: flex;
+    align-items: flex-start;
+}
+
+.timeTrackerWrapper .verticalDivider {
+    margin: 0 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.calendarSection {
+    flex: 1;
+}
+
+.timeTrackerSection {
+    flex: 1;
+}
+
+.timeTrackerContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.timeTrackerTitle {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.55556;
+    color: #f5f6fa;
+    margin: 0 0 30px 0;
+}
+
+.periodSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.periodLabel {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.periodInputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.periodInputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.periodInput {
+    border-radius: 8px;
+    width: 115px;
+    height: 32px;
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #aeb8c2;
+    padding: 6px 8px;
+    padding-right: 28px;
+    background: #2a2c32;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.periodInput::placeholder {
+    color: #aeb8c2;
+}
+
+.periodInputActive {
+    border: 1px solid #4252ea;
+    background: #32343a;
+}
+
+.calendarIconButton {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.calendarIcon {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.periodDivider {
+    width: 10px;
+    height: 1px;
+    background: #8b97a3;
+    flex-shrink: 0;
+}
+
+.projectsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.projectsLabel {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.projectsInputRow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.projectsInputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.projectsInput {
+    border-radius: 8px;
+    width: 208px;
+    height: 32px;
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #aeb8c2;
+    padding: 6px 8px;
+    padding-right: 32px;
+    background: #2a2c32;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.projectsInput::placeholder {
+    color: #aeb8c2;
+}
+
+.gridIconButton {
+    position: absolute;
+    right: 8px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    width: 14px;
+    height: 14px;
+}
+
+.resultsSection {
+    flex: 1;
+}
+
+.resultsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.resultsTitle {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.55556;
+    color: #f5f6fa;
+    margin: 0 0 30px 0;
+}
+
+.resultsPlaceholder {
+    width: 270px;
+    height: 50px;
+    background: #2b2c32;
+    border-radius: 10px;
+    padding: 15px 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Cera Pro", sans-serif;
+}
+
+.resultsPlaceholderText {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #8b97a3;
+}
+
+.resultsContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.resultsTotal {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.resultsProjectsList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.resultsProjectItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    width: 270px;
+    height: 50px;
+    background: #2b2c32;
+    padding: 15px 20px;
+}
+
+.resultsProjectName {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.resultsProjectHours {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: right;
+    color: #8b97a3;
+}
+
+.resultsDateItemContent {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.resultsProjectNames {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #8b97a3;
+}
+
+.downloadButton {
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.2s ease;
+}
+
+.downloadButton:hover {
+    opacity: 0.7;
+}
+
+.resultsList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.resultCard {
+    background: #2a2c32;
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.resultCardLabel {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.resultCardValue {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.userFreeHoursSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.userFreeHoursLabel {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.userFreeHoursValue {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #aeb8c2;
+}

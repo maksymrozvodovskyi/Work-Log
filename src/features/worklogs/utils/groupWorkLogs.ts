@@ -1,0 +1,88 @@
+import type { WorkLogsByTimeResponseType } from "@/types/WorkLog";
+
+export type DateGroupedWorkLogType = {
+  date: string;
+  totalHours: number;
+  projects: string[];
+};
+
+export type ProjectGroupedWorkLogType = {
+  projectId: string;
+  projectName: string;
+  totalHours: number;
+};
+
+export const groupWorkLogsByDate = (
+  data: WorkLogsByTimeResponseType | undefined
+): DateGroupedWorkLogType[] => {
+  if (!data || !data.projects) {
+    return [];
+  }
+
+  const dateMap = new Map<string, { totalHours: number; projects: Set<string> }>();
+
+  data.projects.forEach((projectItem) => {
+    projectItem.logs.forEach((log) => {
+      const dateKey = log.date.split('T')[0];
+      
+      if (!dateMap.has(dateKey)) {
+        dateMap.set(dateKey, { totalHours: 0, projects: new Set() });
+      }
+
+      const dateEntry = dateMap.get(dateKey)!;
+      dateEntry.totalHours += log.hours;
+      dateEntry.projects.add(log.project.name);
+    });
+  });
+
+  const result: DateGroupedWorkLogType[] = Array.from(dateMap.entries())
+    .map(([date, { totalHours, projects }]) => ({
+      date,
+      totalHours,
+      projects: Array.from(projects).sort(),
+    }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  return result;
+};
+
+export const groupWorkLogsByProject = (
+  data: WorkLogsByTimeResponseType | undefined,
+  selectedProjectIds: Set<string> | undefined
+): ProjectGroupedWorkLogType[] => {
+  if (!data || !data.projects) {
+    return [];
+  }
+
+  const projectMap = new Map<string, { projectName: string; totalHours: number }>();
+
+  data.projects.forEach((projectItem) => {
+    const projectId = projectItem.project.id;
+    const projectName = projectItem.project.name;
+
+    if (selectedProjectIds && selectedProjectIds.size > 0) {
+      if (!selectedProjectIds.has(projectId)) {
+        return;
+      }
+    }
+    if (!projectMap.has(projectId)) {
+      projectMap.set(projectId, { projectName, totalHours: 0 });
+    }
+
+    const projectEntry = projectMap.get(projectId)!;
+    projectItem.logs.forEach((log) => {
+      projectEntry.totalHours += log.hours;
+    });
+  });
+
+  const result: ProjectGroupedWorkLogType[] = Array.from(projectMap.entries())
+    .map(([projectId, { projectName, totalHours }]) => ({
+      projectId,
+      projectName,
+      totalHours,
+    }))
+    .sort((a, b) => a.projectName.localeCompare(b.projectName));
+
+  return result;
+};
+

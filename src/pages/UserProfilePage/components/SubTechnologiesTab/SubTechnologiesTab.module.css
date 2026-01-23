@@ -1,0 +1,64 @@
+.container {
+    background: #1e1f24;
+    min-height: 100%;
+    padding: 0;
+}
+
+.loaderWrapper,
+.errorWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    min-height: 400px;
+}
+
+.errorText {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.skillsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0;
+}
+
+.skillTag {
+    border-radius: 10px;
+    width: 275px;
+    height: 50px;
+    background: #2b2c32;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 16px;
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    color: #57d58e;
+}
+
+.emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 10px;
+    width: 360px;
+    height: 50px;
+    background: #2b2c32;
+    padding: 0 16px;
+}
+
+.emptyText {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #aeb8c2;
+}

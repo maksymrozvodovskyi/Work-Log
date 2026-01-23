@@ -1,0 +1,173 @@
+.container {
+    background: #1e1f24;
+    min-height: 100%;
+    padding: 0;
+}
+
+.loaderWrapper,
+.errorWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    min-height: 400px;
+}
+
+.errorText {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.headerButtons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sortButtonWrapper {
+    position: relative;
+}
+
+.sortButton,
+.inviteButton {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #f5f6fa;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.sortButton {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.arrowIcon {
+    width: 7px;
+    height: 12px;
+    transition: transform 0.2s ease;
+    transform-origin: center;
+    transform: rotate(-90deg);
+}
+
+.arrowIconOpen {
+    transform: rotate(90deg);
+}
+
+.sortDropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 180px;
+    background: #383d44;
+    border-radius: 8px;
+    padding: 4px;
+    z-index: 1000;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdownItem {
+    height: 40px;
+    padding: 0 12px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #f5f6fa;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.dropdownItem:hover {
+    background: #555a67;
+}
+
+.dropdownItem:focus {
+    outline: 2px solid #aeb8c2;
+    outline-offset: -2px;
+}
+
+.inviteButton {
+    background: #4252ea;
+    border-radius: 8px;
+}
+
+.projectsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0;
+}
+
+.projectCard {
+    border-radius: 10px;
+    width: 275px;
+    background: #2b2c32;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 15px 20px;
+}
+
+.projectContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.projectName {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    color: #f5f6fa;
+}
+
+.projectDate {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    min-height: 400px;
+}
+
+.emptyText {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}

@@ -7,27 +7,26 @@ import type { UserRangeType, UserStatusType } from "@/types/User";
 import type { UserRoleType } from "@/types/Project";
 import { userStatusMap } from "@/types/UserStatusMap";
 import { USER_STATUS_ORDER } from "@/types/UserStatusOrder";
-import { USER_QUERY_KEYS } from "@/lib/queryKeys";
+import { USER_QUERY_KEYS } from "@/features/range/queryKeys";
 import { useKeyboard } from "@/hooks/useKeyboard";
-import ArrowIcon from "@/features/projects/svg/ArrowIcon";
 import { getButtonText } from "@/utils/modal";
 import css from "./UserModal.module.css";
 
-interface UserModalProps {
+type UserModalPropsType = {
   isOpen: boolean;
   onClose: () => void;
   user?: UserRangeType | null;
-}
+};
 
-interface FormData {
+type UserModalFormDataType = {
   name: string;
   email: string;
   password: string;
   status: UserStatusType;
   userType: UserRoleType;
-}
+};
 
-const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
+const UserModal = ({ isOpen, onClose, user = null }: UserModalPropsType) => {
   const isEditing = !!user;
   const idPrefix = isEditing ? "edit-" : "";
 
@@ -39,7 +38,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
     reset,
     setError,
     clearErrors,
-  } = useForm<FormData>({
+  } = useForm<UserModalFormDataType>({
     mode: "onChange",
   });
 
@@ -67,7 +66,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
     onClose();
   }, [onClose, reset, clearErrors]);
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: UserModalFormDataType) => {
     clearErrors("root");
 
     try {
@@ -122,15 +121,22 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalProps) => {
             onClick={handleClose}
             aria-label="Close modal"
           >
-            <ArrowIcon
-              fill="#F5F6FA"
+            <svg
+              width="7"
+              height="12"
+              viewBox="0 0 7 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
               style={{
-                width: "7px",
-                height: "12px",
-                transform: "rotate(-90deg)",
+                transform: "scaleX(-1)",
                 transformOrigin: "center",
               }}
-            />
+            >
+              <path
+                d="M6.75432 0.225549C6.60538 0.081141 6.40326 0 6.19251 0C5.98175 0 5.77964 0.081141 5.63069 0.225549L0.232895 5.44925C0.0837837 5.59349 0 5.78923 0 5.99334C0 6.19745 0.0837837 6.39319 0.232895 6.53744L5.63069 11.7611C5.82962 11.9636 6.12627 12.0455 6.40555 11.9753C6.68482 11.905 6.90277 11.6936 6.97482 11.423C7.04688 11.1524 6.9617 10.8652 6.75234 10.6729L1.91636 5.99334L6.75234 1.31374C6.90171 1.16975 6.98585 0.974153 6.98623 0.770043C6.9866 0.565932 6.90317 0.370051 6.75432 0.225549Z"
+                fill="#F5F6FA"
+              />
+            </svg>
           </button>
         </div>
 

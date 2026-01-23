@@ -3,16 +3,16 @@ import clsx from "clsx";
 import EyeIcon from "../EyeIcon";
 import css from "./Input.module.css";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+type InputPropsType = InputHTMLAttributes<HTMLInputElement> & {
   error?: boolean;
-}
+};
 
 export default function Input({
   error,
   className,
   type,
   ...props
-}: InputProps) {
+}: InputPropsType) {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
 

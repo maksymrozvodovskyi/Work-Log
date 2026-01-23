@@ -2,7 +2,7 @@ import clsx from "clsx";
 import type { UserRangeType } from "@/types/User";
 import css from "@/features/range/index.module.css";
 
-type Statistics = {
+type StatisticsType = {
   all: number;
   red: number;
   yellow: number;
@@ -11,13 +11,13 @@ type Statistics = {
   archived: number;
 };
 
-interface StatisticItem {
-  key: keyof Statistics;
+type StatisticItemType = {
+  key: keyof StatisticsType;
   label: string;
   isMain?: boolean;
-}
+};
 
-const statisticsConfig: StatisticItem[] = [
+const statisticsConfig: StatisticItemType[] = [
   { key: "all", label: "All users", isMain: true },
   { key: "red", label: "Red" },
   { key: "yellow", label: "Yellow" },
@@ -26,19 +26,19 @@ const statisticsConfig: StatisticItem[] = [
   { key: "archived", label: "Archived" },
 ];
 
-interface UserStatisticsProps {
+type UserStatisticsPropsType = {
   users: UserRangeType[];
   totalUsers: number;
-}
+};
 
-const UserStatistics = ({ users, totalUsers }: UserStatisticsProps) => {
+const UserStatistics = ({ users, totalUsers }: UserStatisticsPropsType) => {
   const redUsers = users.filter((u) => u.status === "RED").length;
   const yellowUsers = users.filter((u) => u.status === "YELLOW").length;
   const greenUsers = users.filter((u) => u.status === "GREEN").length;
   const cleanUsers = users.filter((u) => u.status === "CLEAN").length;
   const archivedUsers = users.filter((u) => u.status === "ARCHIVED").length;
 
-  const statistics: Statistics = {
+  const statistics: StatisticsType = {
     all: totalUsers,
     red: redUsers,
     yellow: yellowUsers,

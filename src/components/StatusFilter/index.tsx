@@ -1,8 +1,8 @@
 import css from "./StatusFilter.module.css";
 import type { StatusInfoType } from "@/types/StatusInfo";
-import CheckmarkIcon from "@/features/projects/svg/CheckmarkIcon";
+import CheckmarkIcon from "@/components/svg/CheckmarkIcon";
 
-type StatusFilterProps<T extends string> = {
+type StatusFilterPropsType<T extends string> = {
   statusOrder: T[];
   statusMap: Record<T, StatusInfoType>;
   selectedStatus?: T | null;
@@ -16,7 +16,7 @@ const StatusFilter = <T extends string>({
   selectedStatus,
   onStatusChange,
   entityType = "items",
-}: StatusFilterProps<T>) => {
+}: StatusFilterPropsType<T>) => {
   const handleStatusClick = (status: T) => {
     if (selectedStatus === status) {
       onStatusChange(null);

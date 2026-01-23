@@ -1,0 +1,177 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: #1e1f24;
+}
+
+.loaderWrapper,
+.errorWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 40px;
+}
+
+.errorText {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 30px;
+    background: #1e1f24;
+}
+
+.headerDivider {
+    width: 100%;
+    height: 1px;
+    margin: 0 0 25px 0;
+    border: 1px dashed #494c55;
+}
+
+.contentContainer {
+    padding: 30px 30px 0 30px;
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.userDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-self: flex-start;
+    margin-top: 2px;
+}
+
+.userName {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #f5f6fa;
+}
+
+.userRole {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.menuButtonWrapper {
+    position: relative;
+}
+
+.menuButton {
+    width: 32px;
+    height: 32px;
+    border: 1px dashed #aeb8c2;
+    border-radius: 4px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menuButton:hover {
+    border-color: #8b97a3;
+    background: #32343a;
+}
+
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.notificationButton {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.notificationDot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    background: #fc7141;
+    border-radius: 50%;
+    border: 2px solid #1e1f24;
+}
+
+.profileButton {
+    width: 36px;
+    height: 36px;
+    border: 0.6px solid #aeb8c2;
+    border-radius: 50%;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 30px;
+    background: #1e1f24;
+    overflow-x: auto;
+}
+
+.navLink {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #aeb8c2;
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: #2a2c32;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
+
+.navLink:hover {
+    background: #32343a;
+}
+
+.navLinkActive {
+    background: #fc7141;
+    color: #f5f6fa;
+}
+
+.content {
+    flex: 1;
+    overflow-y: auto;
+}

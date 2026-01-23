@@ -51,3 +51,15 @@ export const updateProject = async (
 
   return data;
 };
+
+export const addUserToProject = async (
+  projectId: string,
+  userId: string
+): Promise<ProjectType> => {
+  const { data } = await axiosInstance.post<ProjectType>(
+    `/projects/${projectId}/users`,
+    { userId }
+  );
+
+  return data;
+};

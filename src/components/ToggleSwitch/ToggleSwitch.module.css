@@ -1,0 +1,47 @@
+.toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+    background: #494c55;
+    border: none;
+    padding: 2px;
+    transition: background-color 0.2s ease;
+    outline: none;
+}
+
+.toggle:hover:not(:disabled) {
+    background: #525560;
+}
+
+.toggle:focus-visible {
+    outline: 2px solid #aeb8c2;
+    outline-offset: 2px;
+}
+
+.toggleChecked {
+    background: #4252ea;
+}
+
+.toggleChecked:hover:not(:disabled) {
+    background: #5258f0;
+}
+
+.toggleDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.toggleThumb {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #f5f6fa;
+    transition: transform 0.2s ease;
+    transform: translateX(0);
+}
+
+.toggleThumbChecked {
+    transform: translateX(20px);
+}

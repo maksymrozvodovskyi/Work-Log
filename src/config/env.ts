@@ -1,6 +1,6 @@
-interface EnvConfig {
+type EnvConfigType = {
   apiUrl: string;
-}
+};
 
 export const getEnvVar = (key: string): string => {
   const value = import.meta.env[key];
@@ -14,6 +14,6 @@ export const getEnvVar = (key: string): string => {
   return value;
 };
 
-export const config: EnvConfig = {
+export const config: EnvConfigType = {
   apiUrl: getEnvVar("VITE_API_URL"),
 };

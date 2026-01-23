@@ -1,8 +1,8 @@
-interface EyeIconProps {
+type EyeIconPropsType = {
   isOpen: boolean;
-}
+};
 
-export default function EyeIcon({ isOpen }: EyeIconProps) {
+export default function EyeIcon({ isOpen }: EyeIconPropsType) {
   if (isOpen) {
     return (
       <svg

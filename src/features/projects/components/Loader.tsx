@@ -2,12 +2,12 @@ import React from "react";
 import clsx from "clsx";
 import css from "@/features/projects/index.module.css";
 
-interface LoaderProps {
+type LoaderPropsType = {
   size?: "small" | "medium" | "large";
   className?: string;
-}
+};
 
-const Loader: React.FC<LoaderProps> = ({ size = "medium", className = "" }) => {
+const Loader: React.FC<LoaderPropsType> = ({ size = "medium", className = "" }) => {
   const sizeClasses = {
     small: css.loaderSmall,
     medium: css.loaderMedium,

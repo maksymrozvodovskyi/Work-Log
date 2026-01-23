@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useQueryStates, parseAsString, parseAsInteger } from "nuqs";
 import clsx from "clsx";
 import { getProjects } from "@/api/projects";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useProjectSorting } from "@/hooks/useProjectSorting";
 import { PROJECT_QUERY_KEYS } from "@/features/projects/queryKeys";
 import type {
   SortFieldType,
@@ -14,53 +16,33 @@ import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatu
 import { statusMap } from "@/types/StatusMap";
 import { parsers } from "@/utils/parsers";
 import { createSearchHandler, createStatusHandler } from "@/utils/filters";
-import { SORT_FIELDS, DEFAULT_SORT_FIELD } from "@/constants/sort";
 import css from "@/features/projects/index.module.css";
 import ProjectTable from "@/features/projects/components/ProjectTable";
-import SearchInput from "@/features/projects/components/SearchInput";
+import SearchInput from "@/components/SearchInput";
 import StatusFilter from "@/components/StatusFilter";
-import Pagination from "@/features/projects/components/Pagination";
-import Loader from "@/features/projects/components/Loader";
+import FilterButton from "@/components/FilterButton";
+import Pagination from "@/components/Pagination";
+import Loader from "@/components/Loader";
 import ProjectModal from "@/features/projects/components/ProjectModal";
-import PlusIcon from "@/features/projects/svg/PlusIcon";
+import PlusIcon from "@/components/svg/PlusIcon";
 import { PROJECTS_PER_PAGE } from "@/features/projects/constants/pagination";
 
-type StatisticItem = {
-  value: number | ((totalProjects: number) => number);
+type StatisticItemType = {
+  value: number;
   label: string;
   isMain?: boolean;
 };
 
-const parseAsSortField = parsers.sortField<SortFieldType>(
-  [...SORT_FIELDS],
-  DEFAULT_SORT_FIELD
-);
-
-const parseAsSortDirection = parsers.sortDirection();
-
 const parseAsProjectStatus =
   parsers.status<ProjectStatusType>(PROJECT_STATUS_ORDER);
 
-const statisticsConfig: StatisticItem[] = [
-  {
-    value: (totalProjects) => totalProjects,
-    label: "All projects",
-    isMain: true,
-  },
-  { value: 100, label: "Time & material" },
-  { value: 56, label: "Fixed time" },
-  { value: 5, label: "Archived" },
-];
-
 const ProjectsPage = () => {
-  const [{ search, sortField, sortDirection, page, status }, setFilters] =
-    useQueryStates({
-      search: parseAsString.withDefault(""),
-      sortField: parseAsSortField.withDefault("name"),
-      sortDirection: parseAsSortDirection.withDefault("asc"),
-      page: parseAsInteger.withDefault(1),
-      status: parseAsProjectStatus,
-    });
+  const { sortField, sortDirection, handleSortChange, setSortFilters } = useProjectSorting();
+  const [{ search, page, status }, setFilters] = useQueryStates({
+    search: parseAsString.withDefault(""),
+    page: parseAsInteger.withDefault(1),
+    status: parseAsProjectStatus,
+  });
 
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(
     null
@@ -71,6 +53,11 @@ const ProjectsPage = () => {
 
   const handleSearchChange = createSearchHandler(setFilters);
   const handleStatusChange = createStatusHandler<ProjectStatusType>(setFilters);
+
+  const { data: allProjectsData } = useQuery({
+    queryKey: [PROJECT_QUERY_KEYS.projects, "all"],
+    queryFn: () => getProjects(),
+  });
 
   const {
     data: paginatedProjects,
@@ -101,19 +88,21 @@ const ProjectsPage = () => {
   const totalProjects = paginatedProjects?.total ?? 0;
   const totalPages = Math.ceil(totalProjects / PROJECTS_PER_PAGE);
 
+  const statisticsConfig: StatisticItemType[] = useMemo(() => {
+    const allProjects = allProjectsData?.data ?? [];
+
+    return [
+      { value: totalProjects, label: "All projects", isMain: true },
+      ...PROJECT_STATUS_ORDER.map((status) => ({
+        value: allProjects.filter((p) => p.status === status).length,
+        label: statusMap[status].label,
+      })),
+    ];
+  }, [allProjectsData, totalProjects]);
+
   const handleSort = (field: SortFieldType) => {
-    if (sortField === field) {
-      setFilters({
-        sortDirection: sortDirection === "asc" ? "desc" : "asc",
-        page: 1,
-      });
-    } else {
-      setFilters({
-        sortField: field,
-        sortDirection: "asc",
-        page: 1,
-      });
-    }
+    handleSortChange(field);
+    setFilters({ page: 1 });
   };
 
   const handlePageChange = (newPage: number) => {
@@ -131,11 +120,15 @@ const ProjectsPage = () => {
   };
 
   const handleClearFilters = () => {
+    if (sortDirection !== "asc" || sortField !== "name") {
+      setSortFilters({
+        sortField: "name",
+        sortDirection: "asc",
+      });
+    }
     setFilters({
       search: "",
       status: null,
-      sortField: "name",
-      sortDirection: "asc",
       page: 1,
     });
   };
@@ -145,7 +138,7 @@ const ProjectsPage = () => {
       <header className={css.header}>
         <div className={css.headerLeft}>
           <div className={css.buttonsWrapper}>
-            <h1 className={css.link}>Projects</h1>
+            <Link to="/projects" className={css.link}>Projects</Link>
             <nav className={css.navButtons}>
               <button className={css.tableButton}>Table</button>
             </nav>
@@ -153,10 +146,6 @@ const ProjectsPage = () => {
 
           <ul className={css.list}>
             {statisticsConfig.map((item, index) => {
-              const value =
-                typeof item.value === "function"
-                  ? item.value(totalProjects)
-                  : item.value;
               return (
                 <li key={index} className={css.item}>
                   <span
@@ -165,7 +154,7 @@ const ProjectsPage = () => {
                       !item.isMain && css.headerNumbers
                     )}
                   >
-                    {value}
+                    {item.value}
                   </span>
                   <span
                     className={clsx(
@@ -204,14 +193,10 @@ const ProjectsPage = () => {
 
         <div className={css.filterButtonsWrapper}>
           <div className={css.filterControls}>
-            <button
-              type="button"
-              aria-label="Clear all filters"
-              className={css.filterButton}
+            <FilterButton
+              ariaLabel="Clear all filters"
               onClick={handleClearFilters}
-            >
-              <img src="/filter.svg" alt="" width="16" height="18" />
-            </button>
+            />
 
             <StatusFilter
               statusOrder={PROJECT_STATUS_ORDER}

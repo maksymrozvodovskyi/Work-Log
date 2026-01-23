@@ -1,0 +1,45 @@
+.periodInputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.periodInput {
+    border-radius: 8px;
+    width: 115px;
+    height: 32px;
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #aeb8c2;
+    padding: 6px 8px;
+    padding-right: 28px;
+    background: #2a2c32;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.periodInput::placeholder {
+    color: #aeb8c2;
+}
+
+.periodInputActive {
+    border: 1px solid #4252ea;
+    background: #32343a;
+}
+
+.calendarIconButton {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
