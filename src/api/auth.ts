@@ -1,19 +1,19 @@
 import axiosInstance from "@/lib/apiClient";
 import type {
-  LoginRequest,
-  LoginResponse,
-  ForgotPasswordRequest,
-  ForgotPasswordResponse,
-  VerifyResetCodeRequest,
-  VerifyResetCodeResponse,
-  ResetPasswordRequest,
-  ResetPasswordResponse,
+  LoginRequestType,
+  LoginResponseType,
+  ForgotPasswordRequestType,
+  ForgotPasswordResponseType,
+  VerifyResetCodeRequestType,
+  VerifyResetCodeResponseType,
+  ResetPasswordRequestType,
+  ResetPasswordResponseType,
 } from "@/types/Auth";
 
 export const login = async (
-  credentials: LoginRequest
-): Promise<LoginResponse> => {
-  const { data } = await axiosInstance.post<LoginResponse>(
+  credentials: LoginRequestType
+): Promise<LoginResponseType> => {
+  const { data } = await axiosInstance.post<LoginResponseType>(
     "/auth/login",
     credentials
   );
@@ -22,9 +22,9 @@ export const login = async (
 };
 
 export const forgotPassword = async (
-  request: ForgotPasswordRequest
-): Promise<ForgotPasswordResponse> => {
-  const { data } = await axiosInstance.post<ForgotPasswordResponse>(
+  request: ForgotPasswordRequestType
+): Promise<ForgotPasswordResponseType> => {
+  const { data } = await axiosInstance.post<ForgotPasswordResponseType>(
     "/auth/forgot-password",
     request
   );
@@ -33,9 +33,9 @@ export const forgotPassword = async (
 };
 
 export const verifyResetCode = async (
-  request: VerifyResetCodeRequest
-): Promise<VerifyResetCodeResponse> => {
-  const { data } = await axiosInstance.post<VerifyResetCodeResponse>(
+  request: VerifyResetCodeRequestType
+): Promise<VerifyResetCodeResponseType> => {
+  const { data } = await axiosInstance.post<VerifyResetCodeResponseType>(
     "/auth/verify-reset-code",
     request
   );
@@ -46,10 +46,10 @@ export const verifyResetCode = async (
 export const resetPassword = async (
   newPassword: string,
   resetToken: string
-): Promise<ResetPasswordResponse> => {
-  const { data } = await axiosInstance.post<ResetPasswordResponse>(
+): Promise<ResetPasswordResponseType> => {
+  const { data } = await axiosInstance.post<ResetPasswordResponseType>(
     "/auth/reset-password",
-    { newPassword } as ResetPasswordRequest,
+    { newPassword } as ResetPasswordRequestType,
     {
       headers: {
         Authorization: `Bearer ${resetToken}`,
