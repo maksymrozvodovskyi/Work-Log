@@ -3,21 +3,6 @@
     align-items: flex-start;
 }
 
-.timeTrackerWrapper .verticalDivider {
-    margin: 0 40px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-}
-
-.calendarSection {
-    flex: 1;
-}
-
-.timeTrackerSection {
-    flex: 1;
-}
-
 .timeTrackerContent {
     display: flex;
     flex-direction: column;
@@ -174,15 +159,18 @@
     height: 14px;
 }
 
-.resultsSection {
-    flex: 1;
-}
-
 .resultsHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+}
+
+.resultsSection {
+    border-left: 1px dashed #494c55;
+    margin-left: 40px;
+    padding-left: 40px;
+    height: 480px;
 }
 
 .resultsTitle {

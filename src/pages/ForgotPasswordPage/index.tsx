@@ -7,7 +7,7 @@ import Input from "@/components/Auth/Input";
 import Button from "@/components/Auth/Button";
 import {
   forgotPasswordSchema,
-  type ForgotPasswordFormData,
+  type ForgotPasswordFormDataType,
 } from "@/features/forgot-password/validation/forgotPasswordSchema";
 import { forgotPassword } from "@/api/auth";
 import { handleAxiosError } from "@/utils/axiosError";
@@ -22,7 +22,7 @@ export default function ForgotPasswordPage() {
     formState: { errors, isSubmitting },
     setError,
     clearErrors,
-  } = useForm<ForgotPasswordFormData>({
+  } = useForm<ForgotPasswordFormDataType>({
     resolver: zodResolver(forgotPasswordSchema),
     mode: "onChange",
   });
@@ -31,7 +31,7 @@ export default function ForgotPasswordPage() {
     navigate("/login");
   };
 
-  const onSubmit = async (data: ForgotPasswordFormData) => {
+  const onSubmit = async (data: ForgotPasswordFormDataType) => {
     clearErrors("root");
 
     try {

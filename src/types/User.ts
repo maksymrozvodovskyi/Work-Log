@@ -25,6 +25,7 @@ export type GetUsersParamsType = {
   skip?: number;
   take?: number;
   sortOrder?: "asc" | "desc";
+  sortField?: UserSortFieldType;
 };
 
 export type PaginatedResponseType<T> = {

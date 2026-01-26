@@ -4,7 +4,7 @@
     flex-direction: column;
     padding: 0 10px;
     overflow-y: auto;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .verticalDivider {
@@ -12,4 +12,7 @@
     flex-shrink: 0;
     display: flex;
     align-items: center;
+    border: 1px dashed #494c55;
+    height: 480px;
+    width: 0;
 }

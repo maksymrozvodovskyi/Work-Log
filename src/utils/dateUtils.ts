@@ -15,7 +15,7 @@ export const formatDateForApi = (date: Date | null): string | null => {
   return format(date, 'yyyy-MM-dd');
 };
 
-export type VacationPeriod = {
+export type VacationPeriodType = {
   startDate: Date;
   endDate: Date;
   days: number;
@@ -23,15 +23,15 @@ export type VacationPeriod = {
   type: "VACATION" | "SICKLEAVE";
 };
 
-export const groupConsecutiveDates = (workLogs: Array<{ date: string; activity: string }>): VacationPeriod[] => {
+export const groupConsecutiveDates = (workLogs: Array<{ date: string; activity: string }>): VacationPeriodType[] => {
   if (workLogs.length === 0) return [];
 
   const sorted = [...workLogs].sort((a, b) => 
     new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  const periods: VacationPeriod[] = [];
-  let currentPeriod: VacationPeriod | null = null;
+  const periods: VacationPeriodType[] = [];
+  let currentPeriod: VacationPeriodType | null = null;
 
   for (const log of sorted) {
     const logDate = parseISO(log.date);

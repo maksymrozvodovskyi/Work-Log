@@ -7,7 +7,7 @@ import Input from "@/components/Auth/Input";
 import Button from "@/components/Auth/Button";
 import {
   resetPasswordSchema,
-  type ResetPasswordFormData,
+  type ResetPasswordFormDataType,
 } from "@/features/forgot-password/validation/forgotPasswordSchema";
 import { resetPassword } from "@/api/auth";
 import { handleAxiosError } from "@/utils/axiosError";
@@ -24,7 +24,7 @@ export default function ResetPasswordPage() {
     formState: { errors, isSubmitting },
     setError,
     clearErrors,
-  } = useForm<ResetPasswordFormData>({
+  } = useForm<ResetPasswordFormDataType>({
     resolver: zodResolver(resetPasswordSchema),
     mode: "onChange",
   });
@@ -37,7 +37,7 @@ export default function ResetPasswordPage() {
     navigate("/forgot-password");
   };
 
-  const onSubmit = async (data: ResetPasswordFormData) => {
+  const onSubmit = async (data: ResetPasswordFormDataType) => {
     clearErrors("root");
 
     try {

@@ -6,7 +6,7 @@ import Input from "@/components/Auth/Input";
 import Button from "@/components/Auth/Button";
 import {
   loginSchema,
-  type LoginFormData,
+  type LoginFormDataType,
 } from "@/features/login/validation/loginSchema";
 import { login } from "@/api/auth";
 import { useAuthStore } from "@/stores/authStore";
@@ -23,7 +23,7 @@ export default function LoginPage() {
     formState: { errors, isSubmitting },
     setError,
     clearErrors,
-  } = useForm<LoginFormData>({
+  } = useForm<LoginFormDataType>({
     resolver: zodResolver(loginSchema),
     mode: "onChange",
   });
@@ -32,7 +32,7 @@ export default function LoginPage() {
     navigate("/forgot-password");
   };
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (data: LoginFormDataType) => {
     clearErrors("root");
 
     try {

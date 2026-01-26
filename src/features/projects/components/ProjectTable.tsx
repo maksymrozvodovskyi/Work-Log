@@ -9,15 +9,23 @@ import css from "@/features/projects/index.module.css";
 import SortArrows from "@/components/SortArrows";
 import StatusCircle from "@/components/svg/StatusCircle";
 
-const getStatusCircle = (status: ProjectStatusType) => {
-  const statusInfo = statusMap[status];
-  return statusInfo ? <StatusCircle color={statusInfo.color} /> : null;
-};
-
 type TableHeaderType = {
   label: string;
   field?: SortFieldType;
   sortable?: boolean;
+};
+
+type ProjectTablePropsType = {
+  projects: ProjectType[];
+  sortField: SortFieldType;
+  sortDirection: SortDirectionType;
+  onSort: (field: SortFieldType) => void;
+  onEdit: (project: ProjectType) => void;
+};
+
+const getStatusCircle = (status: ProjectStatusType) => {
+  const statusInfo = statusMap[status];
+  return statusInfo ? <StatusCircle color={statusInfo.color} /> : null;
 };
 
 const tableHeaders: TableHeaderType[] = [
@@ -28,14 +36,6 @@ const tableHeaders: TableHeaderType[] = [
   { label: "Created At", sortable: false },
   { label: "Actions", sortable: false },
 ];
-
-type ProjectTablePropsType = {
-  projects: ProjectType[];
-  sortField: SortFieldType;
-  sortDirection: SortDirectionType;
-  onSort: (field: SortFieldType) => void;
-  onEdit: (project: ProjectType) => void;
-};
 
 const ProjectTable = ({
   projects,
