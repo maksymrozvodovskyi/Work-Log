@@ -19,5 +19,5 @@ export const createUserSchema = z.object({
 
 export const editUserSchema = createUserSchema;
 
-export type CreateUserFormData = z.infer<typeof createUserSchema>;
-export type EditUserFormData = z.infer<typeof editUserSchema>;
+export type CreateUserFormDataType = z.infer<typeof createUserSchema>;
+export type EditUserFormDataType = z.infer<typeof editUserSchema>;

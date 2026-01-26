@@ -3,7 +3,6 @@ import { NuqsAdapter } from "nuqs/adapters/react-router";
 import MainLayout from "@/layout/MainLayout";
 import AuthLayout from "@/layout/AuthLayout";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import HomePage from "@/pages/HomePage";
 import RangePage from "@/pages/RangePage";
 import ReportsPage from "@/pages/ReportsPage";
 import ProjectsPage from "@/pages/ProjectsPage";
@@ -46,7 +45,7 @@ export default function App() {
               </ProtectedRoute>
             }
           >
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<RangePage />} />
             <Route path="/range" element={<RangePage />} />
             <Route path="/reports" element={<ReportsPage />} />
             <Route path="/projects" element={<ProjectsPage />} />

@@ -12,7 +12,7 @@ import Input from "@/components/Auth/Input";
 import Button from "@/components/Auth/Button";
 import {
   verifyCodeSchema,
-  type VerifyCodeFormData,
+  type VerifyCodeFormDataType,
 } from "@/features/forgot-password/validation/forgotPasswordSchema";
 import { verifyResetCode } from "@/api/auth";
 import { handleAxiosError } from "@/utils/axiosError";
@@ -29,7 +29,7 @@ export default function VerifyCodePage() {
     formState: { errors, isSubmitting },
     setError,
     clearErrors,
-  } = useForm<VerifyCodeFormData>({
+  } = useForm<VerifyCodeFormDataType>({
     resolver: zodResolver(verifyCodeSchema),
     mode: "onChange",
     defaultValues: {
@@ -45,7 +45,7 @@ export default function VerifyCodePage() {
     navigate("/forgot-password");
   };
 
-  const onSubmit = async (data: VerifyCodeFormData) => {
+  const onSubmit = async (data: VerifyCodeFormDataType) => {
     clearErrors("root");
 
     try {

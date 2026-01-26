@@ -8,7 +8,7 @@ const BackButton = () => {
     <button
       type="button"
       className={css.backButton}
-      onClick={() => navigate(-1)}
+      onClick={() => navigate("/range")}
       aria-label="Go back"
     >
       <svg

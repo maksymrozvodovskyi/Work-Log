@@ -6,13 +6,13 @@ type FormDataType = {
   selectedProjects: Record<string, boolean>;
 };
 
-type ProjectType = {
+type ProjectSelectionProjectType = {
   id: string;
   name: string;
 };
 
 type UseProjectSelectionPropsType = {
-  projects: ProjectType[];
+  projects: ProjectSelectionProjectType[];
   selectedProjects: Record<string, boolean>;
   setValue: UseFormSetValue<FormDataType>;
 };

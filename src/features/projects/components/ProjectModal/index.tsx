@@ -49,7 +49,7 @@ const ProjectModal = ({
     reset({
       projectName: project?.name || "",
       description: project?.description || "",
-      status: (project?.status || "PLANNED") as ProjectStatusType,
+      status: (project?.status) as ProjectStatusType,
     });
   }, [project, reset]);
 

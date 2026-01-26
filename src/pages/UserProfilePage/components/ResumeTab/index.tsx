@@ -4,7 +4,6 @@ import { getUserById } from "@/api/users";
 import { USER_QUERY_KEYS } from "@/features/range/queryKeys";
 import { formatDateOfBirth } from "@/utils/dateUtils";
 import Loader from "@/components/Loader";
-import VerticalDividerIcon from "@/components/svg/VerticalDividerIcon";
 import css from "./ResumeTab.module.css";
 
 const ResumeTab = () => {
@@ -93,13 +92,7 @@ const ResumeTab = () => {
         </div>
 
         <div className={css.dividerWrapper}>
-          <VerticalDividerIcon
-            height={770}
-            stroke="#494C55"
-            strokeWidth="1"
-            strokeDasharray="1 4"
-            className={css.divider}
-          />
+          <div className={css.divider} />
         </div>
 
         <div className={css.rightColumn}>

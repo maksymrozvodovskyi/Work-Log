@@ -9,15 +9,22 @@ export default function Sidebar() {
       <ul className={css.list}>
         {SidebarContent.map((item) => (
           <li key={item.path}>
-            <NavLink
-              to={item.path}
-              className={({ isActive }) =>
-                clsx(css.link, isActive && item.path !== "/" && css.active)
-              }
-              aria-label={item.label}
-            >
-              {({ isActive }) => item.icon(isActive)}
-            </NavLink>
+            {item.path === "/" && (
+              <div className={css.link} aria-label={item.label}>
+                {item.icon(false)}
+              </div>
+            )}
+            {item.path !== "/" && (
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  clsx(css.link, isActive && css.active)
+                }
+                aria-label={item.label}
+              >
+                {({ isActive }) => item.icon(isActive)}
+              </NavLink>
+            )}
           </li>
         ))}
       </ul>

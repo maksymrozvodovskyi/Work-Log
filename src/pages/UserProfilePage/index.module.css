@@ -83,16 +83,8 @@
     border-radius: 4px;
     background: transparent;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 0;
     cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.menuButton:hover {
-    border-color: #8b97a3;
-    background: #32343a;
 }
 
 .headerActions {

@@ -1,36 +1,32 @@
-export type ActivityType = string;
+export const ActivityTypeValues = {
+  CODING: "CODING",
+  REVIEW: "REVIEW",
+  STUDING: "STUDING",
+  SICKLEAVE: "SICKLEAVE",
+  VACATION: "VACATION",
+} as const;
+
+export type ActivityType = typeof ActivityTypeValues[keyof typeof ActivityTypeValues];
 
 export type WorkLogType = {
-  id: string;
-  userId: string;
-  projectId: string;
-  date: string; // ISO date string
+  date: string;
   hours: number;
-  activity: ActivityType;
+  activity: ActivityType | string;
   project: {
     id: string;
     name: string;
   };
 };
 
-export type WorkLogsByTimeResponseType = {
-  userId: string;
-  totalUserHours: number;
-  projects: Array<{
-    project: {
-      id: string;
-      name: string;
-    };
-    totalHours: number;
-    logs: WorkLogType[];
-  }>;
+export type ProjectWorkLogType = {
+  project: {
+    id: string;
+    name: string;
+  };
+  logs: WorkLogType[];
 };
 
-
-
-
-
-
-
-
+export type WorkLogsByTimeResponseType = {
+  projects: ProjectWorkLogType[];
+};
 

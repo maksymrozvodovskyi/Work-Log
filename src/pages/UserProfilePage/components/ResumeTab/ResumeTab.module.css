@@ -113,10 +113,9 @@
 }
 
 .divider {
-    stroke-width: 1px;
-    stroke: #494c55;
+    border: 1px dashed #494c55;
     height: 100%;
-    width: 1px;
+    width: 0;
 }
 
 .projectsList {

@@ -6,7 +6,7 @@ import { WORKLOG_QUERY_KEYS } from "@/features/worklogs/queryKeys";
 import {
   groupConsecutiveDates,
   getVacationStatus,
-  type VacationPeriod,
+  type VacationPeriodType,
 } from "@/utils/dateUtils";
 import Loader from "@/components/Loader";
 import VacationColumn from "./components/VacationColumn";
@@ -34,8 +34,8 @@ const VacationTab = () => {
     ? groupConsecutiveDates(workLogsData.projects.flatMap((p) => p.logs))
     : [];
 
-  const used: VacationPeriod[] = [];
-  const active: VacationPeriod[] = [];
+  const used: VacationPeriodType[] = [];
+  const active: VacationPeriodType[] = [];
 
   vacationPeriods.forEach((period) => {
     const status = getVacationStatus(period.startDate, period.endDate);

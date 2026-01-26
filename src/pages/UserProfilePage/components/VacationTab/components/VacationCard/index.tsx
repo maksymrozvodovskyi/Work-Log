@@ -1,10 +1,10 @@
-import type { VacationPeriod } from "@/utils/dateUtils";
+import type { VacationPeriodType } from "@/utils/dateUtils";
 import { formatDateRange } from "@/utils/dateUtils";
 import { VACATION_TYPE_MAP } from "../../constants";
 import css from "../../VacationTab.module.css";
 
 type VacationCardPropsType = {
-  period: VacationPeriod;
+  period: VacationPeriodType;
 };
 
 const VacationCard = ({ period }: VacationCardPropsType) => {

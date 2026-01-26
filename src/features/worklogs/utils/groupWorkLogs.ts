@@ -1,4 +1,5 @@
-import type { WorkLogsByTimeResponseType } from "@/types/WorkLog";
+import type { WorkLogsByTimeResponseType, ActivityType } from "@/types/WorkLog";
+import { ActivityTypeValues } from "@/types/WorkLog";
 
 export type DateGroupedWorkLogType = {
   date: string;
@@ -10,6 +11,13 @@ export type ProjectGroupedWorkLogType = {
   projectId: string;
   projectName: string;
   totalHours: number;
+};
+
+export type WorkLogByDateWithActivityType = {
+  date: string;
+  activities: Map<ActivityType | string, number>;
+  hasWorkHours: boolean;
+  primaryActivity: ActivityType | string | null;
 };
 
 export const groupWorkLogsByDate = (
@@ -71,6 +79,13 @@ export const groupWorkLogsByProject = (
 
     const projectEntry = projectMap.get(projectId)!;
     projectItem.logs.forEach((log) => {
+      if (
+        log.hours === 0 &&
+        (log.activity === ActivityTypeValues.VACATION ||
+          log.activity === ActivityTypeValues.SICKLEAVE)
+      ) {
+        return;
+      }
       projectEntry.totalHours += log.hours;
     });
   });
@@ -81,8 +96,62 @@ export const groupWorkLogsByProject = (
       projectName,
       totalHours,
     }))
+    .filter((item) => item.totalHours > 0)
     .sort((a, b) => a.projectName.localeCompare(b.projectName));
 
   return result;
+};
+
+export const getWorkLogsByDateWithActivity = (
+  data: WorkLogsByTimeResponseType | undefined
+): Map<string, WorkLogByDateWithActivityType> => {
+  const dateMap = new Map<string, WorkLogByDateWithActivityType>();
+
+  if (!data || !data.projects) {
+    return dateMap;
+  }
+
+  data.projects.forEach((projectItem) => {
+    projectItem.logs.forEach((log) => {
+      const dateKey = log.date.split('T')[0];
+      
+      if (!dateMap.has(dateKey)) {
+        dateMap.set(dateKey, {
+          date: dateKey,
+          activities: new Map(),
+          hasWorkHours: false,
+          primaryActivity: null,
+        });
+      }
+
+      const dateEntry = dateMap.get(dateKey)!;
+      const currentHours = dateEntry.activities.get(log.activity) || 0;
+      dateEntry.activities.set(log.activity, currentHours + log.hours);
+      
+      if (log.hours > 0) {
+        dateEntry.hasWorkHours = true;
+      }
+    });
+  });
+
+  dateMap.forEach((dateEntry) => {
+    if (!dateEntry.hasWorkHours) {
+      return;
+    }
+
+    let maxHours = 0;
+    let primaryActivity: ActivityType | string | null = null;
+
+    dateEntry.activities.forEach((hours, activity) => {
+      if (hours > 0 && hours > maxHours) {
+        maxHours = hours;
+        primaryActivity = activity;
+      }
+    });
+
+    dateEntry.primaryActivity = primaryActivity;
+  });
+
+  return dateMap;
 };
 

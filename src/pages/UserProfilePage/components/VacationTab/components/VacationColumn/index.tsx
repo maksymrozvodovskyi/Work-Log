@@ -1,10 +1,10 @@
-import type { VacationPeriod } from "@/utils/dateUtils";
+import type { VacationPeriodType } from "@/utils/dateUtils";
 import VacationCard from "../VacationCard";
 import css from "../../VacationTab.module.css";
 
 type VacationColumnPropsType = {
   title: string;
-  periods: VacationPeriod[];
+  periods: VacationPeriodType[];
   emptyMessage: string;
 };
 

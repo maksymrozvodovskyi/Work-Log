@@ -8,6 +8,15 @@ import type { PaginatedResponseType } from "@/types/Project";
 import type { ProjectStatusType } from "@/types/Project";
 import type { ApiUserType, ApiProjectType } from "@/utils/userTransformers";
 
+export type GetUserProjectsParamsType = {
+  search?: string;
+  status?: ProjectStatusType;
+  sortField?: "name" | "status";
+  sortDirection?: "asc" | "desc";
+  skip?: number;
+  take?: number;
+};
+
 export const getUsers = async (
   params?: GetUsersParamsType
 ): Promise<PaginatedResponseType<ApiUserType>> => {
@@ -30,6 +39,10 @@ export const getUsers = async (
 
   if (params?.project) {
     requestParams.project = params.project;
+  }
+
+  if (params?.sortField) {
+    requestParams.sortField = params.sortField;
   }
 
   if (params?.sortOrder) {
@@ -67,15 +80,6 @@ export const updateUser = async (
   const { data } = await axiosInstance.put<ApiUserType>(`/users/${id}`, params);
 
   return data;
-};
-
-export type GetUserProjectsParamsType = {
-  search?: string;
-  status?: ProjectStatusType;
-  sortField?: "name" | "status";
-  sortDirection?: "asc" | "desc";
-  skip?: number;
-  take?: number;
 };
 
 export const getUserProjects = async (

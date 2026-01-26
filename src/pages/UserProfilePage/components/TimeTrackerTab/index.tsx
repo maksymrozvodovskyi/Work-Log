@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { startOfMonth, endOfMonth, subDays, addDays } from "date-fns";
 
-import VerticalDividerIcon from "@/components/svg/VerticalDividerIcon";
 import SquaresIcon from "@/components/svg/SquaresIcon";
 import ProjectsSelectModal from "@/features/worklogs/components/ProjectsSelectModal";
 import { getWorkLogsByTime } from "@/api/worklogs";
 import Loader from "@/components/Loader";
+import FilterButton from "@/components/FilterButton";
 import { WORKLOG_QUERY_KEYS } from "@/features/worklogs/queryKeys";
-import { groupWorkLogsByProject } from "@/features/worklogs/utils/groupWorkLogs";
+import { groupWorkLogsByProject, getWorkLogsByDateWithActivity } from "@/features/worklogs/utils/groupWorkLogs";
 import { Calendar } from "@/features/worklogs/components/Calendar";
 import { useDateRange } from "@/hooks/useDateRange";
 import { useCalendar } from "@/hooks/useCalendar";
 import { useProjectsModal } from "@/hooks/useProjectsModal";
-import { formatDateDisplay } from "@/utils/dateUtils";
+import { formatDateDisplay, formatDateForApi } from "@/utils/dateUtils";
 import PeriodInput from "@/components/PeriodInput";
 
 import css from "./TimeTrackerTab.module.css";
@@ -31,6 +32,15 @@ const TimeTrackerTab = () => {
     defaultDisplayText: "No projects",
     getDisplayText: (count) => `Selected ${count}`,
   });
+
+  const calendarMonthStart = startOfMonth(calendar.currentDate);
+  const calendarMonthEnd = endOfMonth(calendar.currentDate);
+  
+  const firstVisibleDay = subDays(calendarMonthStart, 6);
+  const lastVisibleDay = addDays(calendarMonthEnd, 6);
+  
+  const calendarMonthStartString = formatDateForApi(firstVisibleDay);
+  const calendarMonthEndString = formatDateForApi(lastVisibleDay);
 
   const {
     data: workLogsData,
@@ -57,10 +67,36 @@ const TimeTrackerTab = () => {
       Boolean(dateRange.endDateString),
   });
 
+  const {
+    data: calendarWorkLogsData,
+  } = useQuery({
+    queryKey: [
+      WORKLOG_QUERY_KEYS.worklogs,
+      userId,
+      "calendar",
+      calendarMonthStartString,
+      calendarMonthEndString,
+      "asc",
+    ],
+    queryFn: () =>
+      getWorkLogsByTime(
+        userId!,
+        calendarMonthStartString!,
+        calendarMonthEndString!,
+        "asc"
+      ),
+    enabled:
+      Boolean(userId) &&
+      Boolean(calendarMonthStartString) &&
+      Boolean(calendarMonthEndString),
+  });
+
   const groupedWorkLogs = groupWorkLogsByProject(
     workLogsData,
     projectsModal.selectedProjectIds
   );
+
+  const workLogsByDate = getWorkLogsByDateWithActivity(calendarWorkLogsData);
 
   const isEmpty =
     !isLoading && !isError && groupedWorkLogs.length === 0;
@@ -92,11 +128,9 @@ const TimeTrackerTab = () => {
           onNextMonth={calendar.handleNextMonth}
           onToday={handleToday}
           onDayClick={handleDayClick}
+          workLogsByDate={workLogsByDate}
+          calendarWorkLogsData={calendarWorkLogsData}
         />
-
-        <div className={sharedCss.verticalDivider}>
-          <VerticalDividerIcon height={480} />
-        </div>
 
         <div className={css.timeTrackerSection}>
           <h3 className={css.timeTrackerTitle}>Time tracker</h3>
@@ -149,13 +183,10 @@ const TimeTrackerTab = () => {
                     <SquaresIcon />
                   </button>
                 </div>
+                <FilterButton ariaLabel="Filter projects" />
               </div>
             </div>
           </div>
-        </div>
-
-        <div className={sharedCss.verticalDivider}>
-          <VerticalDividerIcon height={480} />
         </div>
 
         <div className={css.resultsSection}>

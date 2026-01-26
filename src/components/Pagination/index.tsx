@@ -9,6 +9,12 @@ type PaginationPropsType = {
   onPageChange: (page: number) => void;
 };
 
+type ArrowButtonPropsType = {
+  direction: "prev" | "next";
+  disabled: boolean;
+  onClick: () => void;
+};
+
 const Pagination: React.FC<PaginationPropsType> = ({
   currentPage,
   totalPages,
@@ -84,12 +90,6 @@ const Pagination: React.FC<PaginationPropsType> = ({
       />
     </div>
   );
-};
-
-type ArrowButtonPropsType = {
-  direction: "prev" | "next";
-  disabled: boolean;
-  onClick: () => void;
 };
 
 function ArrowButton({ direction, disabled, onClick }: ArrowButtonPropsType) {

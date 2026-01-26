@@ -54,7 +54,7 @@ const RangePage = () => {
   ] = useQueryStates({
     search: parseAsString.withDefault(""),
     sortField: parseAsUserSortField.withDefault("name"),
-    sortDirection: parseAsSortDirection,
+    sortDirection: parseAsSortDirection.withDefault("asc"),
     page: parseAsInteger.withDefault(1),
     status: parseAsUserStatus,
     userType: parseAsUserType,
@@ -86,7 +86,8 @@ const RangePage = () => {
     queryFn: () =>
       getUsers({
         name: debouncedSearchTerm || undefined,
-        sortOrder: sortField === "name" ? sortDirection || "asc" : undefined,
+        sortField: sortField,
+        sortOrder: sortDirection,
         skip: (page - 1) * USERS_PER_PAGE,
         take: USERS_PER_PAGE,
         status: status || undefined,
@@ -98,6 +99,7 @@ const RangePage = () => {
         total: data.total,
       };
     },
+    placeholderData: (previousData) => previousData,
   });
 
   const users = paginatedUsers?.data ?? [];
@@ -136,7 +138,9 @@ const RangePage = () => {
   };
 
   return (
-    <div>
+    <div className={css.pageContainer}>
+      {isLoading && <Loader size="large" />}
+      
       <header className={css.header}>
         <div className={css.headerLeft}>
           <div className={css.buttonsWrapper}>
@@ -212,7 +216,6 @@ const RangePage = () => {
         </div>
       </section>
 
-      {isLoading && <Loader size="large" />}
       {isError && <div>{(error as Error).message}</div>}
 
       <UserTable

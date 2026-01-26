@@ -16,6 +16,6 @@ export const resetPasswordSchema = z.object({
   newPassword: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
-export type VerifyCodeFormData = z.infer<typeof verifyCodeSchema>;
-export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+export type ForgotPasswordFormDataType = z.infer<typeof forgotPasswordSchema>;
+export type VerifyCodeFormDataType = z.infer<typeof verifyCodeSchema>;
+export type ResetPasswordFormDataType = z.infer<typeof resetPasswordSchema>;

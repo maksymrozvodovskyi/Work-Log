@@ -82,6 +82,7 @@ const ProjectsPage = () => {
         take: PROJECTS_PER_PAGE,
         status: status || undefined,
       }),
+    placeholderData: (previousData) => previousData,
   });
 
   const projects = paginatedProjects?.data ?? [];
@@ -134,7 +135,9 @@ const ProjectsPage = () => {
   };
 
   return (
-    <div>
+    <div className={css.pageContainer}>
+      {isLoading && <Loader size="large" />}
+      
       <header className={css.header}>
         <div className={css.headerLeft}>
           <div className={css.buttonsWrapper}>
@@ -221,7 +224,6 @@ const ProjectsPage = () => {
         </div>
       </section>
 
-      {isLoading && <Loader size="large" />}
       {isError && <div>{(error as Error).message}</div>}
 
       <ProjectTable

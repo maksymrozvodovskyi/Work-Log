@@ -1,3 +1,7 @@
+.pageContainer {
+    position: relative;
+}
+
 .header {
     display: flex;
     padding: 0 30px;

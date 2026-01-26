@@ -25,12 +25,13 @@
 }
 
 .card {
-  background: #2a2c32;
-  border-radius: 8px;
+  border-radius: 10px;
+  width: 360px;
+  background: #2b2c32;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 15px;
 }
 
 .cardHeader {
