@@ -392,10 +392,6 @@
     background: #2b2c32;
 }
 
-.tableHeaderContainer .tableHeader {
-    position: static;
-}
-
 .tableContainer .tableHeader {
     position: sticky;
     top: 0;
