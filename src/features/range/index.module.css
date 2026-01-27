@@ -251,6 +251,19 @@
     border-radius: 4px;
 }
 
+.createButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.createButton:disabled .createButtonIcon {
+    background: #4252ea;
+}
+
+.createButton:disabled:hover .createButtonIcon {
+    background: #4252ea;
+}
+
 .filterButtonsWrapper {
     display: flex;
     align-items: center;
@@ -283,6 +296,11 @@
 .dropdownButton:focus {
     outline: 2px solid #aeb8c2;
     outline-offset: 2px;
+}
+
+.dropdownButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .dropdownArrow {
@@ -350,6 +368,7 @@
     max-height: 70vh;
     overflow-y: auto;
     overflow-x: auto;
+    position: relative;
 }
 
 .tableHeadHidden {
@@ -407,6 +426,37 @@
 
 .tableBody {
     background: transparent;
+}
+
+.loaderCell {
+    padding: 40px 16px;
+    text-align: center;
+    vertical-align: middle;
+    height: 630px;
+    min-height: 630px;
+}
+
+.tableLoader :global(.loaderContainer) {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableOverlay {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(14, 14, 17, 0.5);
+    z-index: 50;
+    backdrop-filter: blur(2px);
 }
 
 .spacerRow {

@@ -1,4 +1,4 @@
-import { useState, Activity } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 import ArrowIcon from "@/components/svg/ArrowIcon";
 import { useClickOutside } from "@/hooks/useClickOutside";
@@ -10,6 +10,7 @@ type DropdownFilterPropsType = {
   selectedValue?: string | null;
   onSelect: (value: string | null) => void;
   placeholder?: string;
+  disabled?: boolean;
 };
 
 const DropdownFilter = ({
@@ -18,6 +19,7 @@ const DropdownFilter = ({
   selectedValue,
   onSelect,
   placeholder = "All",
+  disabled = false,
 }: DropdownFilterPropsType) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useClickOutside<HTMLDivElement>(
@@ -32,9 +34,10 @@ const DropdownFilter = ({
       <button
         type="button"
         className={css.dropdownButton}
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => !disabled && setIsOpen(!isOpen)}
         aria-label={`Filter by ${label}`}
         aria-expanded={isOpen}
+        disabled={disabled}
       >
         <span>{displayValue}</span>
         <ArrowIcon
@@ -42,7 +45,7 @@ const DropdownFilter = ({
         />
       </button>
 
-      <Activity mode={isOpen ? "visible" : "hidden"}>
+      {isOpen && (
         <div className={css.dropdownMenu}>
           <button
             type="button"
@@ -74,7 +77,7 @@ const DropdownFilter = ({
             </button>
           ))}
         </div>
-      </Activity>
+      )}
     </div>
   );
 };

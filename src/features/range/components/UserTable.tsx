@@ -7,6 +7,7 @@ import type {
 import css from "@/features/range/index.module.css";
 import SortArrows from "@/components/SortArrows";
 import Avatar from "@/components/Avatar";
+import Loader from "@/components/Loader";
 
 type TableHeaderType = {
   label: string;
@@ -19,6 +20,9 @@ type UserTablePropsType = {
   sortField: UserSortFieldType;
   sortDirection: SortDirectionType | null;
   onSort: (field: UserSortFieldType) => void;
+  isLoading?: boolean;
+  isFetching?: boolean;
+  disabled?: boolean;
 };
 
 const tableHeaders: TableHeaderType[] = [
@@ -32,7 +36,13 @@ const UserTable = ({
   sortField,
   sortDirection,
   onSort,
+  isLoading = false,
+  isFetching = false,
+  disabled = false,
 }: UserTablePropsType) => {
+  const hasData = users.length > 0;
+  const showOverlayLoader = hasData && isFetching && !isLoading;
+
   return (
     <div className={css.tableWrapper}>
       <div className={css.tableHeaderContainer}>
@@ -46,6 +56,7 @@ const UserTable = ({
                       className={css.sortableHeader}
                       onClick={() => onSort(header.field!)}
                       type="button"
+                      disabled={disabled}
                     >
                       <div className={css.headerContent}>
                         {header.label}
@@ -81,35 +92,50 @@ const UserTable = ({
             </tr>
           </thead>
           <tbody className={css.tableBody}>
-            {users.map((user) => (
-              <tr key={user.id} className={css.tableRow}>
-                <td className={css.tableCell}>
-                  <div className={css.nameCell}>
-                    <Avatar name={user.name} status={user.status} showStatus={true} />
-                    <Link to={`/users/${user.id}`} className={css.userNameLink}>
-                      {user.name}
-                    </Link>
-                  </div>
-                </td>
-                <td className={css.tableCell}>{user.mainProject || "—"}</td>
-                <td className={css.tableCell}>
-                  <div className={css.projectsCell}>
-                    {user.otherProjects.length > 0 ? (
-                      <>
-                        {user.otherProjects.slice(0, 3).join(", ")}
-                        {user.otherProjects.length > 3
-                          ? `, +${user.otherProjects.length - 3} projects`
-                          : ""}
-                      </>
-                    ) : (
-                      "—"
-                    )}
-                  </div>
+            {isLoading ? (
+              <tr>
+                <td colSpan={3} className={css.loaderCell}>
+                  <Loader size="medium" className={css.tableLoader} />
                 </td>
               </tr>
-            ))}
+            ) : (
+              <>
+                {users.map((user) => (
+                  <tr key={user.id} className={css.tableRow}>
+                    <td className={css.tableCell}>
+                      <div className={css.nameCell}>
+                        <Avatar name={user.name} status={user.status} showStatus={true} />
+                        <Link to={`/users/${user.id}`} className={css.userNameLink}>
+                          {user.name}
+                        </Link>
+                      </div>
+                    </td>
+                    <td className={css.tableCell}>{user.mainProject || "—"}</td>
+                    <td className={css.tableCell}>
+                      <div className={css.projectsCell}>
+                        {user.otherProjects.length > 0 ? (
+                          <>
+                            {user.otherProjects.slice(0, 3).join(", ")}
+                            {user.otherProjects.length > 3
+                              ? `, +${user.otherProjects.length - 3} projects`
+                              : ""}
+                          </>
+                        ) : (
+                          "—"
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </>
+            )}
           </tbody>
         </table>
+        {showOverlayLoader && (
+          <div className={css.tableOverlay}>
+            <Loader size="medium" className={css.tableLoader} />
+          </div>
+        )}
       </div>
     </div>
   );

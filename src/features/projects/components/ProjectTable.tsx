@@ -8,6 +8,7 @@ import { statusMap } from "@/types/StatusMap";
 import css from "@/features/projects/index.module.css";
 import SortArrows from "@/components/SortArrows";
 import StatusCircle from "@/components/svg/StatusCircle";
+import Loader from "@/components/Loader";
 
 type TableHeaderType = {
   label: string;
@@ -21,6 +22,9 @@ type ProjectTablePropsType = {
   sortDirection: SortDirectionType;
   onSort: (field: SortFieldType) => void;
   onEdit: (project: ProjectType) => void;
+  isLoading?: boolean;
+  isFetching?: boolean;
+  disabled?: boolean;
 };
 
 const getStatusCircle = (status: ProjectStatusType) => {
@@ -43,7 +47,13 @@ const ProjectTable = ({
   sortDirection,
   onSort,
   onEdit,
+  isLoading = false,
+  isFetching = false,
+  disabled = false,
 }: ProjectTablePropsType) => {
+  const hasData = projects.length > 0;
+  const showOverlayLoader = hasData && isFetching && !isLoading;
+
   return (
     <div className={css.tableWrapper}>
       <div className={css.tableContainer}>
@@ -57,6 +67,7 @@ const ProjectTable = ({
                       className={css.sortableHeader}
                       onClick={() => onSort(header.field!)}
                       type="button"
+                      disabled={disabled}
                     >
                       <div className={css.headerContent}>
                         {header.label}
@@ -78,40 +89,56 @@ const ProjectTable = ({
             </tr>
           </thead>
           <tbody className={css.tableBody}>
-            {projects.map((project) => (
-              <tr key={project.id} className={css.tableRow}>
-                <td className={css.tableCell}>
-                  <div className={css.statusCell}>
-                    {getStatusCircle(project.status)}
-                  </div>
-                </td>
-                <td className={css.tableCell}>{project.name}</td>
-                <td className={css.tableCell}>
-                  <div className={css.descriptionCell}>
-                    {project.description || "—"}
-                  </div>
-                </td>
-                <td className={css.tableCell}>
-                  {project.users.length > 0
-                    ? project.users.map((user) => user.name).join(", ")
-                    : "—"}
-                </td>
-                <td className={css.tableCell}>
-                  {new Date(project.createdAt).toLocaleDateString()}
-                </td>
-                <td className={css.tableCell}>
-                  <button
-                    type="button"
-                    onClick={() => onEdit(project)}
-                    className={css.editButton}
-                  >
-                    Edit
-                  </button>
+            {isLoading ? (
+              <tr>
+                <td colSpan={6} className={css.loaderCell}>
+                  <Loader size="medium" className={css.tableLoader} />
                 </td>
               </tr>
-            ))}
+            ) : (
+              <>
+                {projects.map((project) => (
+                  <tr key={project.id} className={css.tableRow}>
+                    <td className={css.tableCell}>
+                      <div className={css.statusCell}>
+                        {getStatusCircle(project.status)}
+                      </div>
+                    </td>
+                    <td className={css.tableCell}>{project.name}</td>
+                    <td className={css.tableCell}>
+                      <div className={css.descriptionCell}>
+                        {project.description || "—"}
+                      </div>
+                    </td>
+                    <td className={css.tableCell}>
+                      {project.users.length > 0
+                        ? project.users.map((user) => user.name).join(", ")
+                        : "—"}
+                    </td>
+                    <td className={css.tableCell}>
+                      {new Date(project.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className={css.tableCell}>
+                      <button
+                        type="button"
+                        onClick={() => onEdit(project)}
+                        className={css.editButton}
+                        disabled={disabled}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </>
+            )}
           </tbody>
         </table>
+        {showOverlayLoader && (
+          <div className={css.tableOverlay}>
+            <Loader size="medium" className={css.tableLoader} />
+          </div>
+        )}
       </div>
     </div>
   );

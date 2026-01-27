@@ -248,10 +248,12 @@
 .error {
     color: #fc7141;
     font-size: 14px;
-    margin-top: 4px;
+    margin-top: -8px;
 }
 
 .errorGeneral {
     color: #fc7141;
     margin-bottom: 16px;
+    margin-top: 10px;
+    font-size: 14px;
 }

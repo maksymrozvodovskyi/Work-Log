@@ -29,7 +29,6 @@ import StatusFilter from "@/components/StatusFilter";
 import FilterButton from "@/components/FilterButton";
 import DropdownFilter from "@/features/range/components/DropdownFilter";
 import Pagination from "@/components/Pagination";
-import Loader from "@/components/Loader";
 import UserModal from "@/features/range/components/UserModal";
 import PlusIcon from "@/components/svg/PlusIcon";
 import UserStatistics from "@/features/range/components/UserStatistics";
@@ -71,6 +70,7 @@ const RangePage = () => {
   const {
     data: paginatedUsers,
     isLoading,
+    isFetching,
     isError,
     error,
   } = useQuery({
@@ -105,6 +105,7 @@ const RangePage = () => {
   const users = paginatedUsers?.data ?? [];
   const totalUsers = paginatedUsers?.total ?? 0;
   const totalPages = Math.ceil(totalUsers / USERS_PER_PAGE);
+  const isDisabled = isLoading || isFetching;
 
   const handleSort = (field: UserSortFieldType) => {
     const currentDirection = sortDirection || "asc";
@@ -139,8 +140,6 @@ const RangePage = () => {
 
   return (
     <div className={css.pageContainer}>
-      {isLoading && <Loader size="large" />}
-      
       <header className={css.header}>
         <div className={css.headerLeft}>
           <div className={css.buttonsWrapper}>
@@ -172,13 +171,18 @@ const RangePage = () => {
       </header>
 
       <section className={css.filterWrapper} aria-labelledby="filter-section">
-        <SearchInput value={search} onChange={handleSearchChange} />
+        <SearchInput 
+          value={search} 
+          onChange={handleSearchChange} 
+          disabled={isDisabled}
+        />
 
         <div className={css.filterButtonsWrapper}>
           <div className={css.filterControls}>
             <FilterButton
               ariaLabel="Clear all filters"
               onClick={handleClearFilters}
+              disabled={isDisabled}
             />
 
             <StatusFilter
@@ -187,6 +191,7 @@ const RangePage = () => {
               selectedStatus={status}
               onStatusChange={handleStatusChange}
               entityType="users"
+              disabled={isDisabled}
             />
 
             <DropdownFilter
@@ -200,6 +205,7 @@ const RangePage = () => {
                 })
               }
               placeholder="All user types"
+              disabled={isDisabled}
             />
           </div>
 
@@ -207,6 +213,7 @@ const RangePage = () => {
             type="button"
             className={css.createButton}
             onClick={() => setIsModalOpen(true)}
+            disabled={isDisabled}
           >
             <span className={css.createButtonText}>Add user</span>
             <div className={css.createButtonIcon}>
@@ -223,12 +230,16 @@ const RangePage = () => {
         sortField={sortField}
         sortDirection={sortDirection}
         onSort={handleSort}
+        isLoading={isLoading}
+        isFetching={isFetching}
+        disabled={isDisabled}
       />
 
       <Pagination
         currentPage={page}
         totalPages={totalPages}
         onPageChange={handlePageChange}
+        disabled={isDisabled}
       />
 
       <UserModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

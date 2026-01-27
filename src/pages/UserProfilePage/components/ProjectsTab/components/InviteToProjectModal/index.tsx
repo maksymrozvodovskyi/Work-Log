@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { useProjectSearch } from "@/hooks/useProjectSearch";
 import { useInviteUsers } from "@/hooks/useInviteUsers";
+import { handleAxiosError } from "@/utils/axiosError";
 import BaseModal from "@/components/BaseModal";
 import SearchIcon from "@/components/svg/SearchIcon";
 import CloseIcon from "@/components/svg/CloseIcon";
@@ -26,10 +27,12 @@ const InviteToProjectModal = ({
   const [selectedProjects, setSelectedProjects] = useState<Set<string>>(
     new Set()
   );
+  const [inviteError, setInviteError] = useState<string | null>(null);
 
   const handleClose = useCallback(() => {
     setSearch("");
     setSelectedProjects(new Set());
+    setInviteError(null);
     onClose();
   }, [onClose]);
 
@@ -61,10 +64,15 @@ const InviteToProjectModal = ({
 
   const handleInvite = async () => {
     if (selectedProjects.size === 0) return;
+    setInviteError(null);
     try {
       await inviteUsersToProjects(selectedProjects);
     } catch (error) {
-      console.error("Failed to add user to projects:", error);
+      const errorMessage = handleAxiosError(
+        error,
+        "Failed to invite user to projects"
+      );
+      setInviteError(errorMessage);
     }
   };
 
@@ -162,9 +170,10 @@ const InviteToProjectModal = ({
         {isError && !isLoading && (
           <div className={css.errorWrapper}>
             <span className={css.errorText}>
-              {error instanceof Error
-                ? `Error loading projects: ${error.message}`
-                : "Error loading projects"}
+              {handleAxiosError(
+                error,
+                "Error loading projects"
+              )}
             </span>
           </div>
         )}
@@ -202,6 +211,13 @@ const InviteToProjectModal = ({
 
         {selectedProjects.size > 0 && (
           <div className={css.footer}>
+            {inviteError && (
+              <div className={css.errorWrapper} style={{ padding: "0 0 12px 0", minHeight: "auto" }}>
+                <span className={css.errorText} style={{ color: "#fc7141" }}>
+                  {inviteError}
+                </span>
+              </div>
+            )}
             <button
               type="button"
               className={css.inviteButton}

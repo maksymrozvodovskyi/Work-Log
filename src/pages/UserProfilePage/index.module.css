@@ -15,6 +15,22 @@
     padding: 40px;
 }
 
+.outletLoaderWrapper,
+.outletErrorWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    padding: 40px;
+}
+
+.avatarPlaceholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #2a2c32;
+}
+
 .errorText {
     font-family: "Cera Pro", sans-serif;
     font-weight: 500;

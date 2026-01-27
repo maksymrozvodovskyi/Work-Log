@@ -7,6 +7,7 @@ type PaginationPropsType = {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  disabled?: boolean;
 };
 
 type ArrowButtonPropsType = {
@@ -19,6 +20,7 @@ const Pagination: React.FC<PaginationPropsType> = ({
   currentPage,
   totalPages,
   onPageChange,
+  disabled = false,
 }) => {
   if (totalPages <= 1) return null;
 
@@ -60,7 +62,7 @@ const Pagination: React.FC<PaginationPropsType> = ({
     <div className={css.pagination}>
       <ArrowButton
         direction="prev"
-        disabled={currentPage === 1}
+        disabled={disabled || currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
       />
 
@@ -76,6 +78,7 @@ const Pagination: React.FC<PaginationPropsType> = ({
               )}
               onClick={() => onPageChange(page as number)}
               type="button"
+              disabled={disabled}
             >
               {page}
             </button>
@@ -85,7 +88,7 @@ const Pagination: React.FC<PaginationPropsType> = ({
 
       <ArrowButton
         direction="next"
-        disabled={currentPage === totalPages}
+        disabled={disabled || currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
       />
     </div>

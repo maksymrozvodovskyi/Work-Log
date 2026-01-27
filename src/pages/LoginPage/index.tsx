@@ -2,6 +2,7 @@ import { Activity } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import clsx from "clsx";
 import Input from "@/components/Auth/Input";
 import Button from "@/components/Auth/Button";
 import {
@@ -52,66 +53,80 @@ export default function LoginPage() {
   };
 
   return (
-    <>
-      <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <Input
-                type="email"
-                placeholder="Email"
-                {...field}
-                error={!!errors.email}
-              />
-            )}
-          />
-          <Activity mode={errors.email ? "visible" : "hidden"}>
-            <div className={css.error}>{errors.email?.message}</div>
-          </Activity>
-        </div>
-
-        <div>
-          <Controller
-            name="password"
-            control={control}
-            render={({ field }) => (
-              <Input
-                type="password"
-                placeholder="Password"
-                {...field}
-                error={!!errors.password}
-              />
-            )}
-          />
-          <Activity mode={errors.password ? "visible" : "hidden"}>
-            <div className={css.error}>{errors.password?.message}</div>
-          </Activity>
-        </div>
-
-        <Activity mode={errors.root ? "visible" : "hidden"}>
-          <div className={css.error}>{errors.root?.message}</div>
+    <form
+      className={clsx(css.form, isSubmitting && css.formDisabled)}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div>
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <Input
+              type="email"
+              placeholder="Email"
+              {...field}
+              error={!!errors.email}
+              disabled={isSubmitting}
+            />
+          )}
+        />
+        <Activity mode={errors.email ? "visible" : "hidden"}>
+          <div className={css.error}>{errors.email?.message}</div>
         </Activity>
+      </div>
 
-        <div className={css.buttons}>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={handleForgotPassword}
-          >
-            Forgot password
-          </Button>
-          <Button
-            type="submit"
-            variant="primary"
-            className={css.signInButton}
-            disabled={isSubmitting}
-          >
-            Sign in
-          </Button>
-        </div>
-      </form>
-    </>
+      <div>
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <Input
+              type="password"
+              placeholder="Password"
+              {...field}
+              error={!!errors.password}
+              disabled={isSubmitting}
+            />
+          )}
+        />
+        <Activity mode={errors.password ? "visible" : "hidden"}>
+          <div className={css.error}>{errors.password?.message}</div>
+        </Activity>
+      </div>
+
+      <Activity mode={errors.root ? "visible" : "hidden"}>
+        <div className={css.error}>{errors.root?.message}</div>
+      </Activity>
+
+      <div className={css.buttons}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={handleForgotPassword}
+          disabled={isSubmitting}
+        >
+          Forgot password
+        </Button>
+        <Button
+          type="submit"
+          variant="primary"
+          className={css.signInButton}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <span className={css.buttonContent}>
+              <span className={css.buttonLoader}>
+                <span className={css.loaderDot}></span>
+                <span className={css.loaderDot}></span>
+                <span className={css.loaderDot}></span>
+              </span>
+            </span>
+          ) : (
+            "Sign in"
+          )}
+        </Button>
+      </div>
+    </form>
   );
 }
