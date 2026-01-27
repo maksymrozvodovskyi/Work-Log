@@ -7,6 +7,7 @@ type SearchInputPropsType = {
   onChange: (value: string) => void;
   placeholder?: string;
   ariaLabel?: string;
+  disabled?: boolean;
 };
 
 const SearchInput = ({
@@ -14,6 +15,7 @@ const SearchInput = ({
   onChange,
   placeholder = "Search by name, skills etc.",
   ariaLabel = "Search projects by name, skills etc.",
+  disabled = false,
 }: SearchInputPropsType) => {
   const handleClear = () => {
     onChange("");
@@ -30,13 +32,15 @@ const SearchInput = ({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label={ariaLabel}
+        disabled={disabled}
       />
-      {value && (
+      {value && !disabled && (
         <button
           type="button"
           onClick={handleClear}
           className={css.clearButton}
           aria-label="Clear search"
+          disabled={disabled}
         >
           <CloseIcon />
         </button>

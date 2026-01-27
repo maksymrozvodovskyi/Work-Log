@@ -154,7 +154,7 @@
     border: none;
     border-radius: 8px;
     width: 296px;
-    height: 72px;
+    min-height: 76px;
     padding: 8px 15px;
     outline: none;
     transition: border-color 0.2s ease;
@@ -248,7 +248,7 @@
 .error {
     color: #fc7141;
     font-size: 14px;
-    margin-top: 4px;
+    margin-top: -8px;
 }
 
 .errorGeneral {

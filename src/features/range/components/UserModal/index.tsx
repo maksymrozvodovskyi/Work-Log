@@ -10,6 +10,7 @@ import { USER_STATUS_ORDER } from "@/types/UserStatusOrder";
 import { USER_QUERY_KEYS } from "@/features/range/queryKeys";
 import { useKeyboard } from "@/hooks/useKeyboard";
 import { getButtonText } from "@/utils/modal";
+import { handleAxiosError } from "@/utils/axiosError";
 import css from "./UserModal.module.css";
 
 type UserModalPropsType = {
@@ -92,13 +93,12 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalPropsType) => {
       });
       handleClose();
     } catch (err) {
+      const errorMessage = handleAxiosError(
+        err,
+        isEditing ? "Failed to update user" : "Failed to create user"
+      );
       setError("root", {
-        message:
-          err instanceof Error
-            ? err.message
-            : isEditing
-            ? "Failed to update user"
-            : "Failed to create user",
+        message: errorMessage,
       });
     }
   };
@@ -109,7 +109,10 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalPropsType) => {
 
   return (
     <>
-      <div className={css.overlay} onClick={handleClose} />
+      <div 
+        className={css.overlay} 
+        onClick={isSubmitting ? undefined : handleClose} 
+      />
       <div className={css.modal}>
         <div className={css.header}>
           <h2 className={css.title}>
@@ -120,6 +123,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalPropsType) => {
             className={css.closeButton}
             onClick={handleClose}
             aria-label="Close modal"
+            disabled={isSubmitting}
           >
             <svg
               width="7"
@@ -155,6 +159,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalPropsType) => {
                   value.trim().length > 0 || "Name cannot be empty",
               })}
               placeholder="User name"
+              disabled={isSubmitting}
             />
             {errors.name && (
               <div className={css.error}>{errors.name.message}</div>
@@ -177,6 +182,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalPropsType) => {
                 },
               })}
               placeholder="user@example.com"
+              disabled={isSubmitting}
             />
             {errors.email && (
               <div className={css.error}>{errors.email.message}</div>
@@ -200,6 +206,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalPropsType) => {
                   },
                 })}
                 placeholder="Enter password"
+                disabled={isSubmitting}
               />
               {errors.password && (
                 <div className={css.error}>{errors.password.message}</div>
@@ -236,6 +243,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalPropsType) => {
                           field.value === statusOption && css.statusButtonActive
                         )}
                         onClick={() => field.onChange(statusOption)}
+                        disabled={isSubmitting}
                       >
                         {statusInfo.label}
                       </button>
@@ -271,6 +279,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalPropsType) => {
                       field.value === "EMPLOYEE" && css.statusButtonActive
                     )}
                     onClick={() => field.onChange("EMPLOYEE")}
+                    disabled={isSubmitting}
                   >
                     Employee
                   </button>
@@ -281,6 +290,7 @@ const UserModal = ({ isOpen, onClose, user = null }: UserModalPropsType) => {
                       field.value === "ADMIN" && css.statusButtonActive
                     )}
                     onClick={() => field.onChange("ADMIN")}
+                    disabled={isSubmitting}
                   >
                     Admin
                   </button>

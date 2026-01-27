@@ -46,16 +46,22 @@ export const useInviteUsers = ({
       );
 
       if (failures.length > 0) {
-        throw new Error(`Failed to invite to ${failures.length} projects`);
+        const firstError = failures[0].reason;
+        const errorMessage = handleAxiosError(
+          firstError,
+          `Failed to invite to ${failures.length} project${failures.length > 1 ? 's' : ''}`
+        );
+        throw new Error(errorMessage);
       }
 
       invalidateQueries();
       onSuccess?.(selectedIds);
       onClose?.();
     } catch (err) {
-      const errorMessage = err instanceof Error
-        ? err.message
-        : handleAxiosError(err, "Failed to invite user to projects");
+      const errorMessage = handleAxiosError(
+        err,
+        "Failed to invite user to projects"
+      );
 
       throw new Error(errorMessage);
     }

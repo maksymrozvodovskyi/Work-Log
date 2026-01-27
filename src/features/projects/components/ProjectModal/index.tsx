@@ -9,6 +9,7 @@ import { statusMap } from "@/types/StatusMap";
 import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatusOrder";
 import { useKeyboard } from "@/hooks/useKeyboard";
 import { getButtonText } from "@/utils/modal";
+import { handleAxiosError } from "@/utils/axiosError";
 import css from "./ProjectModal.module.css";
 
 type ProjectModalPropsType = {
@@ -57,7 +58,6 @@ const ProjectModal = ({
     reset({
       projectName: "",
       description: "",
-      status: "PLANNED" as ProjectStatusType,
     });
     clearErrors("root");
     onClose();
@@ -86,13 +86,12 @@ const ProjectModal = ({
       });
       handleClose();
     } catch (err) {
+      const errorMessage = handleAxiosError(
+        err,
+        isEditing ? "Failed to update project" : "Failed to create project"
+      );
       setError("root", {
-        message:
-          err instanceof Error
-            ? err.message
-            : isEditing
-            ? "Failed to update project"
-            : "Failed to create project",
+        message: errorMessage,
       });
     }
   };
@@ -103,7 +102,10 @@ const ProjectModal = ({
 
   return (
     <>
-      <div className={css.overlay} onClick={handleClose} />
+      <div 
+        className={css.overlay} 
+        onClick={isSubmitting ? undefined : handleClose} 
+      />
       <div className={css.modal}>
         <div className={css.header}>
           <h2 className={css.title}>
@@ -114,6 +116,7 @@ const ProjectModal = ({
             className={css.closeButton}
             onClick={handleClose}
             aria-label="Close modal"
+            disabled={isSubmitting}
           >
             <svg
               width="7"
@@ -149,6 +152,7 @@ const ProjectModal = ({
                   value.trim().length > 0 || "Project name cannot be empty",
               })}
               placeholder="Project name"
+              disabled={isSubmitting}
             />
             {errors.projectName && (
               <div className={css.error}>{errors.projectName.message}</div>
@@ -165,6 +169,7 @@ const ProjectModal = ({
               {...register("description")}
               placeholder="Description"
               rows={4}
+              disabled={isSubmitting}
             />
           </div>
 
@@ -197,6 +202,7 @@ const ProjectModal = ({
                           field.value === statusOption && css.statusButtonActive
                         )}
                         onClick={() => field.onChange(statusOption)}
+                        disabled={isSubmitting}
                       >
                         {statusInfo.label}
                       </button>

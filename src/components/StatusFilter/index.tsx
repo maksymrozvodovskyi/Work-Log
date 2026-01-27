@@ -8,6 +8,7 @@ type StatusFilterPropsType<T extends string> = {
   selectedStatus?: T | null;
   onStatusChange: (status: T | null) => void;
   entityType?: string;
+  disabled?: boolean;
 };
 
 const StatusFilter = <T extends string>({
@@ -16,8 +17,10 @@ const StatusFilter = <T extends string>({
   selectedStatus,
   onStatusChange,
   entityType = "items",
+  disabled = false,
 }: StatusFilterPropsType<T>) => {
   const handleStatusClick = (status: T) => {
+    if (disabled) return;
     if (selectedStatus === status) {
       onStatusChange(null);
     } else {
@@ -41,6 +44,7 @@ const StatusFilter = <T extends string>({
             aria-label={`Filter by ${statusInfo.label.toLowerCase()} ${entityType}`}
             onClick={() => handleStatusClick(status)}
             style={{ backgroundColor: statusInfo.color }}
+            disabled={disabled}
           >
             {isSelected && <CheckmarkIcon />}
           </button>

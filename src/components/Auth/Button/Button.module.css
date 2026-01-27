@@ -10,10 +10,16 @@
     text-align: center;
     color: #f5f6fa;
     transition: opacity 0.2s;
+    cursor: pointer;
 }
 
-.primaryButton:hover {
+.primaryButton:hover:not(:disabled) {
     opacity: 0.9;
+}
+
+.primaryButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .secondaryButton {
@@ -28,8 +34,14 @@
     text-align: center;
     color: #aeb8c2;
     transition: opacity 0.2s;
+    cursor: pointer;
 }
 
-.secondaryButton:hover {
+.secondaryButton:hover:not(:disabled) {
     opacity: 0.8;
+}
+
+.secondaryButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

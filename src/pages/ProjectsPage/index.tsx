@@ -22,7 +22,6 @@ import SearchInput from "@/components/SearchInput";
 import StatusFilter from "@/components/StatusFilter";
 import FilterButton from "@/components/FilterButton";
 import Pagination from "@/components/Pagination";
-import Loader from "@/components/Loader";
 import ProjectModal from "@/features/projects/components/ProjectModal";
 import PlusIcon from "@/components/svg/PlusIcon";
 import { PROJECTS_PER_PAGE } from "@/features/projects/constants/pagination";
@@ -62,6 +61,7 @@ const ProjectsPage = () => {
   const {
     data: paginatedProjects,
     isLoading,
+    isFetching,
     isError,
     error,
   } = useQuery({
@@ -88,6 +88,7 @@ const ProjectsPage = () => {
   const projects = paginatedProjects?.data ?? [];
   const totalProjects = paginatedProjects?.total ?? 0;
   const totalPages = Math.ceil(totalProjects / PROJECTS_PER_PAGE);
+  const isDisabled = isLoading || isFetching;
 
   const statisticsConfig: StatisticItemType[] = useMemo(() => {
     const allProjects = allProjectsData?.data ?? [];
@@ -136,8 +137,6 @@ const ProjectsPage = () => {
 
   return (
     <div className={css.pageContainer}>
-      {isLoading && <Loader size="large" />}
-      
       <header className={css.header}>
         <div className={css.headerLeft}>
           <div className={css.buttonsWrapper}>
@@ -192,13 +191,18 @@ const ProjectsPage = () => {
       </header>
 
       <section className={css.filterWrapper} aria-labelledby="filter-section">
-        <SearchInput value={search} onChange={handleSearchChange} />
+        <SearchInput 
+          value={search} 
+          onChange={handleSearchChange} 
+          disabled={isDisabled}
+        />
 
         <div className={css.filterButtonsWrapper}>
           <div className={css.filterControls}>
             <FilterButton
               ariaLabel="Clear all filters"
               onClick={handleClearFilters}
+              disabled={isDisabled}
             />
 
             <StatusFilter
@@ -207,6 +211,7 @@ const ProjectsPage = () => {
               selectedStatus={status}
               onStatusChange={handleStatusChange}
               entityType="projects"
+              disabled={isDisabled}
             />
           </div>
 
@@ -217,6 +222,7 @@ const ProjectsPage = () => {
               setIsModalOpen(true);
               setSelectedProject(null);
             }}
+            disabled={isDisabled}
           >
             Create project
             <PlusIcon />
@@ -232,12 +238,16 @@ const ProjectsPage = () => {
         sortDirection={sortDirection}
         onSort={handleSort}
         onEdit={handleEditClick}
+        isLoading={isLoading}
+        isFetching={isFetching}
+        disabled={isDisabled}
       />
 
       <Pagination
         currentPage={page}
         totalPages={totalPages}
         onPageChange={handlePageChange}
+        disabled={isDisabled}
       />
 
       <ProjectModal

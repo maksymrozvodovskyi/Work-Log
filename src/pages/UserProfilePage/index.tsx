@@ -39,96 +39,155 @@ const UserProfilePage = () => {
     enabled: !!userId,
   });
 
-  if (isLoading) {
-    return (
-      <div className={css.page}>
-        <div className={css.loaderWrapper}>
-          <Loader size="medium" />
-        </div>
-      </div>
-    );
-  }
-
-  if (isError || !user) {
-    return (
-      <div className={css.page}>
-        <div className={css.errorWrapper}>
-          <span className={css.errorText}>Error loading user profile</span>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={css.page}>
       <header className={css.header}>
-          <div className={css.headerLeft}>
-            <BackButton />
-            <Avatar name={user.name} status={user.status || "GREEN"} />
-            <div className={css.userDetails}>
-              <span className={css.userName}>{user.name}</span>
-              <span className={css.userRole}>{user.role}</span>
+        {isLoading ? (
+          <>
+            <div className={css.headerLeft}>
+              <BackButton />
+              <div className={css.avatarPlaceholder}></div>
+              <div className={css.userDetails}>
+                <span className={css.userName}>Loading...</span>
+                <span className={css.userRole}>Loading...</span>
+              </div>
             </div>
-            <div className={css.menuButtonWrapper} ref={menuButtonRef}>
+            <div className={css.headerActions}>
               <button
                 type="button"
-                className={css.menuButton}
-                aria-label="Menu"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className={css.notificationButton}
+                aria-label="Notifications"
               >
-                <ThreeDotsIcon fill="#8B97A3" />
+                <img
+                  src="/notification.svg"
+                  alt="Notifications"
+                  width="24"
+                  height="24"
+                />
+                <span className={css.notificationDot}></span>
               </button>
-              <UserProfileDropdown
-                isOpen={isDropdownOpen}
-                onClose={() => setIsDropdownOpen(false)}
-              />
+              <button
+                type="button"
+                className={css.profileButton}
+                aria-label="User profile"
+              >
+                <div className={css.avatarPlaceholder}></div>
+              </button>
             </div>
-          </div>
-          <div className={css.headerActions}>
-            <button
-              type="button"
-              className={css.notificationButton}
-              aria-label="Notifications"
-            >
-              <img
-                src="/notification.svg"
-                alt="Notifications"
-                width="24"
-                height="24"
-              />
-              <span className={css.notificationDot}></span>
-            </button>
-            <button
-              type="button"
-              className={css.profileButton}
-              aria-label="User profile"
-            >
+          </>
+        ) : isError || !user ? (
+          <>
+            <div className={css.headerLeft}>
+              <BackButton />
+              <div className={css.userDetails}>
+                <span className={css.userName}>Error</span>
+                <span className={css.userRole}>Failed to load</span>
+              </div>
+            </div>
+            <div className={css.headerActions}>
+              <button
+                type="button"
+                className={css.notificationButton}
+                aria-label="Notifications"
+              >
+                <img
+                  src="/notification.svg"
+                  alt="Notifications"
+                  width="24"
+                  height="24"
+                />
+                <span className={css.notificationDot}></span>
+              </button>
+              <button
+                type="button"
+                className={css.profileButton}
+                aria-label="User profile"
+              >
+                <Avatar name="Error" status="GREEN" />
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={css.headerLeft}>
+              <BackButton />
               <Avatar name={user.name} status={user.status || "GREEN"} />
-            </button>
-          </div>
-        </header>
+              <div className={css.userDetails}>
+                <span className={css.userName}>{user.name}</span>
+                <span className={css.userRole}>{user.role}</span>
+              </div>
+              <div className={css.menuButtonWrapper} ref={menuButtonRef}>
+                <button
+                  type="button"
+                  className={css.menuButton}
+                  aria-label="Menu"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  <ThreeDotsIcon fill="#8B97A3" />
+                </button>
+                <UserProfileDropdown
+                  isOpen={isDropdownOpen}
+                  onClose={() => setIsDropdownOpen(false)}
+                />
+              </div>
+            </div>
+            <div className={css.headerActions}>
+              <button
+                type="button"
+                className={css.notificationButton}
+                aria-label="Notifications"
+              >
+                <img
+                  src="/notification.svg"
+                  alt="Notifications"
+                  width="24"
+                  height="24"
+                />
+                <span className={css.notificationDot}></span>
+              </button>
+              <button
+                type="button"
+                className={css.profileButton}
+                aria-label="User profile"
+              >
+                <Avatar name={user.name} status={user.status || "GREEN"} />
+              </button>
+            </div>
+          </>
+        )}
+      </header>
 
-        <nav className={css.navigation}>
-          {USER_PROFILE_TABS.map((tab) => (
-            <NavLink
-              key={tab.path}
-              to={`/users/${userId}/${tab.path}`}
-              className={({ isActive }) =>
-                clsx(css.navLink, isActive && css.navLinkActive)
-              }
-              end={tab.end}
-            >
-              {tab.label}
-            </NavLink>
-          ))}
-        </nav>
+      <nav className={css.navigation}>
+        {USER_PROFILE_TABS.map((tab) => (
+          <NavLink
+            key={tab.path}
+            to={`/users/${userId}/${tab.path}`}
+            className={({ isActive }) =>
+              clsx(css.navLink, isActive && css.navLinkActive)
+            }
+            end={tab.end}
+          >
+            {tab.label}
+          </NavLink>
+        ))}
+      </nav>
 
-        <div className={css.content}>
-          <div className={css.contentContainer}>
-            <div className={css.headerDivider}></div>
+      <div className={css.content}>
+        <div className={css.contentContainer}>
+          <div className={css.headerDivider}></div>
+          {isLoading ? (
+            <div className={css.outletLoaderWrapper}>
+              <Loader size="medium" />
+            </div>
+          ) : isError || !user ? (
+            <div className={css.outletErrorWrapper}>
+              <span className={css.errorText}>Error loading user profile</span>
+            </div>
+          ) : (
             <Outlet />
-          </div>
+          )}
         </div>
+      </div>
     </div>
   );
 };

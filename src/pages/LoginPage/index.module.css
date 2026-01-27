@@ -7,6 +7,10 @@
   margin-top: 30px;
 }
 
+.formDisabled {
+  pointer-events: none;
+}
+
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -16,6 +20,73 @@
 
 .signInButton {
   padding: 8px 15px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonLoader {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  animation: loaderSpin 1.5s linear infinite;
+}
+
+.loaderDot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #f5f6fa;
+  border-radius: 50%;
+  animation: loaderBounce 1.5s ease-in-out infinite both;
+}
+
+.loaderDot:nth-child(1) {
+  top: 0;
+  left: 0;
+  animation-delay: -0.32s;
+}
+
+.loaderDot:nth-child(2) {
+  top: 0;
+  right: 0;
+  animation-delay: -0.16s;
+}
+
+.loaderDot:nth-child(3) {
+  bottom: 0;
+  left: 0;
+}
+
+@keyframes loaderSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loaderBounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .error {
