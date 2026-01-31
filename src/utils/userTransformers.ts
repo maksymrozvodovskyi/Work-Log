@@ -1,5 +1,5 @@
 import type { UserRangeType, UserStatusType } from "@/types/User";
-import type { UserRoleType } from "@/types/Project";
+import type { UserRoleType, UserType } from "@/types/Project";
 
 export type ApiProjectType = {
   id: string;
@@ -42,4 +42,10 @@ export const transformApiUserToUserRange = (
     status: user.status || status || "GREEN",
     userType: user.role,
   };
+};
+
+export const getRoleLabel = (role: UserType["role"]): string => {
+  if (role === "ADMIN") return "Admin";
+  if (role === "EMPLOYEE") return "Employee";
+  return role || "";
 };

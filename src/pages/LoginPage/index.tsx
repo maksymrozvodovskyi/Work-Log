@@ -27,6 +27,10 @@ export default function LoginPage() {
   } = useForm<LoginFormDataType>({
     resolver: zodResolver(loginSchema),
     mode: "onChange",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const handleForgotPassword = () => {

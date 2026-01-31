@@ -32,6 +32,7 @@ export default function Input({
           isPassword && css.inputWithToggle,
           className
         )}
+        value={props.value ?? ""}
         {...props}
       />
       {isPassword && (

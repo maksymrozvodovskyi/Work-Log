@@ -15,14 +15,14 @@ export type WorkLogType = {
   project: {
     id: string;
     name: string;
-  };
+  } | null;
 };
 
 export type ProjectWorkLogType = {
   project: {
     id: string;
     name: string;
-  };
+  } | null;
   logs: WorkLogType[];
 };
 
