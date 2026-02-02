@@ -100,6 +100,7 @@ const RangePage = () => {
       };
     },
     placeholderData: (previousData) => previousData,
+    staleTime: 1000 * 60 * 5
   });
 
   const users = paginatedUsers?.data ?? [];

@@ -83,6 +83,7 @@ const ProjectsPage = () => {
         status: status || undefined,
       }),
     placeholderData: (previousData) => previousData,
+    staleTime: 1000 * 60 * 5
   });
 
   const projects = paginatedProjects?.data ?? [];
