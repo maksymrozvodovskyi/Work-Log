@@ -24,6 +24,7 @@ export type ProjectType = {
   status: ProjectStatusType;
   createdAt: string;
   updatedAt: string;
+  endDate: string | null;
   users: UserType[];
 };
 
@@ -42,6 +43,24 @@ export type GetProjectsParamsType = {
 export type PaginatedResponseType<T> = {
   data: T[];
   total: number;
+  hasMore?: boolean;
+  nextSkip?: number;
+};
+
+export type ProjectsStatistics = {
+  total: number;
+  byStatus: {
+    PLANNED: number;
+    INPROGRESS: number;
+    ONHOLD: number;
+    COMPLETED: number;
+    CANCELLED: number;
+    SUPPORT: number;
+  };
+};
+
+export type ProjectsResponseType = PaginatedResponseType<ProjectType> & {
+  statistics?: ProjectsStatistics;
 };
 
 export type CreateProjectParamsType = {

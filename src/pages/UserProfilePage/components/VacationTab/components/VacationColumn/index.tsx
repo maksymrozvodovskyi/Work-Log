@@ -15,9 +15,9 @@ const VacationColumn = ({ title, periods, emptyMessage }: VacationColumnPropsTyp
       {periods.length === 0 && (
         <div className={css.emptyState}>{emptyMessage}</div>
       )}
-      {periods.length > 0 && periods.map((period) => (
+      {periods.length > 0 && periods.map((period, index) => (
         <VacationCard
-          key={`${period.startDate.getTime()}-${period.endDate.getTime()}-${period.type}`}
+          key={`${period.startDate.getTime()}-${period.endDate.getTime()}-${period.type}-${index}`}
           period={period}
         />
       ))}

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { startOfMonth } from "date-fns";
 import { formatDateForApi } from "@/utils/dateUtils";
 
@@ -19,38 +19,32 @@ export const useDateRange = () => {
     [localEndDate]
   );
 
-  const handleDayClick = (date: Date) => {
-    if (activeDateField === 'start') {
+  const handleDayClick = useCallback((date: Date) => {
+    const isSelectingStart = activeDateField !== 'end';
+    
+    if (isSelectingStart) {
+      setLocalStartDate(date);
       if (localEndDate && date > localEndDate) {
         setLocalEndDate(date);
       }
-      setLocalStartDate(date);
       setActiveDateField('end');
-    } else if (activeDateField === 'end') {
+    } else {
+      setLocalEndDate(date);
       if (localStartDate && date < localStartDate) {
         setLocalStartDate(date);
       }
-      setLocalEndDate(date);
       setActiveDateField(null);
-    } else {
-      setLocalStartDate(date);
-      if (!localEndDate || date > localEndDate) {
-        setLocalEndDate(date);
-      }
-      setActiveDateField('end');
     }
-  };
+  }, [activeDateField, localStartDate, localEndDate]);
 
-  const handleToday = () => {
-    const todayDate = new Date();
+  const handleToday = useCallback(() => {
+    const today = new Date();
     if (activeDateField === 'start') {
-      setLocalStartDate(todayDate);
-    } else if (activeDateField === 'end') {
-      setLocalEndDate(todayDate);
+      setLocalStartDate(today);
     } else {
-      setLocalEndDate(todayDate);
+      setLocalEndDate(today);
     }
-  };
+  }, [activeDateField]);
 
   return {
     localStartDate,

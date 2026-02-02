@@ -2,14 +2,14 @@ import axiosInstance from "@/lib/apiClient";
 import type {
   ProjectType,
   GetProjectsParamsType,
-  PaginatedResponseType,
+  ProjectsResponseType,
   CreateProjectParamsType,
   UpdateProjectParamsType,
 } from "@/types/Project";
 
 export const getProjects = async (
   params?: GetProjectsParamsType
-): Promise<PaginatedResponseType<ProjectType>> => {
+): Promise<ProjectsResponseType> => {
   const requestParams: Record<string, unknown> = {
     search: params?.search,
     sortField: params?.sortField,
@@ -22,7 +22,7 @@ export const getProjects = async (
     requestParams.status = params.status;
   }
 
-  const { data } = await axiosInstance.get<PaginatedResponseType<ProjectType>>(
+  const { data } = await axiosInstance.get<ProjectsResponseType>(
     "/projects",
     {
       params: requestParams,

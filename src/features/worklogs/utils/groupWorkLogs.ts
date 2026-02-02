@@ -31,6 +31,11 @@ export const groupWorkLogsByDate = (
 
   data.projects.forEach((projectItem) => {
     projectItem.logs.forEach((log) => {
+      if (!log.project || !log.project.name) {
+        return;
+      }
+
+      const projectName = log.project.name;
       const dateKey = log.date.split('T')[0];
       
       if (!dateMap.has(dateKey)) {
@@ -39,7 +44,7 @@ export const groupWorkLogsByDate = (
 
       const dateEntry = dateMap.get(dateKey)!;
       dateEntry.totalHours += log.hours;
-      dateEntry.projects.add(log.project.name);
+      dateEntry.projects.add(projectName);
     });
   });
 
@@ -65,20 +70,13 @@ export const groupWorkLogsByProject = (
   const projectMap = new Map<string, { projectName: string; totalHours: number }>();
 
   data.projects.forEach((projectItem) => {
-    const projectId = projectItem.project.id;
-    const projectName = projectItem.project.name;
-
-    if (selectedProjectIds && selectedProjectIds.size > 0) {
-      if (!selectedProjectIds.has(projectId)) {
+    projectItem.logs.forEach((log) => {
+      const project = log.project || projectItem.project;
+      
+      if (!project || !project.id || !project.name) {
         return;
       }
-    }
-    if (!projectMap.has(projectId)) {
-      projectMap.set(projectId, { projectName, totalHours: 0 });
-    }
 
-    const projectEntry = projectMap.get(projectId)!;
-    projectItem.logs.forEach((log) => {
       if (
         log.hours === 0 &&
         (log.activity === ActivityTypeValues.VACATION ||
@@ -86,6 +84,21 @@ export const groupWorkLogsByProject = (
       ) {
         return;
       }
+
+      const projectId = project.id;
+      const projectName = project.name;
+
+    if (selectedProjectIds && selectedProjectIds.size > 0) {
+      if (!selectedProjectIds.has(projectId)) {
+        return;
+      }
+    }
+
+    if (!projectMap.has(projectId)) {
+      projectMap.set(projectId, { projectName, totalHours: 0 });
+    }
+
+    const projectEntry = projectMap.get(projectId)!;
       projectEntry.totalHours += log.hours;
     });
   });

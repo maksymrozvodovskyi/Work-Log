@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useQueryStates, parseAsString, parseAsInteger } from "nuqs";
 import clsx from "clsx";
@@ -142,7 +142,23 @@ const ProjectsPage = () => {
           <div className={css.buttonsWrapper}>
             <Link to="/projects" className={css.link}>Projects</Link>
             <nav className={css.navButtons}>
-              <button className={css.tableButton}>Table</button>
+              <NavLink
+                to="/projects"
+                end
+                className={({ isActive }) =>
+                  clsx(css.tableButton, isActive && css.activeButton)
+                }
+              >
+                Table
+              </NavLink>
+              <NavLink
+                to="/projects/timeline"
+                className={({ isActive }) =>
+                  clsx(css.timelineButton, isActive && css.activeButton)
+                }
+              >
+                Timeline
+              </NavLink>
             </nav>
           </div>
 
