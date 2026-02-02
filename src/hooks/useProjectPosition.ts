@@ -62,14 +62,14 @@ export const useProjectPosition = (
   timelineDates: TimelineDateItem[]
 ) => {
   const dateItems = useMemo(() => {
-    return timelineDates
-      .map((item, index) => ({ 
-        item, 
-        index,
-        normalizedDate: startOfDay(item.fullDate)
-      }))
-      .filter(({ item }) => !item.isMonthLabel);
-  }, [timelineDates]);
+  return timelineDates
+    .filter(item => !item.isMonthLabel)
+    .map((item, index) => ({
+      item,
+      index,
+      normalizedDate: startOfDay(item.fullDate),
+    }));
+}, [timelineDates]);
 
   const getProjectPosition = useCallback(
     (project: ProjectType): ProjectPosition | null => {
