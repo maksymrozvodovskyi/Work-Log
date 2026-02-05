@@ -8,7 +8,7 @@ import Loader from "@/components/Loader";
 import { TimelineDateCell } from "../TimelineDateCell";
 import { TimelineRow } from "../TimelineRow";
 
-type TimelineGridProps = {
+type TimelineGridPropsType = {
   getProjectPosition: (project: ProjectType) => ProjectPosition | null;
   showInitialLoader: boolean;
 };
@@ -16,7 +16,7 @@ type TimelineGridProps = {
 export const TimelineGrid = ({
   getProjectPosition,
   showInitialLoader,
-}: TimelineGridProps) => {
+}: TimelineGridPropsType) => {
   const { timelineDates, users, projects } = useTimelineContext();
   
   const gridStyles = useMemo(() => ({

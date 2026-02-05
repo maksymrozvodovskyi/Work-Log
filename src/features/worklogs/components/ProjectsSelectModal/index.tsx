@@ -133,6 +133,7 @@ const ProjectsSelectModal = ({
       isOpen={isOpen}
       onClose={handleClose}
       headerContent={headerContent}
+      width="336px"
     >
       <div className={css.content}>
           <div className={css.searchSection}>

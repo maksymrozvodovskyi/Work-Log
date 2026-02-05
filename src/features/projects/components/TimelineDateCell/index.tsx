@@ -5,7 +5,7 @@ import type { TimelineDateItem } from "@/features/projects/types/timeline";
 import { useTimelineContext } from "@/features/projects/context/useTimelineContext";
 import css from "@/features/projects/index.module.css";
 
-type TimelineDateCellProps = {
+type TimelineDateCellPropsType = {
   dateItem: TimelineDateItem;
   index: number;
   rowNumber: number;
@@ -15,7 +15,7 @@ export const TimelineDateCell = ({
   dateItem,
   index,
   rowNumber,
-}: TimelineDateCellProps) => {
+}: TimelineDateCellPropsType) => {
   const { todayDate } = useTimelineContext();
   
   const gridStyles = {

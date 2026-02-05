@@ -1,5 +1,6 @@
 export const USER_QUERY_KEYS = {
   users: "users",
+  usersSearch: "users-search",
   userProjects: (
     userId: string | undefined,
     search?: string,

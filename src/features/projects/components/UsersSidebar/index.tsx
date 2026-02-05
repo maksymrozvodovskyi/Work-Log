@@ -5,24 +5,24 @@ import SearchInput from "@/components/SearchInput";
 import Loader from "@/components/Loader";
 import { getRoleLabel } from "@/utils/userTransformers";
 
-type UsersState = {
+type UsersStateType = {
   userSearch: string;
   isLoadingUsers: boolean;
 };
 
-type UsersActions = {
+type UsersActionsType = {
   onSearchChange: (value: string) => void;
 };
 
-type UsersSidebarProps = {
-  state: UsersState;
-  actions: UsersActions;
+type UsersSidebarPropsType = {
+  state: UsersStateType;
+  actions: UsersActionsType;
 };
 
 export const UsersSidebar = ({
   state,
   actions,
-}: UsersSidebarProps) => {
+}: UsersSidebarPropsType) => {
   const { users, isLoadingUsers } = useTimelineContext();
   const { userSearch } = state;
   const { onSearchChange } = actions;

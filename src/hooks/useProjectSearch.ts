@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
 import { getProjects } from "@/api/projects";
+import { useItemSearch } from "@/features/projects/hooks/useItemSearch";
 import { PROJECT_QUERY_KEYS } from "@/features/projects/queryKeys";
-import { useDebounce } from "@/hooks/useDebounce";
+import type { ProjectType } from "@/types/Project";
 
 type UseProjectSearchPropsType = {
   searchTerm: string;
@@ -12,28 +12,10 @@ export const useProjectSearch = ({
   searchTerm,
   isEnabled = true,
 }: UseProjectSearchPropsType) => {
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
-
-  const {
-    data: projectsData,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: [PROJECT_QUERY_KEYS.projects, debouncedSearchTerm],
-    queryFn: () => getProjects({ search: debouncedSearchTerm || undefined }),
-    enabled: isEnabled,
+  return useItemSearch<ProjectType>({
+    searchTerm,
+    isEnabled,
+    queryKey: [PROJECT_QUERY_KEYS.projects],
+    queryFn: (search) => getProjects({ search: search || undefined }),
   });
-
-  const projects = projectsData?.data ?? [];
-  const totalProjects = projectsData?.total ?? 0;
-
-  return {
-    projects,
-    totalProjects,
-    isLoading,
-    isError,
-    error,
-    debouncedSearchTerm,
-  };
 };

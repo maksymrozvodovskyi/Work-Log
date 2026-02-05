@@ -30,7 +30,7 @@ const getActivityColor = (activity: string): string => {
   return ACTIVITY_COLOR_MAP[activity as keyof typeof ACTIVITY_COLOR_MAP] || "#aeb8c2";
 };
 
-type ProjectActivities = {
+type ProjectActivitiesType = {
   projectName: string;
   activities: Array<{ activity: string; hours: number }>;
 };
@@ -67,7 +67,7 @@ export const ActivityCard = ({
     return null;
   }
 
-  const projects: ProjectActivities[] = Array.from(projectsMap.entries()).map(
+  const projects: ProjectActivitiesType[] = Array.from(projectsMap.entries()).map(
     ([projectName, activitiesMap]) => ({
       projectName,
       activities: Array.from(activitiesMap.entries()).map(([activity, hours]) => ({
