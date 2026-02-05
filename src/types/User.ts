@@ -31,6 +31,8 @@ export type GetUsersParamsType = {
 export type PaginatedResponseType<T> = {
   data: T[];
   total: number;
+  hasMore?: boolean;
+  nextSkip?: number;
 };
 
 export type CreateUserParamsType = {

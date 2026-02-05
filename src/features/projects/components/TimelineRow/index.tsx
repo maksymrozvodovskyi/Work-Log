@@ -5,7 +5,7 @@ import css from "@/features/projects/index.module.css";
 import { TimelineDateCell } from "../TimelineDateCell";
 import { TimelineProjectBar } from "../TimelineProjectBar";
 
-type TimelineRowProps = {
+type TimelineRowPropsType = {
   user: UserType;
   userIndex: number;
   timelineDates: TimelineDateItem[];
@@ -19,7 +19,7 @@ export const TimelineRow = ({
   timelineDates,
   projects,
   getProjectPosition,
-}: TimelineRowProps) => {
+}: TimelineRowPropsType) => {
   const { rowNumber, userProjectsWithPosition } = useMemo(() => {
     const row = userIndex + 2;
     const userProjects = projects

@@ -82,6 +82,7 @@ export const updateUser = async (
   return data;
 };
 
+
 export const getUserProjects = async (
   userId: string,
   params?: GetUserProjectsParamsType

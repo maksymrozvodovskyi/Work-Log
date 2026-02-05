@@ -47,7 +47,7 @@ export type PaginatedResponseType<T> = {
   nextSkip?: number;
 };
 
-export type ProjectsStatistics = {
+export type ProjectsStatisticsType = {
   total: number;
   byStatus: {
     PLANNED: number;
@@ -60,7 +60,7 @@ export type ProjectsStatistics = {
 };
 
 export type ProjectsResponseType = PaginatedResponseType<ProjectType> & {
-  statistics?: ProjectsStatistics;
+  statistics?: ProjectsStatisticsType;
 };
 
 export type CreateProjectParamsType = {

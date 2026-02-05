@@ -3,11 +3,11 @@ import clsx from "clsx";
 import type { StatisticItemType } from "@/features/projects/types/timeline";
 import css from "@/features/projects/index.module.css";
 
-type TimelineHeaderProps = {
+type TimelineHeaderPropsType = {
   statisticsConfig: StatisticItemType[];
 };
 
-export const TimelineHeader = ({ statisticsConfig }: TimelineHeaderProps) => {
+export const TimelineHeader = ({ statisticsConfig }: TimelineHeaderPropsType) => {
   return (
     <header className={css.header}>
       <div className={css.headerLeft}>

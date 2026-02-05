@@ -9,7 +9,7 @@ import { hexToRgba } from "@/utils/colorUtils";
 import { useTimelineContext } from "@/features/projects/context/useTimelineContext";
 import css from "@/features/projects/index.module.css";
 
-type TimelineProjectBarProps = {
+type TimelineProjectBarPropsType = {
   project: ProjectType;
   position: ProjectPosition;
   rowNumber: number;
@@ -19,7 +19,7 @@ export const TimelineProjectBar = ({
   project,
   position,
   rowNumber,
-}: TimelineProjectBarProps) => {
+}: TimelineProjectBarPropsType) => {
   const { monthBounds } = useTimelineContext();
   
   const { continuesFromPrevious, continuesToNext, gridStyles } = useMemo(() => {

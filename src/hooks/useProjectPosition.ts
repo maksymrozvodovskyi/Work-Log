@@ -9,7 +9,7 @@ import {
 import type { ProjectType } from "@/types/Project";
 import type { TimelineDateItem, ProjectPosition } from "@/features/projects/types/timeline";
 
-type DateItem = {
+type DateItemType = {
   item: TimelineDateItem;
   index: number;
   normalizedDate: Date;
@@ -18,7 +18,7 @@ type DateItem = {
 const findStartIndex = (
   projectStart: Date,
   firstDate: Date,
-  dateItems: DateItem[]
+  dateItems: DateItemType[]
 ): number => {
   if (isBefore(projectStart, firstDate)) {
     return dateItems[0].index;
@@ -33,7 +33,7 @@ const findStartIndex = (
 
 const findEndIndex = (
   projectEnd: Date | null,
-  dateItems: DateItem[]
+  dateItems: DateItemType[]
 ): number => {
   if (!projectEnd) {
     return dateItems[dateItems.length - 1].index;

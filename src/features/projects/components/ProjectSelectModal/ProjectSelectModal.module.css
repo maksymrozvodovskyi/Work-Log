@@ -1,0 +1,126 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 20px 20px 20px;
+}
+
+.title {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #f5f6fa;
+    margin: 0;
+}
+
+.nextButton {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f5f6fa;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.nextButton:hover {
+    color: #aeb8c2;
+}
+
+.nextButton:focus {
+    outline: 2px solid #aeb8c2;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+    background: #2b2c32;
+    border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: #8b97a3;
+    border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: #aeb8c2;
+}
+
+.searchSection {
+    margin-bottom: 20px;
+}
+
+.projectsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    padding-bottom: 20px;
+}
+
+.projectItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #2a2c32;
+    border-radius: 8px;
+    min-height: 48px;
+}
+
+.projectName {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+    flex: 1;
+}
+
+.loading {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #aeb8c2;
+    text-align: center;
+    padding: 40px 0;
+}
+
+.emptyState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 200px;
+}
+
+.emptyStateBox {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #aeb8c2;
+    background: #2a2c32;
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    min-width: 200px;
+}

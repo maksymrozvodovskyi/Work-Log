@@ -1,0 +1,127 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 20px 20px 20px;
+}
+
+.title {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #f5f6fa;
+    margin: 0;
+}
+
+.nextButton {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f5f6fa;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.nextButton:hover {
+    color: #aeb8c2;
+}
+
+.nextButton:focus {
+    outline: 2px solid #aeb8c2;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+    background: #2b2c32;
+    border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: #8b97a3;
+    border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: #aeb8c2;
+}
+
+.searchSection {
+    margin-bottom: 20px;
+}
+
+.itemsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    padding-bottom: 20px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #2a2c32;
+    border-radius: 8px;
+    min-height: 48px;
+}
+
+.itemInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.itemName {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.itemEmail {
+    font-family: "Cera Pro", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.33333;
+    color: #aeb8c2;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.noItems {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    color: #aeb8c2;
+    font-style: italic;
+    font-family: "Cera Pro", sans-serif;
+    font-size: 14px;
+}

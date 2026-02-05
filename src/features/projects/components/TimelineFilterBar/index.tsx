@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { format } from "date-fns";
 import type { ProjectStatusType } from "@/types/Project";
 import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatusOrder";
@@ -8,36 +9,39 @@ import FilterButton from "@/components/FilterButton";
 import StatusFilter from "@/components/StatusFilter";
 import ArrowIcon from "@/components/svg/ArrowIcon";
 import PlusIcon from "@/components/svg/PlusIcon";
+import CreateTimelineModal from "@/features/projects/components/CreateTimelineModal";
 
 const ARROW_ICON_STYLES = {
   previous: { transform: "rotate(90deg)" },
   next: { transform: "rotate(-90deg)" },
 } as const;
 
-type FilterState = {
+type FilterStateType = {
   status: ProjectStatusType | null;
   isDisabled: boolean;
 };
 
-type FilterActions = {
+type FilterActionsType = {
   onStatusChange: (status: ProjectStatusType | null) => void;
   onClearFilters: () => void;
   onPreviousMonth: () => void;
   onNextMonth: () => void;
 };
 
-type TimelineFilterBarProps = {
-  state: FilterState;
-  actions: FilterActions;
+type TimelineFilterBarPropsType = {
+  state: FilterStateType;
+  actions: FilterActionsType;
 };
 
 export const TimelineFilterBar = ({
   state,
   actions,
-}: TimelineFilterBarProps) => {
+}: TimelineFilterBarPropsType) => {
   const { currentDate } = useTimelineContext();
   const { status, isDisabled } = state;
   const { onPreviousMonth, onNextMonth, onStatusChange, onClearFilters } = actions;
+  
+  const [isCreateTimelineModalOpen, setIsCreateTimelineModalOpen] = useState(false);
   
   const formattedDate = format(currentDate, "MMMM yyyy");
 
@@ -85,10 +89,16 @@ export const TimelineFilterBar = ({
         className={css.addTimelineButton}
         aria-label="Add timeline"
         disabled={isDisabled}
+        onClick={() => setIsCreateTimelineModalOpen(true)}
       >
         Add timeline
         <PlusIcon />
       </button>
+
+      <CreateTimelineModal
+        isOpen={isCreateTimelineModalOpen}
+        onClose={() => setIsCreateTimelineModalOpen(false)}
+      />
     </div>
   );
 };
