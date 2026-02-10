@@ -36,7 +36,7 @@ const InviteToProjectModal = ({
     onClose();
   }, [onClose]);
 
-  const { projects, isLoading, isError, error } = useProjectSearch({
+  const { items: projects, isLoading, isError, error } = useProjectSearch({
     searchTerm: search,
     isEnabled: isOpen,
   });
@@ -163,7 +163,7 @@ const InviteToProjectModal = ({
 
         {isLoading && (
           <div className={css.loaderWrapper}>
-            <Loader size="medium" />
+            <Loader size="medium" inline />
           </div>
         )}
 

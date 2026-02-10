@@ -84,7 +84,7 @@ const SelectModal = <T extends SelectModalItem>({
         <div className={css.itemsList}>
           <Activity mode={isLoading ? "visible" : "hidden"}>
             <div className={css.loader}>
-              <Loader size="medium" />
+              <Loader size="medium" inline />
             </div>
           </Activity>
 
@@ -94,13 +94,13 @@ const SelectModal = <T extends SelectModalItem>({
             </div>
           </Activity>
 
-          <Activity mode={!isLoading && !isError && items.length === 0 ? "visible" : "hidden"}>
+          <Activity mode={!isLoading && !isError && items && items.length === 0 ? "visible" : "hidden"}>
             <div className={css.noItems}>
               <p>{emptyMessage}</p>
             </div>
           </Activity>
 
-          <Activity mode={!isLoading && !isError && items.length > 0 ? "visible" : "hidden"}>
+          <Activity mode={!isLoading && !isError && items && items.length > 0 ? "visible" : "hidden"}>
             {items.map(renderItem)}
           </Activity>
         </div>

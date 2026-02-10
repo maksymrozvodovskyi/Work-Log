@@ -36,7 +36,7 @@ export const useProjectSelection = ({
   const selectedCount = selectedIdsSet.size;
 
   const allFilteredSelected = useMemo(() => {
-    return projects.length > 0 && projects.every((project) => selectedProjects[project.id]);
+    return projects && projects.length > 0 && projects.every((project) => selectedProjects[project.id]);
   }, [projects, selectedProjects]);
 
   const handleToggleProject = useCallback(
@@ -48,7 +48,7 @@ export const useProjectSelection = ({
 
   const handleToggleAll = useCallback(() => {
     const newValue = !allFilteredSelected;
-    projects.forEach((project) => {
+    projects?.forEach((project) => {
       setValue(`selectedProjects.${project.id}`, newValue, { shouldDirty: true });
     });
   }, [allFilteredSelected, projects, setValue]);

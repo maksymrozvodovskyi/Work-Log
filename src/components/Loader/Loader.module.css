@@ -12,6 +12,14 @@
     pointer-events: none;
 }
 
+.loaderContainerInline {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
 .loader {
     position: relative;
 }

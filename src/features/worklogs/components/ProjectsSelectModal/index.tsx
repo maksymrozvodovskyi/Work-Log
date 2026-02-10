@@ -47,7 +47,7 @@ const ProjectsSelectModal = ({
   const selectedProjectsRaw = useWatch({ control, name: "selectedProjects" });
   const selectedProjects = selectedProjectsRaw || {};
 
-  const { projects, totalProjects, isLoading, isError, error } = useProjectSearch({
+  const { items: projects, total: totalProjects, isLoading, isError, error } = useProjectSearch({
     searchTerm,
     isEnabled: isOpen,
   });

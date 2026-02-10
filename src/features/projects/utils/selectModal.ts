@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 
 export const useItemToggleHandler = <T extends { id: string }>(
-  items: T[],
+  items: T[] | undefined,
   onSelect: (item: T | null) => void,
   onClose: () => void
 ) => {
   return useCallback((itemId: T["id"], checked: boolean) => {
     if (checked) {
-      const item = items.find((item) => item.id === itemId);
+      const item = items?.find((item) => item.id === itemId);
       if (item) {
         onSelect(item);
         onClose();

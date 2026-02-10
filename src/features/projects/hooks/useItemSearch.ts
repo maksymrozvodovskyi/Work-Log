@@ -29,9 +29,11 @@ export const useItemSearch = <T>({
   });
 
   const items = useMemo(() => data?.data ?? [], [data?.data]);
+  const total = useMemo(() => data?.total ?? 0, [data?.total]);
 
   return {
     items: items as T[],
+    total,
     isLoading,
     isError,
     error: error || undefined,
