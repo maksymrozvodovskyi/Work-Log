@@ -1,4 +1,6 @@
+import axios from "axios";
 import axiosInstance from "@/lib/apiClient";
+import { config } from "@/config/env";
 import type {
   LoginRequestType,
   LoginResponseType,
@@ -47,8 +49,8 @@ export const resetPassword = async (
   newPassword: string,
   resetToken: string
 ): Promise<ResetPasswordResponseType> => {
-  const { data } = await axiosInstance.post<ResetPasswordResponseType>(
-    "/auth/reset-password",
+  const { data } = await axios.post<ResetPasswordResponseType>(
+    `${config.apiUrl}/auth/reset-password`,
     { newPassword } as ResetPasswordRequestType,
     {
       headers: {

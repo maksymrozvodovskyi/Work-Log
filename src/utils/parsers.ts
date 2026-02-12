@@ -3,7 +3,7 @@ import type { SortDirectionType } from "@/types/User";
 
 const createSortFieldParser = <T extends string>(
   validFields: T[],
-  defaultValue: T
+  defaultValue: T,
 ) => {
   return createParser({
     parse: (value: string): T => {
@@ -53,6 +53,16 @@ const createEnumParser = <T extends string>(validValues: T[]) => {
     serialize: (value: T | null): string => value || "",
   });
 };
+
+export const parseAsFeedbackPeriod = createParser<"7days" | "30days" | null>({
+  parse: (value: string): "7days" | "30days" | null => {
+    if (value === "7days" || value === "30days") {
+      return value;
+    }
+    return null;
+  },
+  serialize: (value: "7days" | "30days" | null): string => value ?? "",
+});
 
 export const parsers = {
   sortField: createSortFieldParser,

@@ -12,7 +12,10 @@ type ErrorBoundaryStateType = {
   error: Error | null;
 };
 
-export class ErrorBoundary extends Component<ErrorBoundaryPropsType, ErrorBoundaryStateType> {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryPropsType,
+  ErrorBoundaryStateType
+> {
   constructor(props: ErrorBoundaryPropsType) {
     super(props);
     this.state = { hasError: false, error: null };
@@ -54,4 +57,3 @@ export class ErrorBoundary extends Component<ErrorBoundaryPropsType, ErrorBounda
     return this.props.children;
   }
 }
-

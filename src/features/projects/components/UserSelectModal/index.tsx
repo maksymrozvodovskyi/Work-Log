@@ -7,9 +7,19 @@ export type UserSelectModalPropsType = {
   onClose: () => void;
   selectedUserId: string | null;
   onSelect: (user: ApiUserType | null) => void;
+  excludeUserId?: string;
 };
 
 const UserSelectModal = (props: UserSelectModalPropsType) => {
+  const useSearchWithExclude = (params: {
+    searchTerm: string;
+    isEnabled: boolean;
+  }) =>
+    useUserSearch({
+      ...params,
+      excludeUserId: props.excludeUserId,
+    });
+
   return (
     <SelectModal
       {...props}
@@ -19,7 +29,7 @@ const UserSelectModal = (props: UserSelectModalPropsType) => {
       searchAriaLabel="Search users"
       emptyMessage="No users found"
       errorMessage="Error loading users. Please try again."
-      useSearch={useUserSearch}
+      useSearch={useSearchWithExclude}
     />
   );
 };
