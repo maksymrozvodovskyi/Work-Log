@@ -1,0 +1,506 @@
+.pageContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.header {
+  display: flex;
+  padding: 0 30px;
+  padding-top: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerLeft {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 50px;
+}
+
+.link {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #f5f6fa;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.link:hover {
+  opacity: 0.8;
+}
+
+.navButtons {
+  display: flex;
+  gap: 18px;
+}
+
+.tabButton {
+  border-radius: 8px;
+  padding: 6px 8px;
+  width: 117px;
+  height: 36px;
+  background: #2a2c32;
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  color: #aeb8c2;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.tabButton:hover {
+  opacity: 0.9;
+}
+
+.tabButton:focus {
+  outline: 2px solid #aeb8c2;
+  outline-offset: 2px;
+}
+
+.activeTab {
+  width: 119px;
+  color: #f5f6fa;
+  background: #fc7141;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.notificationButton {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.notificationDot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  background: #fc7141;
+  border-radius: 50%;
+  border: 2px solid #1e1f24;
+}
+
+.profileButton {
+  width: 36px;
+  height: 36px;
+  border: 0.6px solid #aeb8c2;
+  border-radius: 50%;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.filterWrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.filterControls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.filterButtonsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.sortButtonWrapper {
+  position: relative;
+}
+
+.sortButton {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 8px 6px 12px;
+  background: #2a2c32;
+  border: none;
+  border-radius: 8px;
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  text-align: center;
+  color: #aeb8c2;
+  cursor: pointer;
+}
+
+.sortButton:focus {
+  outline: none;
+}
+
+.arrowIcon {
+  width: 8px;
+  height: 5px;
+  transition: transform 0.2s ease;
+  transform-origin: center;
+}
+
+.arrowIconOpen {
+  transform: rotate(180deg);
+}
+
+.sortDropdown {
+  position: absolute;
+  top: 0;
+  right: calc(100% + 16px);
+  left: auto;
+  height: 170px;
+  background: #383d44;
+  border: 1px solid #0e0e11;
+  border-radius: 8px;
+  padding: 5px 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownItem {
+  width: 159px;
+  height: 40px;
+  padding: 0 15px 0 20px;
+  background: #383d44;
+  border: none;
+  border-radius: 0;
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropdownItem:hover {
+  background: #555a67;
+}
+
+.dropdownItemCheckmark {
+  margin-left: auto;
+}
+
+.dropdownItem:focus {
+  outline: none;
+}
+
+.dropdownItem:focus-visible {
+  outline: 2px solid #aeb8c2;
+  outline-offset: -2px;
+}
+
+.createButton {
+  width: 139px;
+  height: 32px;
+  padding: 6px 0;
+  background: #4252ea;
+  border: none;
+  border-radius: 23px;
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.createButtonIcon {
+  width: 26px;
+  height: 26px;
+  border-radius: 100%;
+  background: #7783ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.createButton:hover {
+  background: #5258f0;
+}
+
+.createButton:focus {
+  outline: none;
+}
+
+.contentWrapper {
+  flex: 1;
+  min-height: 0;
+}
+
+.feedbackContentWrapper {
+  padding: 0 30px;
+}
+
+.deleteErrorBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  background: rgba(252, 113, 65, 0.15);
+  border: 1px solid #fc7141;
+  border-radius: 8px;
+}
+
+.deleteErrorText {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #fc7141;
+}
+
+.deleteErrorDismiss {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  font-size: 20px;
+  line-height: 1;
+  color: #fc7141;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.deleteErrorDismiss:hover {
+  opacity: 1;
+}
+
+.deleteErrorDismiss:focus {
+  outline: 2px solid #fc7141;
+  outline-offset: 2px;
+}
+
+.feedbackSection {
+  margin-bottom: 30px;
+}
+
+.feedbackSection:last-child {
+  margin-bottom: 0;
+}
+
+.feedbackSectionTitle {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #f5f6fa;
+  margin: 0 0 20px 0;
+}
+
+.feedbackCardsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 30px;
+}
+
+.feedbackCard {
+  position: relative;
+  width: 366px;
+  background: #2b2c32;
+  border-radius: 10px;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+
+.feedbackHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.feedbackFromTo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.feedbackLabel {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #8b97a3;
+}
+
+.feedbackName {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #57d58e;
+}
+
+.feedbackOptionsWrapper {
+  display: flex;
+}
+
+.feedbackOptionsButton {
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feedbackOptionsButton:hover {
+  background: rgba(245, 246, 250, 0.1);
+}
+
+.feedbackOptionsButton:focus {
+  outline: none;
+}
+
+.feedbackOptionsModal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  left: auto;
+  height: 50px;
+  padding: 5px 0;
+  background: #383d44;
+  border: 1px solid #222327;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.feedbackOptionsModalButton {
+  width: 143px;
+  height: 40px;
+  padding: 0;
+  background: #383d44;
+  border: none;
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.feedbackOptionsModalButton:hover {
+  background: #555a67;
+}
+
+.feedbackCardBody {
+  cursor: pointer;
+}
+
+.feedbackContent {
+  margin-top: 15px;
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #f5f6fa;
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.feedbackDate {
+  margin-top: 15px;
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  text-align: left;
+  color: #8b97a3;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  min-height: 400px;
+}
+
+.emptyText {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #8b97a3;
+}
+
+.loadingState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 40px;
+}
