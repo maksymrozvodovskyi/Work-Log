@@ -14,7 +14,7 @@ type UsersMultiSelectModalProps = {
   isOpen: boolean;
   onClose: () => void;
   selectedUserIds: string[];
-  onSave: (userIds: string[], users: { id: string; name: string }[]) => void;
+  onSave: (users: { id: string; name: string }[]) => void;
   excludeUserId?: string;
 };
 
@@ -86,7 +86,7 @@ const UsersMultiSelectModal = ({
       .filter((u) => selectedIds.includes(u.id))
       .map((u) => ({ id: u.id, name: u.name }));
 
-    onSave(selectedIds, selectedUsersList);
+    onSave(selectedUsersList);
 
     onClose();
   };

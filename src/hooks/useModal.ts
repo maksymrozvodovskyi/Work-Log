@@ -2,10 +2,17 @@ import { useEffect } from "react";
 import { useKeyboard } from "@/hooks/useKeyboard";
 import { useClickOutside } from "@/hooks/useClickOutside";
 
+type UseModalOptions = {
+  isClickOutsideEnabled?: boolean;
+};
+
 export const useModal = <T extends HTMLElement>(
   isOpen: boolean,
-  onClose: () => void
+  onClose: () => void,
+  options?: UseModalOptions,
 ) => {
+  const isClickOutsideEnabled = options?.isClickOutsideEnabled ?? isOpen;
+
   useKeyboard(isOpen, onClose);
 
   useEffect(() => {
@@ -19,7 +26,7 @@ export const useModal = <T extends HTMLElement>(
     };
   }, [isOpen]);
 
-  const modalRef = useClickOutside<T>(onClose, isOpen);
+  const modalRef = useClickOutside<T>(onClose, isClickOutsideEnabled);
 
   return { modalRef };
 };

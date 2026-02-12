@@ -3,8 +3,7 @@ export type FeedbackType = {
   authorId: string;
   targetUserId: string;
   content: string;
-  taggedUsers: string[];
-  taggedUsersDetails?: { id: string; name: string }[];
+  taggedUsersDetails: { id: string; name: string }[];
   createdAt: string;
   author: { id: string; name: string; email: string };
   targetUser: { id: string; name: string; email: string };

@@ -1,40 +1,36 @@
+import { useState } from "react";
 import clsx from "clsx";
 import SearchInput from "@/components/SearchInput";
 import CheckmarkIcon from "@/components/svg/CheckmarkIcon";
 import ArrowIcon from "@/components/svg/ArrowIcon";
 import PlusIcon from "@/components/svg/PlusIcon";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import {
+  useFeedbackQueryParams,
+  type FeedbackSortOption,
+} from "@/hooks/useFeedbackQueryParams";
 import css from "@/features/feedbacks/index.module.css";
 
-export type FeedbackSortOption =
-  | "New"
-  | "Old"
-  | "Last 7 days"
-  | "Last 30 days";
+export type { FeedbackSortOption };
 
 interface FeedbacksFiltersProps {
-  search: string;
-  sort: FeedbackSortOption;
-  isSortDropdownOpen: boolean;
-  onSearchChange: (search: string) => void;
-  onSortChange: (sort: FeedbackSortOption) => void;
-  onToggleSortDropdown: () => void;
-  onCloseSortDropdown: () => void;
   onAddFeedback: () => void;
 }
 
 export default function FeedbacksFilters({
-  search,
-  sort,
-  isSortDropdownOpen,
-  onSearchChange,
-  onSortChange,
-  onToggleSortDropdown,
-  onCloseSortDropdown,
   onAddFeedback,
 }: FeedbacksFiltersProps) {
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
+
+  const {
+    search,
+    setSearch,
+    currentSortType: sort,
+    handleSortChange: onSortChange,
+  } = useFeedbackQueryParams();
+
   const sortDropdownRef = useClickOutside<HTMLDivElement>(
-    onCloseSortDropdown,
+    () => setIsSortDropdownOpen(false),
     isSortDropdownOpen,
   );
 
@@ -49,7 +45,7 @@ export default function FeedbacksFilters({
     <section className={css.filterWrapper}>
       <SearchInput
         value={search}
-        onChange={onSearchChange}
+        onChange={setSearch}
         placeholder="Search by text"
       />
 
@@ -59,7 +55,7 @@ export default function FeedbacksFilters({
             <button
               type="button"
               className={css.sortButton}
-              onClick={onToggleSortDropdown}
+              onClick={() => setIsSortDropdownOpen((prev) => !prev)}
             >
               Sort by: {sort}
               <ArrowIcon
@@ -70,9 +66,7 @@ export default function FeedbacksFilters({
               />
             </button>
             {isSortDropdownOpen && (
-              <div
-                className={css.sortDropdown}
-              >
+              <div className={css.sortDropdown}>
                 {SORT_OPTIONS.map((option) => (
                   <button
                     key={option}

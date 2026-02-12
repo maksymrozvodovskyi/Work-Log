@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useIsMutating } from "@tanstack/react-query";
 import Loader from "@/components/Loader";
-import FeedbackCard from "@/features/feedbacks/components/FeedbackCard";
+import FeedbackSection from "./FeedbackSection";
 import { FEEDBACK_MUTATION_KEYS } from "@/features/feedbacks/queryKeys";
 import { getDeleteFeedbackErrorMessage } from "@/utils/axiosError";
 import type { FeedbackType } from "@/types/Feedback";
@@ -36,30 +36,12 @@ export default function FeedbacksContent({
     setDeleteError(message);
   };
 
-  const renderFeedbackSection = (
-    title: string,
-    feedbacks: FeedbackType[],
-    variant: "createdByMe" | "createdForMe",
-  ) => (
-    <section className={css.feedbackSection}>
-      <h2 className={css.feedbackSectionTitle}>{title}</h2>
-      <div className={css.feedbackCardsGrid}>
-        {feedbacks.map((feedback) => (
-          <FeedbackCard
-            key={feedback.id}
-            feedback={feedback}
-            variant={variant}
-            onDeleteError={handleDeleteError}
-          />
-        ))}
-      </div>
-    </section>
-  );
+  const showLoader = isLoading || isDeleting;
 
-  if (isLoading) {
+  if (showLoader) {
     return (
       <div className={css.feedbackContentWrapper}>
-        <div className={css.loadingState}>
+        <div className={css.loadingState} aria-busy aria-live="polite">
           <Loader size="large" inline />
         </div>
       </div>
@@ -84,16 +66,6 @@ export default function FeedbacksContent({
     );
   }
 
-  if (isDeleting) {
-    return (
-      <div className={css.feedbackContentWrapper}>
-        <div className={css.loadingState} aria-busy aria-live="polite">
-          <Loader size="large" inline />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={css.feedbackContentWrapper}>
       {deleteError && (
@@ -109,10 +81,22 @@ export default function FeedbacksContent({
           </button>
         </div>
       )}
-      {createdByMe.length > 0 &&
-        renderFeedbackSection("Created by me", createdByMe, "createdByMe")}
-      {createdForMe.length > 0 &&
-        renderFeedbackSection("Created for me", createdForMe, "createdForMe")}
+      {createdByMe.length > 0 && (
+        <FeedbackSection
+          title="Created by me"
+          feedbacks={createdByMe}
+          variant="createdByMe"
+          onDeleteError={handleDeleteError}
+        />
+      )}
+      {createdForMe.length > 0 && (
+        <FeedbackSection
+          title="Created for me"
+          feedbacks={createdForMe}
+          variant="createdForMe"
+          onDeleteError={handleDeleteError}
+        />
+      )}
     </div>
   );
 }

@@ -1,8 +1,7 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useQueryClient } from "@tanstack/react-query";
-import { useClickOutside } from "@/hooks/useClickOutside";
-import { useKeyboard } from "@/hooks/useKeyboard";
+import { useModal } from "@/hooks/useModal";
 import { createFeedback } from "@/api/feedbacks";
 import { FEEDBACK_QUERY_KEYS } from "../../queryKeys";
 import { handleAxiosError } from "@/utils/axiosError";
@@ -39,8 +38,6 @@ export default function CreateFeedbackModal({
     null,
   );
 
-  const [selectedReceiverIds, setSelectedReceiverIds] = useState<string[]>([]);
-
   const [selectedReceivers, setSelectedReceivers] = useState<Receiver[]>([]);
 
   const [content, setContent] = useState("");
@@ -51,30 +48,15 @@ export default function CreateFeedbackModal({
 
   const handleClose = useCallback(() => {
     setSelectedAssignee(null);
-    setSelectedReceiverIds([]);
     setSelectedReceivers([]);
     setContent("");
     setActiveModal(null);
     onClose();
   }, [onClose]);
 
-  const modalRef = useClickOutside<HTMLDivElement>(
-    handleClose,
-    isOpen && !activeModal,
-  );
-
-  useKeyboard(isOpen, handleClose);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
+  const { modalRef } = useModal<HTMLDivElement>(isOpen, handleClose, {
+    isClickOutsideEnabled: isOpen && !activeModal,
+  });
 
   const handleSubmit = async () => {
     if (!selectedAssignee?.id || !content.trim()) return;
@@ -86,7 +68,7 @@ export default function CreateFeedbackModal({
       await createFeedback({
         targetUserId: selectedAssignee.id,
         content: content.trim(),
-        taggedUsers: selectedReceiverIds,
+        taggedUsers: selectedReceivers.map((r) => r.id),
       });
 
       queryClient.invalidateQueries({ queryKey: [FEEDBACK_QUERY_KEYS.base] });
@@ -103,8 +85,7 @@ export default function CreateFeedbackModal({
     setActiveModal(null);
   };
 
-  const handleReceiversSave = (userIds: string[], users: Receiver[]) => {
-    setSelectedReceiverIds(userIds);
+  const handleReceiversSave = (users: Receiver[]) => {
     setSelectedReceivers(users);
     setActiveModal(null);
   };
@@ -239,7 +220,7 @@ export default function CreateFeedbackModal({
         <UsersMultiSelectModal
           isOpen
           onClose={() => setActiveModal(null)}
-          selectedUserIds={selectedReceiverIds}
+          selectedUserIds={selectedReceivers.map((r) => r.id)}
           onSave={handleReceiversSave}
           excludeUserId={currentUser?.id}
         />

@@ -1,4 +1,8 @@
-import type { FeedbackSortOption } from "@/pages/FeedbacksPage/components/FeedbacksFilters";
+export type FeedbackSortOption =
+  | "New"
+  | "Old"
+  | "Last 7 days"
+  | "Last 30 days";
 
 export const getCurrentSortType = (
   period: "7days" | "30days" | null,
