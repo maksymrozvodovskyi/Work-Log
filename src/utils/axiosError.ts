@@ -1,5 +1,6 @@
 type AxiosErrorType = {
   response?: {
+    status?: number;
     data?: {
       message?: string;
       error?: string;
@@ -52,4 +53,15 @@ export function handleAxiosError(
   }
   
   return defaultMessage;
+}
+
+export function getDeleteFeedbackErrorMessage(error: unknown): string {
+  if (!error) {
+    return "Failed to delete feedback";
+  }
+  const axiosError = error as AxiosErrorType;
+  if (axiosError.response?.status === 403) {
+    return "You don't have permission to delete this feedback";
+  }
+  return handleAxiosError(error, "Failed to delete feedback");
 }

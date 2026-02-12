@@ -1,7 +1,7 @@
 export interface SelectModalItem {
   id: string;
   name: string;
-  email?: string; // опціонально для проектів
+  email?: string;
 }
 
 export interface SelectModalProps<T extends SelectModalItem> {
