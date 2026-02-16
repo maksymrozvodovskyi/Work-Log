@@ -51,7 +51,7 @@
 }
 
 .modal::-webkit-scrollbar-track {
-  background: #2b2c32;
+  background: #2a2c32;
   border-radius: 4px;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .title {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 20px;
   line-height: 1.4;
@@ -81,7 +81,7 @@
 }
 
 .subtitle {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -121,7 +121,7 @@
   border-radius: 8px;
   padding: 6px 12px;
   background: #484c56;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -136,7 +136,7 @@
 }
 
 .label {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -154,7 +154,7 @@
   padding: 6px 12px;
   width: 51px;
   height: 32px;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -170,8 +170,7 @@
 }
 
 .addButton:focus {
-  outline: 2px solid #aeb8c2;
-  outline-offset: 2px;
+  outline: none;
 }
 
 .selectedInput {
@@ -181,7 +180,7 @@
   border-radius: 8px;
   border: none;
   padding: 0 12px;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -198,7 +197,7 @@
   border-radius: 10px;
   border: none;
   padding: 15px 20px;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -209,7 +208,7 @@
 }
 
 .textarea::placeholder {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -217,7 +216,7 @@
 }
 
 .optionalNote {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -241,7 +240,7 @@
   border-radius: 8px;
   padding: 6px 12px;
   background: #484c56;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -271,7 +270,7 @@
   width: 240px;
   height: 36px;
   background: #4252ea;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -290,8 +289,7 @@
 }
 
 .sendButton:focus:not(:disabled) {
-  outline: 2px solid #aeb8c2;
-  outline-offset: 2px;
+  outline: none;
 }
 
 .sendButton:disabled {

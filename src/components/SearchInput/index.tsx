@@ -8,6 +8,7 @@ type SearchInputPropsType = {
   placeholder?: string;
   ariaLabel?: string;
   disabled?: boolean;
+  variant?: "default" | "shortUnderscore";
 };
 
 const SearchInput = ({
@@ -16,13 +17,20 @@ const SearchInput = ({
   placeholder = "Search by name, skills etc.",
   ariaLabel = "Search projects by name, skills etc.",
   disabled = false,
+  variant = "default",
 }: SearchInputPropsType) => {
   const handleClear = () => {
     onChange("");
   };
 
   return (
-    <div className={css.searchInputWrapper}>
+    <div
+      className={
+        variant === "shortUnderscore"
+          ? `${css.searchInputWrapper} ${css.searchInputWrapperShortUnderscore}`
+          : css.searchInputWrapper
+      }
+    >
       <SearchIcon />
       <input
         id="search-input"
@@ -42,7 +50,7 @@ const SearchInput = ({
           aria-label="Clear search"
           disabled={disabled}
         >
-          <CloseIcon />
+          <CloseIcon fill="#AEB8C2" stroke="#AEB8C2" />
         </button>
       )}
     </div>
@@ -50,4 +58,3 @@ const SearchInput = ({
 };
 
 export default SearchInput;
-

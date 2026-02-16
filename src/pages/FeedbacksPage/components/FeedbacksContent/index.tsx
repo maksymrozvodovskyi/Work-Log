@@ -13,6 +13,7 @@ type FeedbacksContentProps = {
   error: Error | null;
   createdByMe: FeedbackType[];
   createdForMe: FeedbackType[];
+  profileMode?: boolean;
 };
 
 export default function FeedbacksContent({
@@ -21,6 +22,7 @@ export default function FeedbacksContent({
   error,
   createdByMe,
   createdForMe,
+  profileMode = false,
 }: FeedbacksContentProps) {
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
@@ -81,20 +83,24 @@ export default function FeedbacksContent({
           </button>
         </div>
       )}
-      {createdByMe.length > 0 && (
+      {!profileMode && createdByMe.length > 0 && (
         <FeedbackSection
           title="Created by me"
           feedbacks={createdByMe}
           variant="createdByMe"
           onDeleteError={handleDeleteError}
+          hideActions={profileMode}
+          profileMode={profileMode}
         />
       )}
       {createdForMe.length > 0 && (
         <FeedbackSection
-          title="Created for me"
+          title={profileMode ? "" : "Created for me"}
           feedbacks={createdForMe}
           variant="createdForMe"
           onDeleteError={handleDeleteError}
+          hideActions={profileMode}
+          profileMode={profileMode}
         />
       )}
     </div>

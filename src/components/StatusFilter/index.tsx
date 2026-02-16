@@ -1,6 +1,6 @@
 import css from "./StatusFilter.module.css";
 import type { StatusInfoType } from "@/types/StatusInfo";
-import CheckmarkIcon from "@/components/svg/CheckmarkIcon";
+import StatusFilterCheckIcon from "@/components/svg/StatusFilterCheckIcon";
 
 type StatusFilterPropsType<T extends string> = {
   statusOrder: T[];
@@ -46,7 +46,7 @@ const StatusFilter = <T extends string>({
             style={{ backgroundColor: statusInfo.color }}
             disabled={disabled}
           >
-            {isSelected && <CheckmarkIcon />}
+            {isSelected && <StatusFilterCheckIcon />}
           </button>
         );
       })}

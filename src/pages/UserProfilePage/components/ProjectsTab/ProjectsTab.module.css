@@ -14,7 +14,7 @@
 }
 
 .errorText {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -41,7 +41,7 @@
 
 .sortButton,
 .inviteButton {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -92,7 +92,7 @@
     background: transparent;
     border: none;
     border-radius: 8px;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     color: #f5f6fa;
@@ -108,8 +108,7 @@
 }
 
 .dropdownItem:focus {
-    outline: 2px solid #aeb8c2;
-    outline-offset: -2px;
+    outline: none;
 }
 
 .inviteButton {
@@ -118,18 +117,18 @@
 }
 
 .projectsGrid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
     gap: 20px;
     padding: 0;
 }
 
 .projectCard {
     border-radius: 10px;
-    width: 275px;
-    background: #2b2c32;
+    min-height: 100px;
+    background: #2a2c32;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     padding: 15px 20px;
 }
@@ -141,7 +140,7 @@
 }
 
 .projectName {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25;
@@ -149,7 +148,7 @@
 }
 
 .projectDate {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.42857;
@@ -165,7 +164,7 @@
 }
 
 .emptyText {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;

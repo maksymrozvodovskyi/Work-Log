@@ -10,7 +10,7 @@
 }
 
 .columnTitle {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 18px;
   line-height: 1.55556;
@@ -27,7 +27,7 @@
 .card {
   border-radius: 10px;
   width: 360px;
-  background: #2b2c32;
+  background: #2a2c32;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -40,14 +40,14 @@
 }
 
 .cardType {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
 }
 
 .cardDuration {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -55,7 +55,7 @@
 }
 
 .cardDate {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 1.5;
@@ -63,7 +63,7 @@
 }
 
 .emptyState {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.42857;
@@ -71,7 +71,7 @@
   border-radius: 10px;
   width: 360px;
   height: 50px;
-  background: #2b2c32;
+  background: #2a2c32;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,7 +92,7 @@
 }
 
 .errorText {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;

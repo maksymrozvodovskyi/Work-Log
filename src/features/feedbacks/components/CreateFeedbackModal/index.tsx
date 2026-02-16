@@ -1,8 +1,9 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useModal } from "@/hooks/useModal";
 import { createFeedback } from "@/api/feedbacks";
+import { getUserById } from "@/api/users";
 import { FEEDBACK_QUERY_KEYS } from "../../queryKeys";
 import { handleAxiosError } from "@/utils/axiosError";
 import { useAuthStore } from "@/stores/authStore";
@@ -22,11 +23,13 @@ type ActiveModalType = "assignee" | "receivers" | null;
 type CreateFeedbackModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  initialTargetUserId?: string;
 };
 
 export default function CreateFeedbackModal({
   isOpen,
   onClose,
+  initialTargetUserId,
 }: CreateFeedbackModalProps) {
   type Receiver = { id: string; name: string };
 
@@ -57,6 +60,14 @@ export default function CreateFeedbackModal({
   const { modalRef } = useModal<HTMLDivElement>(isOpen, handleClose, {
     isClickOutsideEnabled: isOpen && !activeModal,
   });
+
+  useEffect(() => {
+    if (isOpen && initialTargetUserId && !selectedAssignee) {
+      getUserById(initialTargetUserId)
+        .then((user) => setSelectedAssignee(user))
+        .catch(() => {});
+    }
+  }, [isOpen, initialTargetUserId, selectedAssignee]);
 
   const handleSubmit = async () => {
     if (!selectedAssignee?.id || !content.trim()) return;

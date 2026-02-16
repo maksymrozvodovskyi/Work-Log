@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import ArrowIcon from "@/components/svg/ArrowIcon";
+import SortArrowActiveIcon from "@/components/svg/SortArrowActiveIcon";
 import css from "./SortArrows.module.css";
 
-const ACTIVE_COLOR = "#6b7682";
 const INACTIVE_COLOR = "#aeb8c2";
 
 type SortArrowsPropsType = {
@@ -23,24 +23,38 @@ function SortArrows({
 
   return (
     <div className={clsx(css.arrowsContainer, className)}>
-      <ArrowIcon
-        className={clsx(css.headerArrow, isAscActive && css.active)}
-        fill={isAscActive ? ACTIVE_COLOR : INACTIVE_COLOR}
-        style={{
-          width: "4px",
-          height: "3px",
-          transform: "rotate(180deg)",
-          transformOrigin: "center",
-        }}
-      />
-      <ArrowIcon
-        className={clsx(css.headerArrow, isDescActive && css.active)}
-        fill={isDescActive ? ACTIVE_COLOR : INACTIVE_COLOR}
-        style={{
-          width: "4px",
-          height: "3px",
-        }}
-      />
+      {isAscActive ? (
+        <SortArrowActiveIcon
+          className={clsx(css.headerArrow, css.active)}
+          style={{
+            transform: "rotate(180deg)",
+            transformOrigin: "center",
+          }}
+        />
+      ) : (
+        <ArrowIcon
+          className={css.headerArrow}
+          fill={INACTIVE_COLOR}
+          style={{
+            width: "4px",
+            height: "3px",
+            transform: "rotate(180deg)",
+            transformOrigin: "center",
+          }}
+        />
+      )}
+      {isDescActive ? (
+        <SortArrowActiveIcon className={clsx(css.headerArrow, css.active)} />
+      ) : (
+        <ArrowIcon
+          className={css.headerArrow}
+          fill={INACTIVE_COLOR}
+          style={{
+            width: "4px",
+            height: "3px",
+          }}
+        />
+      )}
     </div>
   );
 }

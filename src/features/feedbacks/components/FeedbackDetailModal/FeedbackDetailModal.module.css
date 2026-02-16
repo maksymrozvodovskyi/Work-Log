@@ -52,7 +52,7 @@
 }
 
 .modal::-webkit-scrollbar-track {
-  background: #2b2c32;
+  background: #2a2c32;
   border-radius: 4px;
 }
 
@@ -73,7 +73,7 @@
 }
 
 .title {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 20px;
   line-height: 1.4;
@@ -82,7 +82,7 @@
 }
 
 .date {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -111,7 +111,7 @@
 }
 
 .label {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -128,7 +128,7 @@
   border-radius: 8px;
   padding: 6px 12px;
   background: #484c56;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -141,7 +141,7 @@
   background: #494c55;
   width: 100%;
   height: 200px;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -164,7 +164,7 @@
   border-radius: 8px;
   padding: 6px 12px;
   background: #484c56;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;

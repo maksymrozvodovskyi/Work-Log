@@ -7,6 +7,8 @@ type FeedbackSectionProps = {
   feedbacks: FeedbackType[];
   variant: "createdByMe" | "createdForMe";
   onDeleteError: (error: unknown) => void;
+  hideActions?: boolean;
+  profileMode?: boolean;
 };
 
 export default function FeedbackSection({
@@ -14,10 +16,12 @@ export default function FeedbackSection({
   feedbacks,
   variant,
   onDeleteError,
+  hideActions = false,
+  profileMode = false,
 }: FeedbackSectionProps) {
   return (
     <section className={css.feedbackSection}>
-      <h2 className={css.feedbackSectionTitle}>{title}</h2>
+      {title && <h2 className={css.feedbackSectionTitle}>{title}</h2>}
       <div className={css.feedbackCardsGrid}>
         {feedbacks.map((feedback) => (
           <FeedbackCard
@@ -25,6 +29,8 @@ export default function FeedbackSection({
             feedback={feedback}
             variant={variant}
             onDeleteError={onDeleteError}
+            hideActions={hideActions}
+            profileMode={profileMode}
           />
         ))}
       </div>

@@ -27,7 +27,7 @@
 }
 
 .modal::-webkit-scrollbar-track {
-    background: #2b2c32;
+    background: #2a2c32;
     border-radius: 4px;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .title {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.5;

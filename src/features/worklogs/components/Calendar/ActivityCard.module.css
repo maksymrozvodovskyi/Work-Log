@@ -1,6 +1,6 @@
 .activityCard {
     border-radius: 10px;
-    background: #2b2c32;
+    background: #2a2c32;
     padding: 15px 20px;
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@
 }
 
 .projectName {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25;
@@ -23,14 +23,14 @@
 }
 
 .activitiesList {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25;
 }
 
 .activityText {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -38,7 +38,7 @@
 }
 
 .activityHours {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -55,7 +55,7 @@
 }
 
 .dateText {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25;

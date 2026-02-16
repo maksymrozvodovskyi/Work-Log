@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 0 12px;
     border-radius: 8px;
     width: 236px;
     height: 32px;
@@ -25,8 +24,16 @@
     opacity: 1;
 }
 
+.searchInputWrapperShortUnderscore {
+    width: 130px;
+}
+
+.searchInputWrapperShortUnderscore::after {
+    width: 11ch;
+}
+
 .searchInput {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;

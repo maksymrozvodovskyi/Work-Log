@@ -21,7 +21,7 @@ const Avatar = ({ name, status, showStatus = false }: AvatarPropsType) => {
   return (
     <div
       className={css.avatar}
-      style={statusColor ? { border: `2px solid ${statusColor}` } : undefined}
+      style={statusColor ? { border: `5px solid ${statusColor}` } : undefined}
       aria-label={`Avatar for ${name}`}
     >
       <span className={css.initials}>{initials}</span>

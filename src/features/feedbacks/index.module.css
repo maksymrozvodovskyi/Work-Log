@@ -24,11 +24,11 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 50px;
+  gap: 35px;
 }
 
 .link {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 20px;
   line-height: 1.4;
@@ -44,16 +44,15 @@
 
 .navButtons {
   display: flex;
-  gap: 18px;
+  gap: 10px;
 }
 
 .tabButton {
   border-radius: 8px;
   padding: 6px 8px;
-  width: 117px;
   height: 36px;
   background: #2a2c32;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
@@ -73,12 +72,10 @@
 }
 
 .tabButton:focus {
-  outline: 2px solid #aeb8c2;
-  outline-offset: 2px;
+  outline: none;
 }
 
 .activeTab {
-  width: 119px;
   color: #f5f6fa;
   background: #fc7141;
 }
@@ -129,10 +126,25 @@
 .filterWrapper {
   display: flex;
   align-items: center;
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-top: 50px;
+  margin-bottom: 25px;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 0 30px 25px;
+  position: relative;
+}
+
+.filterWrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 30px;
+  right: 30px;
+  height: 0;
+  border-top: 1px dashed #494c55;
+}
+
+.filterWrapperNoDivider::after {
+  display: none;
 }
 
 .filterControls {
@@ -160,7 +172,7 @@
   background: #2a2c32;
   border: none;
   border-radius: 8px;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -207,7 +219,7 @@
   background: #383d44;
   border: none;
   border-radius: 0;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -233,18 +245,16 @@
 }
 
 .dropdownItem:focus-visible {
-  outline: 2px solid #aeb8c2;
-  outline-offset: -2px;
+  outline: none;
 }
 
 .createButton {
-  width: 139px;
   height: 32px;
-  padding: 6px 0;
+  padding: 6px 3px 6px 12px;
   background: #4252ea;
   border: none;
   border-radius: 23px;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -298,7 +308,7 @@
 }
 
 .deleteErrorText {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -321,12 +331,11 @@
 }
 
 .deleteErrorDismiss:focus {
-  outline: 2px solid #fc7141;
-  outline-offset: 2px;
+  outline: none;
 }
 
 .feedbackSection {
-  margin-bottom: 30px;
+  margin-bottom: 46px;
 }
 
 .feedbackSection:last-child {
@@ -334,7 +343,7 @@
 }
 
 .feedbackSectionTitle {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
@@ -351,9 +360,10 @@
 .feedbackCard {
   position: relative;
   width: 366px;
-  background: #2b2c32;
+  height: 140px;
+  background: #2a2c32;
   border-radius: 10px;
-  padding: 15px 20px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -364,10 +374,19 @@
 }
 
 
-.feedbackHeader {
+.feedbackHeaderPage {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.feedbackHeaderProfile {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-shrink: 0;
+  margin-bottom: 15px;
 }
 
 .feedbackFromTo {
@@ -378,7 +397,7 @@
 }
 
 .feedbackLabel {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -386,11 +405,22 @@
 }
 
 .feedbackName {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
   color: #57d58e;
+}
+
+.feedbackHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feedbackHeaderRight .feedbackDate {
+  margin-top: 0;
+  text-align: right;
 }
 
 .feedbackOptionsWrapper {
@@ -440,7 +470,7 @@
   padding: 0;
   background: #383d44;
   border: none;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -454,12 +484,22 @@
 }
 
 .feedbackCardBody {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
 }
 
+.feedbackCardFooter {
+  flex-shrink: 0;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .feedbackContent {
-  margin-top: 15px;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.25;
@@ -472,8 +512,7 @@
 }
 
 .feedbackDate {
-  margin-top: 15px;
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -490,7 +529,7 @@
 }
 
 .emptyText {
-  font-family: "Cera Pro", sans-serif;
+  font-family: "Montserrat", "Manrope", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
@@ -503,4 +542,13 @@
   justify-content: center;
   min-height: 400px;
   padding: 40px;
+}
+
+.profileFeedbacksLayout .filterWrapper {
+  margin-top: 0;
+  padding: 0;
+}
+
+.profileFeedbacksLayout .feedbackContentWrapper {
+  padding: 0;
 }

@@ -24,14 +24,14 @@
 
 .error {
     color: #ff4444;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-size: 14px;
     margin-top: 8px;
 }
 
 .success {
     color: #22c55e;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-size: 14px;
     margin-top: 8px;
 }

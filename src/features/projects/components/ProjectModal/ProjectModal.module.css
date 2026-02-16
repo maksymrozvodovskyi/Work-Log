@@ -29,7 +29,7 @@
 }
 
 .modal::-webkit-scrollbar-track {
-    background: #2b2c32;
+    background: #2a2c32;
     border-radius: 4px;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .title {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.5;
@@ -82,8 +82,7 @@
 }
 
 .closeButton:focus {
-    outline: 2px solid #aeb8c2;
-    outline-offset: 2px;
+    outline: none;
     border-radius: 2px;
 }
 
@@ -115,7 +114,7 @@
 }
 
 .label {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -123,7 +122,7 @@
 }
 
 .input {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -145,7 +144,7 @@
 }
 
 .textarea {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -162,7 +161,7 @@
 }
 
 .textarea::placeholder {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -184,7 +183,7 @@
     width: 140px;
     height: 36px;
     background: #2a2c32;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -200,8 +199,7 @@
 }
 
 .statusButton:focus {
-    outline: 2px solid #aeb8c2;
-    outline-offset: 2px;
+    outline: none;
 }
 
 .statusButtonActive {
@@ -218,7 +216,7 @@
     width: 240px;
     height: 36px;
     background: #4252ea;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -236,8 +234,7 @@
 }
 
 .createButton:focus:not(:disabled) {
-    outline: 2px solid #aeb8c2;
-    outline-offset: 2px;
+    outline: none;
 }
 
 .createButton:disabled {

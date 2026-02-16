@@ -24,7 +24,7 @@
 }
 
 .link {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 20px;
     line-height: 1.4;
@@ -49,7 +49,7 @@
 }
 
 .headerAllUsers {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -58,7 +58,7 @@
 }
 
 .headerAllUsersNumbers {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 20px;
     line-height: 1.4;
@@ -67,7 +67,7 @@
 }
 
 .headerNumbers {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 20px;
     line-height: 1.4;
@@ -76,7 +76,7 @@
 }
 
 .headerText {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -165,7 +165,7 @@
 }
 
 .searchInput {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -204,7 +204,7 @@
 
 .filterButton {
     border-radius: 100%;
-    background-color: #2b2c32;
+    background-color: #2a2c32;
     width: 32px;
     height: 32px;
     display: flex;
@@ -223,7 +223,7 @@
 }
 
 .createButtonText {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -246,8 +246,7 @@
 }
 
 .createButton:focus {
-    outline: 2px solid #aeb8c2;
-    outline-offset: 2px;
+    outline: none;
     border-radius: 4px;
 }
 
@@ -281,7 +280,7 @@
     padding: 6px 12px;
     background: transparent;
     border: none;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -294,8 +293,7 @@
 }
 
 .dropdownButton:focus {
-    outline: 2px solid #aeb8c2;
-    outline-offset: 2px;
+    outline: none;
 }
 
 .dropdownButton:disabled {
@@ -330,7 +328,7 @@
     background: transparent;
     border: none;
     border-radius: 4px;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -369,6 +367,7 @@
     overflow-y: auto;
     overflow-x: auto;
     position: relative;
+    border-radius: 5px;
 }
 
 .tableHeadHidden {
@@ -401,14 +400,22 @@
     table-layout: fixed;
 }
 
+.tableHead {
+    border: 5px solid #191a1f;
+    border-radius: 5px;
+    width: 1200px;
+    height: 36px;
+    background: #2b2c32;
+}
+
 .tableHeader {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     color: #aeb8c2;
     text-align: left;
     padding: 11px 7px;
-    background: #2b2c32;
+    background: #2a2c32;
 }
 
 .tableContainer .tableHeader {
@@ -447,7 +454,7 @@
 
 .tableOverlay {
     position: absolute;
-    top: 3px;
+    top: 0px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -486,7 +493,7 @@
 }
 
 .tableRow {
-    background: #2b2c32;
+    background: #2a2c32;
     border-radius: 5px;
     height: 60px;
     transition: background-color 0.2s;
@@ -497,7 +504,7 @@
 }
 
 .tableCell {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -523,7 +530,7 @@
 }
 
 .userNameLink {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -538,7 +545,7 @@
 
 
 .projectsCell {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     color: #f5f6fa;
@@ -556,10 +563,6 @@
     border: none;
 }
 
-.sortableHeader:hover .headerContent {
-    color: #f5f6fa;
-}
-
 .sortableHeader:hover .headerArrow path {
     fill: #aeb8c2;
 }
@@ -569,7 +572,7 @@
 }
 
 .tableContainer::-webkit-scrollbar-track {
-    background: #2b2c32;
+    background: #2a2c32;
     border-radius: 4px;
 }
 
@@ -613,8 +616,7 @@
 }
 
 .paginationButton:focus:not(.disabled) {
-    outline: 2px solid #aeb8c2;
-    outline-offset: 2px;
+    outline: none;
 }
 
 .paginationButton.active {

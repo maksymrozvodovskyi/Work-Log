@@ -9,7 +9,7 @@
 }
 
 .timeTrackerTitle {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 18px;
     line-height: 1.55556;
@@ -24,7 +24,7 @@
 }
 
 .periodLabel {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -47,7 +47,7 @@
     border-radius: 8px;
     width: 115px;
     height: 32px;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -105,7 +105,7 @@
 }
 
 .projectsLabel {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -128,7 +128,7 @@
     border-radius: 8px;
     width: 208px;
     height: 32px;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -174,7 +174,10 @@
 }
 
 .resultsTitle {
-    font-family: "Cera Pro", sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 18px;
     line-height: 1.55556;
@@ -182,20 +185,23 @@
     margin: 0 0 30px 0;
 }
 
+.resultsDownloadIcon {
+    flex-shrink: 0;
+}
+
 .resultsPlaceholder {
     width: 270px;
     height: 50px;
-    background: #2b2c32;
+    background: #2a2c32;
     border-radius: 10px;
-    padding: 15px 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
 }
 
 .resultsPlaceholderText {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -210,7 +216,7 @@
 }
 
 .resultsTotal {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -230,12 +236,12 @@
     border-radius: 10px;
     width: 270px;
     height: 50px;
-    background: #2b2c32;
+    background: #2a2c32;
     padding: 15px 20px;
 }
 
 .resultsProjectName {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -243,7 +249,7 @@
 }
 
 .resultsProjectHours {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -258,7 +264,7 @@
 }
 
 .resultsProjectNames {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 400;
     font-size: 12px;
     line-height: 1.5;
@@ -298,7 +304,7 @@
 }
 
 .resultCardLabel {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -306,7 +312,7 @@
 }
 
 .resultCardValue {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -321,7 +327,7 @@
 }
 
 .userFreeHoursLabel {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -329,7 +335,7 @@
 }
 
 .userFreeHoursValue {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;

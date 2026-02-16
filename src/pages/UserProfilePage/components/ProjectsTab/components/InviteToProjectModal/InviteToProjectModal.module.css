@@ -7,7 +7,7 @@
 }
 
 .title {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.5;
@@ -87,7 +87,7 @@
 }
 
 .searchInput {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -127,7 +127,7 @@
 }
 
 .counter {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -146,7 +146,7 @@
 }
 
 .projectsList::-webkit-scrollbar-track {
-    background: #2b2c32;
+    background: #2a2c32;
     border-radius: 4px;
 }
 
@@ -164,12 +164,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px;
-    background: #2b2c32;
+    background: #2a2c32;
     border-radius: 8px;
 }
 
 .projectName {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -188,7 +188,7 @@
 }
 
 .errorText {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -207,7 +207,7 @@
     width: 256px;
     height: 36px;
     background: #4252ea;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -223,8 +223,7 @@
 }
 
 .inviteButton:focus:not(:disabled) {
-    outline: 2px solid #aeb8c2;
-    outline-offset: 2px;
+    outline: none;
 }
 
 .inviteButton:disabled {
@@ -241,7 +240,7 @@
 }
 
 .emptyText {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;

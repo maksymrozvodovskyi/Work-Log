@@ -14,11 +14,13 @@ import css from "@/features/feedbacks/index.module.css";
 export type { FeedbackSortOption };
 
 interface FeedbacksFiltersProps {
-  onAddFeedback: () => void;
+  onAddFeedback?: () => void;
+  hideDivider?: boolean;
 }
 
 export default function FeedbacksFilters({
   onAddFeedback,
+  hideDivider,
 }: FeedbacksFiltersProps) {
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
 
@@ -42,11 +44,17 @@ export default function FeedbacksFilters({
   ];
 
   return (
-    <section className={css.filterWrapper}>
+    <section
+      className={clsx(
+        css.filterWrapper,
+        hideDivider && css.filterWrapperNoDivider,
+      )}
+    >
       <SearchInput
         value={search}
         onChange={setSearch}
         placeholder="Search by text"
+        variant="shortUnderscore"
       />
 
       <div className={css.filterButtonsWrapper}>
@@ -88,16 +96,18 @@ export default function FeedbacksFilters({
           </div>
         </div>
 
-        <button
-          type="button"
-          className={css.createButton}
-          onClick={onAddFeedback}
-        >
-          Add feedback
-          <span className={css.createButtonIcon}>
-            <PlusIcon />
-          </span>
-        </button>
+        {onAddFeedback && (
+          <button
+            type="button"
+            className={css.createButton}
+            onClick={onAddFeedback}
+          >
+            Add feedback
+            <span className={css.createButtonIcon}>
+              <PlusIcon />
+            </span>
+          </button>
+        )}
       </div>
     </section>
   );

@@ -1,5 +1,4 @@
 import EyeOpenIcon from "@/components/svg/EyeOpenIcon";
-import EyeClosedIcon from "@/components/svg/EyeClosedIcon";
 
 type EyeIconPropsType = {
   isOpen: boolean;
@@ -10,5 +9,12 @@ export default function EyeIcon({ isOpen }: EyeIconPropsType) {
     return <EyeOpenIcon />;
   }
 
-  return <EyeClosedIcon />;
+  return (
+    <img
+      src="/eye-closed.svg"
+      alt="Hide password"
+      width={24}
+      height={24}
+    />
+  );
 }

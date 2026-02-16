@@ -16,7 +16,20 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
+);
+
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response?.status === 401) {
+      useAuthStore.getState().clearAuth();
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  },
 );
 
 export default axiosInstance;

@@ -1,7 +1,7 @@
 .statusCircles {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     border-radius: 8px;
     background: #2a2c32;
     padding: 6px 12px;

@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useQueryStates, parseAsString, parseAsInteger } from "nuqs";
 import clsx from "clsx";
@@ -36,7 +36,12 @@ const parseAsProjectStatus =
   parsers.status<ProjectStatusType>(PROJECT_STATUS_ORDER);
 
 const ProjectsPage = () => {
-  const { sortField, sortDirection, handleSortChange, setSortFilters } = useProjectSorting();
+  const location = useLocation();
+  const isTableActive = location.pathname === "/projects";
+  const isTimelineActive = location.pathname === "/projects/timeline";
+
+  const { sortField, sortDirection, handleSortChange, setSortFilters } =
+    useProjectSorting();
   const [{ search, page, status }, setFilters] = useQueryStates({
     search: parseAsString.withDefault(""),
     page: parseAsInteger.withDefault(1),
@@ -44,7 +49,7 @@ const ProjectsPage = () => {
   });
 
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(
-    null
+    null,
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,11 +57,6 @@ const ProjectsPage = () => {
 
   const handleSearchChange = createSearchHandler(setFilters);
   const handleStatusChange = createStatusHandler<ProjectStatusType>(setFilters);
-
-  const { data: allProjectsData } = useQuery({
-    queryKey: [PROJECT_QUERY_KEYS.projects, "all"],
-    queryFn: () => getProjects(),
-  });
 
   const {
     data: paginatedProjects,
@@ -83,7 +83,7 @@ const ProjectsPage = () => {
         status: status || undefined,
       }),
     placeholderData: (previousData) => previousData,
-    staleTime: 1000 * 60 * 5
+    staleTime: 1000 * 60 * 5,
   });
 
   const projects = paginatedProjects?.data ?? [];
@@ -92,16 +92,26 @@ const ProjectsPage = () => {
   const isDisabled = isLoading || isFetching;
 
   const statisticsConfig: StatisticItemType[] = useMemo(() => {
-    const allProjects = allProjectsData?.data ?? [];
+    const stats = paginatedProjects?.statistics;
+
+    if (!stats) {
+      return [
+        { value: totalProjects, label: "All projects", isMain: true },
+        ...PROJECT_STATUS_ORDER.map((status) => ({
+          value: 0,
+          label: statusMap[status].label,
+        })),
+      ];
+    }
 
     return [
-      { value: totalProjects, label: "All projects", isMain: true },
+      { value: stats.total, label: "All projects", isMain: true },
       ...PROJECT_STATUS_ORDER.map((status) => ({
-        value: allProjects.filter((p) => p.status === status).length,
+        value: stats.byStatus[status] ?? 0,
         label: statusMap[status].label,
       })),
     ];
-  }, [allProjectsData, totalProjects]);
+  }, [paginatedProjects?.statistics, totalProjects]);
 
   const handleSort = (field: SortFieldType) => {
     handleSortChange(field);
@@ -141,25 +151,28 @@ const ProjectsPage = () => {
       <header className={css.header}>
         <div className={css.headerLeft}>
           <div className={css.buttonsWrapper}>
-            <Link to="/projects" className={css.link}>Projects</Link>
+            <Link to="/projects" className={css.link}>
+              Projects
+            </Link>
             <nav className={css.navButtons}>
-              <NavLink
+              <Link
                 to="/projects"
-                end
-                className={({ isActive }) =>
-                  clsx(css.tableButton, isActive && css.activeButton)
-                }
+                className={clsx(
+                  css.tableButton,
+                  isTableActive && css.activeButton,
+                )}
               >
                 Table
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
                 to="/projects/timeline"
-                className={({ isActive }) =>
-                  clsx(css.timelineButton, isActive && css.activeButton)
-                }
+                className={clsx(
+                  css.timelineButton,
+                  isTimelineActive && css.activeButton,
+                )}
               >
                 Timeline
-              </NavLink>
+              </Link>
             </nav>
           </div>
 
@@ -170,7 +183,7 @@ const ProjectsPage = () => {
                   <span
                     className={clsx(
                       item.isMain && css.headerAllProjectsNumbers,
-                      !item.isMain && css.headerNumbers
+                      !item.isMain && css.headerNumbers,
                     )}
                   >
                     {item.value}
@@ -178,7 +191,7 @@ const ProjectsPage = () => {
                   <span
                     className={clsx(
                       item.isMain && css.headerAllProjects,
-                      !item.isMain && css.headerText
+                      !item.isMain && css.headerText,
                     )}
                   >
                     {item.label}
@@ -208,9 +221,9 @@ const ProjectsPage = () => {
       </header>
 
       <section className={css.filterWrapper} aria-labelledby="filter-section">
-        <SearchInput 
-          value={search} 
-          onChange={handleSearchChange} 
+        <SearchInput
+          value={search}
+          onChange={handleSearchChange}
           disabled={isDisabled}
         />
 

@@ -6,6 +6,7 @@ import { useClickOutside } from "@/hooks/useClickOutside";
 import { deleteFeedback } from "@/api/feedbacks";
 import { FEEDBACK_MUTATION_KEYS, FEEDBACK_QUERY_KEYS } from "../../queryKeys";
 import FeedbackDetailModal from "../FeedbackDetailModal";
+import clsx from "clsx";
 import type { FeedbackType } from "@/types/Feedback";
 import css from "../../index.module.css";
 
@@ -15,12 +16,16 @@ type FeedbackCardPropsType = {
   feedback: FeedbackType;
   variant: FeedbackCardVariantType;
   onDeleteError?: (error: unknown) => void;
+  hideActions?: boolean;
+  profileMode?: boolean;
 };
 
 const FeedbackCard = ({
   feedback,
   variant,
   onDeleteError,
+  hideActions = false,
+  profileMode = false,
 }: FeedbackCardPropsType) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
@@ -61,7 +66,11 @@ const FeedbackCard = ({
       onClick={() => setIsDetailModalOpen(true)}
       onKeyDown={(e) => e.key === "Enter" && setIsDetailModalOpen(true)}
     >
-      <div className={css.feedbackHeader}>
+      <div
+        className={clsx(
+          profileMode ? css.feedbackHeaderProfile : css.feedbackHeaderPage
+        )}
+      >
         <div className={css.feedbackFromTo}>
           {variant === "createdByMe" && (
             <div>
@@ -78,42 +87,51 @@ const FeedbackCard = ({
             </div>
           )}
         </div>
-        <div
-          className={css.feedbackOptionsWrapper}
-          ref={optionsRef}
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className={css.feedbackHeaderRight}>
+          {profileMode && <span className={css.feedbackDate}>{formattedDate}</span>}
+          {!hideActions && (
           <div
-            role="button"
-            tabIndex={0}
-            className={css.feedbackOptionsButton}
-            aria-label="Feedback options"
-            aria-expanded={isOptionsOpen}
-            onClick={() => setIsOptionsOpen(!isOptionsOpen)}
-            onKeyDown={(e) =>
-              e.key === "Enter" && setIsOptionsOpen(!isOptionsOpen)
-            }
+            className={css.feedbackOptionsWrapper}
+            ref={optionsRef}
+            onClick={(e) => e.stopPropagation()}
           >
-            <ThreeDotsIcon fill="#8B97A3" />
-          </div>
-          {isOptionsOpen && (
-            <div className={css.feedbackOptionsModal}>
-              <button
-                type="button"
-                className={css.feedbackOptionsModalButton}
-                onClick={handleDeleteFeedback}
-                disabled={deleteMutation.isPending}
-              >
-                Delete feedback
-              </button>
+            <div
+              role="button"
+              tabIndex={0}
+              className={css.feedbackOptionsButton}
+              aria-label="Feedback options"
+              aria-expanded={isOptionsOpen}
+              onClick={() => setIsOptionsOpen(!isOptionsOpen)}
+              onKeyDown={(e) =>
+                e.key === "Enter" && setIsOptionsOpen(!isOptionsOpen)
+              }
+            >
+              <ThreeDotsIcon fill="#8B97A3" />
             </div>
+            {isOptionsOpen && (
+              <div className={css.feedbackOptionsModal}>
+                <button
+                  type="button"
+                  className={css.feedbackOptionsModalButton}
+                  onClick={handleDeleteFeedback}
+                  disabled={deleteMutation.isPending}
+                >
+                  Delete feedback
+                </button>
+              </div>
+            )}
+          </div>
           )}
         </div>
       </div>
       <div className={css.feedbackCardBody}>
         <p className={css.feedbackContent}>{feedback.content}</p>
-        <div className={css.feedbackDate}>{formattedDate}</div>
       </div>
+      {!profileMode && (
+        <div className={css.feedbackCardFooter}>
+          <span className={css.feedbackDate}>{formattedDate}</span>
+        </div>
+      )}
       <FeedbackDetailModal
         isOpen={isDetailModalOpen}
         onClose={() => setIsDetailModalOpen(false)}

@@ -19,7 +19,6 @@
 }
 
 .signInButton {
-  padding: 8px 15px;
   position: relative;
   display: flex;
   align-items: center;
@@ -76,6 +75,7 @@
 }
 
 @keyframes loaderBounce {
+
   0%,
   80%,
   100% {

@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import type { StatisticItemType } from "@/features/projects/types/timeline";
 import css from "@/features/projects/index.module.css";
@@ -8,6 +8,10 @@ type TimelineHeaderPropsType = {
 };
 
 export const TimelineHeader = ({ statisticsConfig }: TimelineHeaderPropsType) => {
+  const location = useLocation();
+  const isTableActive = location.pathname === "/projects";
+  const isTimelineActive = location.pathname === "/projects/timeline";
+
   return (
     <header className={css.header}>
       <div className={css.headerLeft}>
@@ -16,23 +20,21 @@ export const TimelineHeader = ({ statisticsConfig }: TimelineHeaderPropsType) =>
             Projects
           </Link>
           <nav className={css.navButtons}>
-            <NavLink
+            <Link
               to="/projects"
-              end
-              className={({ isActive }) =>
-                clsx(css.tableButton, isActive && css.activeButton)
-              }
+              className={clsx(css.tableButton, isTableActive && css.activeButton)}
             >
               Table
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/projects/timeline"
-              className={({ isActive }) =>
-                clsx(css.timelineButton, isActive && css.activeButton)
-              }
+              className={clsx(
+                css.timelineButton,
+                isTimelineActive && css.activeButton
+              )}
             >
               Timeline
-            </NavLink>
+            </Link>
           </nav>
         </div>
 

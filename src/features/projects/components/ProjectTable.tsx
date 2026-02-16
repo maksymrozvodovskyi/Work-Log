@@ -112,7 +112,12 @@ const ProjectTable = ({
                     </td>
                     <td className={css.tableCell}>
                       {project.users.length > 0
-                        ? project.users.map((user) => user.name).join(", ")
+                        ? project.users.length > 2
+                          ? `${project.users
+                              .slice(0, 2)
+                              .map((user) => user.name)
+                              .join(", ")}, +${project.users.length - 2}`
+                          : project.users.map((user) => user.name).join(", ")
                         : "—"}
                     </td>
                     <td className={css.tableCell}>

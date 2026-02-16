@@ -3,12 +3,16 @@ import { useParams } from "react-router-dom";
 import { startOfMonth, endOfMonth, subDays, addDays } from "date-fns";
 
 import SquaresIcon from "@/components/svg/SquaresIcon";
+import ResultsDownloadIcon from "@/components/svg/ResultsDownloadIcon";
 import ProjectsSelectModal from "@/features/worklogs/components/ProjectsSelectModal";
 import { getWorkLogsByTime } from "@/api/worklogs";
 import Loader from "@/components/Loader";
 import FilterButton from "@/components/FilterButton";
 import { WORKLOG_QUERY_KEYS } from "@/features/worklogs/queryKeys";
-import { groupWorkLogsByProject, getWorkLogsByDateWithActivity } from "@/features/worklogs/utils/groupWorkLogs";
+import {
+  groupWorkLogsByProject,
+  getWorkLogsByDateWithActivity,
+} from "@/features/worklogs/utils/groupWorkLogs";
 import { Calendar } from "@/features/worklogs/components/Calendar";
 import { useDateRange } from "@/hooks/useDateRange";
 import { useCalendar } from "@/hooks/useCalendar";
@@ -25,7 +29,7 @@ const TimeTrackerTab = () => {
   const dateRange = useDateRange();
   const calendar = useCalendar(
     dateRange.localStartDate,
-    dateRange.localEndDate
+    dateRange.localEndDate,
   );
 
   const projectsModal = useProjectsModal({
@@ -35,10 +39,10 @@ const TimeTrackerTab = () => {
 
   const calendarMonthStart = startOfMonth(calendar.currentDate);
   const calendarMonthEnd = endOfMonth(calendar.currentDate);
-  
+
   const firstVisibleDay = subDays(calendarMonthStart, 6);
   const lastVisibleDay = addDays(calendarMonthEnd, 6);
-  
+
   const calendarMonthStartString = formatDateForApi(firstVisibleDay);
   const calendarMonthEndString = formatDateForApi(lastVisibleDay);
 
@@ -59,7 +63,7 @@ const TimeTrackerTab = () => {
         userId!,
         dateRange.startDateString!,
         dateRange.endDateString!,
-        "asc"
+        "asc",
       ),
     enabled:
       Boolean(userId) &&
@@ -67,9 +71,7 @@ const TimeTrackerTab = () => {
       Boolean(dateRange.endDateString),
   });
 
-  const {
-    data: calendarWorkLogsData,
-  } = useQuery({
+  const { data: calendarWorkLogsData } = useQuery({
     queryKey: [
       WORKLOG_QUERY_KEYS.worklogs,
       userId,
@@ -83,7 +85,7 @@ const TimeTrackerTab = () => {
         userId!,
         calendarMonthStartString!,
         calendarMonthEndString!,
-        "asc"
+        "asc",
       ),
     enabled:
       Boolean(userId) &&
@@ -93,16 +95,14 @@ const TimeTrackerTab = () => {
 
   const groupedWorkLogs = groupWorkLogsByProject(
     workLogsData,
-    projectsModal.selectedProjectIds
+    projectsModal.selectedProjectIds,
   );
 
   const workLogsByDate = getWorkLogsByDateWithActivity(calendarWorkLogsData);
 
-  const isEmpty =
-    !isLoading && !isError && groupedWorkLogs.length === 0;
+  const isEmpty = !isLoading && !isError && groupedWorkLogs.length === 0;
 
-  const hasResults =
-    !isLoading && !isError && groupedWorkLogs.length > 0;
+  const hasResults = !isLoading && !isError && groupedWorkLogs.length > 0;
 
   const handleDayClick = (date: Date) => {
     dateRange.handleDayClick(date);
@@ -190,7 +190,10 @@ const TimeTrackerTab = () => {
         </div>
 
         <div className={css.resultsSection}>
-          <h3 className={css.resultsTitle}>Results</h3>
+          <h3 className={css.resultsTitle}>
+            Results
+            <ResultsDownloadIcon className={css.resultsDownloadIcon} />
+          </h3>
 
           {isLoading && (
             <div className={css.resultsPlaceholder}>
@@ -208,9 +211,7 @@ const TimeTrackerTab = () => {
 
           {isEmpty && (
             <div className={css.resultsPlaceholder}>
-              <span className={css.resultsPlaceholderText}>
-                No results
-              </span>
+              <span className={css.resultsPlaceholderText}>No results</span>
             </div>
           )}
 

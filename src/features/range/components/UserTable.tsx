@@ -104,8 +104,15 @@ const UserTable = ({
                   <tr key={user.id} className={css.tableRow}>
                     <td className={css.tableCell}>
                       <div className={css.nameCell}>
-                        <Avatar name={user.name} status={user.status} showStatus={true} />
-                        <Link to={`/users/${user.id}`} className={css.userNameLink}>
+                        <Avatar
+                          name={user.name}
+                          status={user.status}
+                          showStatus={true}
+                        />
+                        <Link
+                          to={`/users/${user.id}`}
+                          className={css.userNameLink}
+                        >
                           {user.name}
                         </Link>
                       </div>

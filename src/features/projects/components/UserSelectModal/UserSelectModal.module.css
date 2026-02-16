@@ -6,7 +6,7 @@
 }
 
 .title {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.5;
@@ -31,8 +31,7 @@
 }
 
 .nextButton:focus {
-    outline: 2px solid #aeb8c2;
-    outline-offset: 2px;
+    outline: none;
     border-radius: 2px;
 }
 
@@ -50,7 +49,7 @@
 }
 
 .content::-webkit-scrollbar-track {
-    background: #2b2c32;
+    background: #2a2c32;
     border-radius: 4px;
 }
 
@@ -93,7 +92,7 @@
 }
 
 .userName {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -101,7 +100,7 @@
 }
 
 .userEmail {
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 400;
     font-size: 12px;
     line-height: 1.33333;
@@ -141,7 +140,7 @@
     padding: 2rem;
     color: #aeb8c2;
     font-style: italic;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-size: 14px;
 }
 
@@ -153,7 +152,7 @@
     border: 1px solid #3a3c42;
     border-radius: 8px;
     color: #f5f6fa;
-    font-family: "Cera Pro", sans-serif;
+    font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;
     font-size: 14px;
     cursor: pointer;
@@ -171,6 +170,5 @@
 }
 
 .loadMoreButton:focus {
-    outline: 2px solid #aeb8c2;
-    outline-offset: 2px;
+    outline: none;
 }
