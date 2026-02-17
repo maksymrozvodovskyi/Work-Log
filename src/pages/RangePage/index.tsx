@@ -15,7 +15,7 @@ import { USER_STATUS_ORDER } from "@/types/UserStatusOrder";
 import { userStatusMap } from "@/types/UserStatusMap";
 import { USER_QUERY_KEYS } from "@/features/range/queryKeys";
 import { parsers } from "@/utils/parsers";
-import { createSearchHandler, createStatusHandler } from "@/utils/filters";
+import { createSearchHandler } from "@/utils/filters";
 import { SORT_FIELDS, DEFAULT_SORT_FIELD } from "@/constants/sort";
 import {
   transformApiUserToUserRange,
@@ -37,25 +37,26 @@ import { USERS_PER_PAGE } from "@/features/range/constants";
 
 const parseAsUserSortField = parsers.sortField<UserSortFieldType>(
   [...SORT_FIELDS],
-  DEFAULT_SORT_FIELD
+  DEFAULT_SORT_FIELD,
 );
 
 const parseAsSortDirection = parsers.sortDirection();
 
-const parseAsUserStatus = parsers.status<UserStatusType>(USER_STATUS_ORDER);
+const parseAsUserStatus =
+  parsers.statusArray<UserStatusType>(USER_STATUS_ORDER);
 
 const parseAsUserType = parsers.enum<UserRoleType>(USER_TYPES);
 
 const RangePage = () => {
   const [
-    { search, sortField, sortDirection, page, status, userType },
+    { search, sortField, sortDirection, page, statuses, userType },
     setFilters,
   ] = useQueryStates({
     search: parseAsString.withDefault(""),
     sortField: parseAsUserSortField.withDefault("name"),
     sortDirection: parseAsSortDirection.withDefault("asc"),
     page: parseAsInteger.withDefault(1),
-    status: parseAsUserStatus,
+    statuses: parseAsUserStatus.withDefault([]),
     userType: parseAsUserType,
   });
 
@@ -65,7 +66,12 @@ const RangePage = () => {
   const debouncedSearchTerm = useDebounce(search, 500);
 
   const handleSearchChange = createSearchHandler(setFilters);
-  const handleStatusChange = createStatusHandler<UserStatusType>(setFilters);
+  const handleStatusChange = (newStatuses: UserStatusType[]) => {
+    setFilters({
+      statuses: newStatuses.length > 0 ? newStatuses : null,
+      page: 1,
+    });
+  };
 
   const {
     data: paginatedUsers,
@@ -80,7 +86,7 @@ const RangePage = () => {
       sortField,
       sortDirection,
       page,
-      status,
+      statuses || null,
       userType,
     ],
     queryFn: () =>
@@ -90,7 +96,7 @@ const RangePage = () => {
         sortOrder: sortDirection,
         skip: (page - 1) * USERS_PER_PAGE,
         take: USERS_PER_PAGE,
-        status: status || undefined,
+        status: statuses || undefined,
         userType: userType || undefined,
       }),
     select: (data: PaginatedResponseType<ApiUserType>) => {
@@ -100,7 +106,7 @@ const RangePage = () => {
       };
     },
     placeholderData: (previousData) => previousData,
-    staleTime: 1000 * 60 * 5
+    staleTime: 1000 * 60 * 5,
   });
 
   const users = paginatedUsers?.data ?? [];
@@ -131,7 +137,7 @@ const RangePage = () => {
   const handleClearFilters = () => {
     setFilters({
       search: "",
-      status: null,
+      statuses: null,
       userType: null,
       sortField: "name",
       sortDirection: "asc",
@@ -144,7 +150,9 @@ const RangePage = () => {
       <header className={css.header}>
         <div className={css.headerLeft}>
           <div className={css.buttonsWrapper}>
-            <Link to="/range" className={css.link}>Range</Link>
+            <Link to="/range" className={css.link}>
+              Range
+            </Link>
           </div>
 
           <UserStatistics users={users} totalUsers={totalUsers} />
@@ -164,17 +172,15 @@ const RangePage = () => {
             className={css.profileButton}
             aria-label="User profile"
           >
-            {currentUser && (
-              <Avatar name={currentUser.name} status="GREEN" />
-            )}
+            {currentUser && <Avatar name={currentUser.name} status="GREEN" />}
           </button>
         </div>
       </header>
 
       <section className={css.filterWrapper} aria-labelledby="filter-section">
-        <SearchInput 
-          value={search} 
-          onChange={handleSearchChange} 
+        <SearchInput
+          value={search}
+          onChange={handleSearchChange}
           disabled={isDisabled}
         />
 
@@ -189,7 +195,7 @@ const RangePage = () => {
             <StatusFilter
               statusOrder={USER_STATUS_ORDER}
               statusMap={userStatusMap}
-              selectedStatus={status}
+              selectedStatuses={statuses || []}
               onStatusChange={handleStatusChange}
               entityType="users"
               disabled={isDisabled}

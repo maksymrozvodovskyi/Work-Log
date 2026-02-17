@@ -26,6 +26,7 @@ type UserTablePropsType = {
 };
 
 const tableHeaders: TableHeaderType[] = [
+  { label: "Status", field: "status", sortable: true },
   { label: "Name", field: "name", sortable: true },
   { label: "Main project", sortable: false },
   { label: "Other projects", sortable: false },
@@ -74,7 +75,7 @@ const UserTable = ({
               ))}
             </tr>
             <tr className={css.spacerRow}>
-              <td colSpan={3}></td>
+              <td colSpan={4}></td>
             </tr>
           </thead>
         </table>
@@ -88,13 +89,13 @@ const UserTable = ({
               ))}
             </tr>
             <tr className={css.spacerRow}>
-              <td colSpan={3}></td>
+              <td colSpan={4}></td>
             </tr>
           </thead>
           <tbody className={css.tableBody}>
             {isLoading ? (
               <tr>
-                <td colSpan={3} className={css.loaderCell}>
+                <td colSpan={4} className={css.loaderCell}>
                   <Loader size="medium" className={css.tableLoader} />
                 </td>
               </tr>
@@ -103,19 +104,21 @@ const UserTable = ({
                 {users.map((user) => (
                   <tr key={user.id} className={css.tableRow}>
                     <td className={css.tableCell}>
-                      <div className={css.nameCell}>
+                      <div className={css.avatarCell}>
                         <Avatar
                           name={user.name}
                           status={user.status}
                           showStatus={true}
                         />
-                        <Link
-                          to={`/users/${user.id}`}
-                          className={css.userNameLink}
-                        >
-                          {user.name}
-                        </Link>
                       </div>
+                    </td>
+                    <td className={css.tableCell}>
+                      <Link
+                        to={`/users/${user.id}`}
+                        className={css.userNameLink}
+                      >
+                        {user.name}
+                      </Link>
                     </td>
                     <td className={css.tableCell}>{user.mainProject || "—"}</td>
                     <td className={css.tableCell}>

@@ -19,7 +19,7 @@ export type SortDirectionType = "asc" | "desc";
 
 export type GetUsersParamsType = {
   name?: string;
-  status?: UserStatusType;
+  status?: UserStatusType[];
   userType?: UserRoleType;
   project?: string;
   skip?: number;
