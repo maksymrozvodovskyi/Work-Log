@@ -5,8 +5,8 @@ import StatusFilterCheckIcon from "@/components/svg/StatusFilterCheckIcon";
 type StatusFilterPropsType<T extends string> = {
   statusOrder: T[];
   statusMap: Record<T, StatusInfoType>;
-  selectedStatus?: T | null;
-  onStatusChange: (status: T | null) => void;
+  selectedStatuses?: T[];
+  onStatusChange: (statuses: T[]) => void;
   entityType?: string;
   disabled?: boolean;
 };
@@ -14,18 +14,21 @@ type StatusFilterPropsType<T extends string> = {
 const StatusFilter = <T extends string>({
   statusOrder,
   statusMap,
-  selectedStatus,
+  selectedStatuses = [],
   onStatusChange,
   entityType = "items",
   disabled = false,
 }: StatusFilterPropsType<T>) => {
   const handleStatusClick = (status: T) => {
     if (disabled) return;
-    if (selectedStatus === status) {
-      onStatusChange(null);
+    const isSelected = selectedStatuses.includes(status);
+    let newStatuses: T[];
+    if (isSelected) {
+      newStatuses = selectedStatuses.filter((s) => s !== status);
     } else {
-      onStatusChange(status);
+      newStatuses = [...selectedStatuses, status];
     }
+    onStatusChange(newStatuses);
   };
 
   return (
@@ -34,7 +37,7 @@ const StatusFilter = <T extends string>({
         const statusInfo = statusMap[status];
         if (!statusInfo) return null;
 
-        const isSelected = selectedStatus === status;
+        const isSelected = selectedStatuses.includes(status);
 
         return (
           <button

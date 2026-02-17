@@ -414,7 +414,7 @@
     font-size: 14px;
     color: #aeb8c2;
     text-align: left;
-    padding: 11px 7px;
+    padding: 11px 7px 11px 16px;
     background: #2a2c32;
 }
 
@@ -509,7 +509,7 @@
     font-size: 14px;
     line-height: 1.42857;
     color: #f5f6fa;
-    padding: 10px;
+    padding: 10px 10px 10px 16px;
     vertical-align: middle;
 }
 
@@ -523,10 +523,15 @@
     border-bottom-right-radius: 5px;
 }
 
+.avatarCell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 .nameCell {
     display: flex;
     align-items: center;
-    gap: 12px;
 }
 
 .userNameLink {
@@ -550,6 +555,16 @@
     font-size: 14px;
     color: #f5f6fa;
     word-break: break-word;
+}
+
+.statusCell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: "Montserrat", "Manrope", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #f5f6fa;
 }
 
 .sortableHeader {

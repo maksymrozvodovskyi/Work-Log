@@ -18,8 +18,8 @@ export const getProjects = async (
     take: params?.take,
   };
 
-  if (params?.status) {
-    requestParams.status = params.status;
+  if (params?.status && params.status.length > 0) {
+    requestParams.status = params.status.join(",");
   }
 
   const { data } = await axiosInstance.get<ProjectsResponseType>(

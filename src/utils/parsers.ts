@@ -41,6 +41,20 @@ const createStatusParser = <T extends string>(validStatuses: T[]) => {
   });
 };
 
+const createStatusArrayParser = <T extends string>(validStatuses: T[]) => {
+  return createParser<T[]>({
+    parse: (value: string | null): T[] => {
+      if (!value?.trim()) return [];
+      return value
+        .split(",")
+        .filter((s) => s.trim() && validStatuses.includes(s.trim() as T))
+        .map((s) => s.trim()) as T[];
+    },
+    serialize: (value: T[]): string =>
+      value.length > 0 ? value.join(",") : "",
+  });
+};
+
 const createEnumParser = <T extends string>(validValues: T[]) => {
   return createParser<T | null>({
     parse: (value: string | null): T | null => {
@@ -68,5 +82,6 @@ export const parsers = {
   sortField: createSortFieldParser,
   sortDirection: createSortDirectionParser,
   status: createStatusParser,
+  statusArray: createStatusArrayParser,
   enum: createEnumParser,
 };

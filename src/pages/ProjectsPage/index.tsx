@@ -15,7 +15,7 @@ import type {
 import { PROJECT_STATUS_ORDER } from "@/features/projects/constants/projectStatusOrder";
 import { statusMap } from "@/types/StatusMap";
 import { parsers } from "@/utils/parsers";
-import { createSearchHandler, createStatusHandler } from "@/utils/filters";
+import { createSearchHandler } from "@/utils/filters";
 import css from "@/features/projects/index.module.css";
 import ProjectTable from "@/features/projects/components/ProjectTable";
 import SearchInput from "@/components/SearchInput";
@@ -33,7 +33,7 @@ type StatisticItemType = {
 };
 
 const parseAsProjectStatus =
-  parsers.status<ProjectStatusType>(PROJECT_STATUS_ORDER);
+  parsers.statusArray<ProjectStatusType>(PROJECT_STATUS_ORDER);
 
 const ProjectsPage = () => {
   const location = useLocation();
@@ -42,10 +42,10 @@ const ProjectsPage = () => {
 
   const { sortField, sortDirection, handleSortChange, setSortFilters } =
     useProjectSorting();
-  const [{ search, page, status }, setFilters] = useQueryStates({
+  const [{ search, page, statuses }, setFilters] = useQueryStates({
     search: parseAsString.withDefault(""),
     page: parseAsInteger.withDefault(1),
-    status: parseAsProjectStatus,
+    statuses: parseAsProjectStatus.withDefault([]),
   });
 
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(
@@ -56,7 +56,12 @@ const ProjectsPage = () => {
   const debouncedSearchTerm = useDebounce(search, 500);
 
   const handleSearchChange = createSearchHandler(setFilters);
-  const handleStatusChange = createStatusHandler<ProjectStatusType>(setFilters);
+  const handleStatusChange = (newStatuses: ProjectStatusType[]) => {
+    setFilters({
+      statuses: newStatuses.length > 0 ? newStatuses : null,
+      page: 1,
+    });
+  };
 
   const {
     data: paginatedProjects,
@@ -71,7 +76,7 @@ const ProjectsPage = () => {
       sortField,
       sortDirection,
       page,
-      status,
+      statuses || null,
     ],
     queryFn: () =>
       getProjects({
@@ -80,7 +85,7 @@ const ProjectsPage = () => {
         sortDirection,
         skip: (page - 1) * PROJECTS_PER_PAGE,
         take: PROJECTS_PER_PAGE,
-        status: status || undefined,
+        status: statuses?.length ? statuses : undefined,
       }),
     placeholderData: (previousData) => previousData,
     staleTime: 1000 * 60 * 5,
@@ -141,7 +146,7 @@ const ProjectsPage = () => {
     }
     setFilters({
       search: "",
-      status: null,
+      statuses: null,
       page: 1,
     });
   };
@@ -238,7 +243,7 @@ const ProjectsPage = () => {
             <StatusFilter
               statusOrder={PROJECT_STATUS_ORDER}
               statusMap={statusMap}
-              selectedStatus={status}
+              selectedStatuses={statuses || []}
               onStatusChange={handleStatusChange}
               entityType="projects"
               disabled={isDisabled}

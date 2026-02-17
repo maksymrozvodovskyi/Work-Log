@@ -23,14 +23,16 @@ import { TimelineGrid } from "@/features/projects/components/TimelineGrid";
 import Button from "@/components/Auth/Button";
 import Loader from "@/components/Loader";
 
-const parseAsProjectStatus = parsers.status<ProjectStatusType>(PROJECT_STATUS_ORDER);
+const parseAsProjectStatus =
+  parsers.statusArray<ProjectStatusType>(PROJECT_STATUS_ORDER);
 
 const ProjectsTimelinePage = () => {
-  const [{ status }, setFilters] = useQueryStates({
-    status: parseAsProjectStatus,
+  const [{ statuses }, setFilters] = useQueryStates({
+    statuses: parseAsProjectStatus.withDefault([]),
   });
 
-  const { currentDate, handlePreviousMonth, handleNextMonth, handleToday } = useCalendar(null, null);
+  const { currentDate, handlePreviousMonth, handleNextMonth, handleToday } =
+    useCalendar(null, null);
   const timelineDates = useTimelineDates(currentDate);
 
   const {
@@ -48,10 +50,10 @@ const ProjectsTimelinePage = () => {
     isLoading: isLoadingProjects,
     isFetching: isFetchingProjects,
   } = useQuery({
-    queryKey: [PROJECT_QUERY_KEYS.projects, "all", status],
+    queryKey: [PROJECT_QUERY_KEYS.projects, "all", statuses || null],
     queryFn: () =>
       getProjects({
-        status: status ?? undefined,
+        status: statuses?.length ? statuses : undefined,
       }),
     placeholderData: (previousData) => previousData,
   });
@@ -75,19 +77,27 @@ const ProjectsTimelinePage = () => {
 
   const getProjectPosition = useProjectPosition(timelineDates);
 
-  const monthBounds = useMemo(() => ({
-    start: startOfMonth(currentDate),
-    end: endOfMonth(currentDate),
-  }), [currentDate]);
+  const monthBounds = useMemo(
+    () => ({
+      start: startOfMonth(currentDate),
+      end: endOfMonth(currentDate),
+    }),
+    [currentDate],
+  );
 
   const todayDate = new Date();
 
-  const handleStatusChange = useCallback((newStatus: ProjectStatusType | null) => {
-    setFilters({ status: newStatus });
-  }, [setFilters]);
+  const handleStatusChange = useCallback(
+    (newStatuses: ProjectStatusType[]) => {
+      setFilters({
+        statuses: newStatuses.length > 0 ? newStatuses : null,
+      });
+    },
+    [setFilters],
+  );
 
   const handleClearFilters = useCallback(() => {
-    setFilters({ status: null });
+    setFilters({ statuses: null });
     setUserSearch("");
     handleToday();
   }, [setFilters, setUserSearch, handleToday]);
@@ -97,16 +107,24 @@ const ProjectsTimelinePage = () => {
   const showTimelineInitialLoader = isLoadingProjects && !hasProjects;
 
   const filterState = {
-    status,
+    statuses,
     isDisabled,
   };
 
-  const filterActions = useMemo(() => ({
-    onStatusChange: handleStatusChange,
-    onClearFilters: handleClearFilters,
-    onPreviousMonth: handlePreviousMonth,
-    onNextMonth: handleNextMonth,
-  }), [handleStatusChange, handleClearFilters, handlePreviousMonth, handleNextMonth]);
+  const filterActions = useMemo(
+    () => ({
+      onStatusChange: handleStatusChange,
+      onClearFilters: handleClearFilters,
+      onPreviousMonth: handlePreviousMonth,
+      onNextMonth: handleNextMonth,
+    }),
+    [
+      handleStatusChange,
+      handleClearFilters,
+      handlePreviousMonth,
+      handleNextMonth,
+    ],
+  );
 
   const usersState = {
     userSearch,
@@ -132,10 +150,7 @@ const ProjectsTimelinePage = () => {
       <div className={clsx(css.pageContainer, css.timelinePageContainer)}>
         <TimelineHeader statisticsConfig={statisticsConfig} />
 
-        <TimelineFilterBar
-          state={filterState}
-          actions={filterActions}
-        />
+        <TimelineFilterBar state={filterState} actions={filterActions} />
 
         <div className={css.timelineContent}>
           <UsersSidebar state={usersState} actions={usersActions} />

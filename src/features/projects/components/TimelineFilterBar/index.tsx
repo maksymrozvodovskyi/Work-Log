@@ -17,12 +17,12 @@ const ARROW_ICON_STYLES = {
 } as const;
 
 type FilterStateType = {
-  status: ProjectStatusType | null;
+  statuses: ProjectStatusType[];
   isDisabled: boolean;
 };
 
 type FilterActionsType = {
-  onStatusChange: (status: ProjectStatusType | null) => void;
+  onStatusChange: (statuses: ProjectStatusType[]) => void;
   onClearFilters: () => void;
   onPreviousMonth: () => void;
   onNextMonth: () => void;
@@ -38,7 +38,7 @@ export const TimelineFilterBar = ({
   actions,
 }: TimelineFilterBarPropsType) => {
   const { currentDate } = useTimelineContext();
-  const { status, isDisabled } = state;
+  const { statuses, isDisabled } = state;
   const { onPreviousMonth, onNextMonth, onStatusChange, onClearFilters } = actions;
   
   const [isCreateTimelineModalOpen, setIsCreateTimelineModalOpen] = useState(false);
@@ -78,7 +78,7 @@ export const TimelineFilterBar = ({
       <StatusFilter
         statusOrder={PROJECT_STATUS_ORDER}
         statusMap={statusMap}
-        selectedStatus={status}
+        selectedStatuses={statuses || []}
         onStatusChange={onStatusChange}
         entityType="projects"
         disabled={isDisabled}

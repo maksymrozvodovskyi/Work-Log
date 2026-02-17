@@ -37,7 +37,7 @@ export type GetProjectsParamsType = {
   sortDirection?: SortDirectionType;
   skip?: number;
   take?: number;
-  status?: ProjectStatusType;
+  status?: ProjectStatusType[];
 };
 
 export type PaginatedResponseType<T> = {

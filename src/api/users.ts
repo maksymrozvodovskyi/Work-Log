@@ -18,7 +18,7 @@ export type GetUserProjectsParamsType = {
 };
 
 export const getUsers = async (
-  params?: GetUsersParamsType
+  params?: GetUsersParamsType,
 ): Promise<PaginatedResponseType<ApiUserType>> => {
   const requestParams: Record<string, unknown> = {
     skip: params?.skip,
@@ -29,8 +29,8 @@ export const getUsers = async (
     requestParams.name = params.name;
   }
 
-  if (params?.status) {
-    requestParams.status = params.status;
+  if (params?.status && params.status.length > 0) {
+    requestParams.status = params.status.join(",");
   }
 
   if (params?.userType) {
@@ -49,18 +49,18 @@ export const getUsers = async (
     requestParams.sortOrder = params.sortOrder;
   }
 
-  const { data } = await axiosInstance.get<{ data: ApiUserType[]; total: number }>(
-    "/users",
-    {
-      params: requestParams,
-    }
-  );
+  const { data } = await axiosInstance.get<{
+    data: ApiUserType[];
+    total: number;
+  }>("/users", {
+    params: requestParams,
+  });
 
   return data;
 };
 
 export const createUser = async (
-  params: CreateUserParamsType
+  params: CreateUserParamsType,
 ): Promise<ApiUserType> => {
   const { data } = await axiosInstance.post<ApiUserType>("/users", params);
 
@@ -75,17 +75,16 @@ export const getUserById = async (id: string): Promise<ApiUserType> => {
 
 export const updateUser = async (
   id: string,
-  params: UpdateUserParamsType
+  params: UpdateUserParamsType,
 ): Promise<ApiUserType> => {
   const { data } = await axiosInstance.put<ApiUserType>(`/users/${id}`, params);
 
   return data;
 };
 
-
 export const getUserProjects = async (
   userId: string,
-  params?: GetUserProjectsParamsType
+  params?: GetUserProjectsParamsType,
 ): Promise<PaginatedResponseType<ApiProjectType>> => {
   const requestParams: Record<string, unknown> = {};
 
@@ -113,12 +112,11 @@ export const getUserProjects = async (
     requestParams.take = params.take;
   }
 
-  const { data } = await axiosInstance.get<PaginatedResponseType<ApiProjectType>>(
-    `/projects/user/${userId}`,
-    {
-      params: requestParams,
-    }
-  );
+  const { data } = await axiosInstance.get<
+    PaginatedResponseType<ApiProjectType>
+  >(`/projects/user/${userId}`, {
+    params: requestParams,
+  });
 
   return data;
 };
