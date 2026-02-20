@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { startOfMonth, getDaysInMonth, subMonths, addMonths, isToday } from "date-fns";
 
 export type CalendarDayType = {
@@ -97,9 +97,9 @@ export const useCalendar = (
     setCurrentDate(startOfMonth(new Date()));
   };
 
-  const navigateToDate = (date: Date) => {
+  const navigateToDate = useCallback((date: Date) => {
     setCurrentDate(startOfMonth(date));
-  };
+  }, []);
 
   return {
     currentDate,

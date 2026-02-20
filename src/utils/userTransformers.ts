@@ -22,6 +22,9 @@ export type ApiUserType = {
   dateOfBirth?: string | null;
   location?: string | null;
   skills?: string[] | null;
+  totalHours?: number | null;
+  specialType?: "VACATION" | "SICKLEAVE";
+  vacationPeriod?: { days: number; startDate: string; endDate: string };
 };
 
 export const transformApiUserToUserRange = (
@@ -41,6 +44,10 @@ export const transformApiUserToUserRange = (
     otherProjects,
     status: user.status || status || "GREEN",
     userType: user.role,
+    skills: user.skills ?? null,
+    totalHours: user.totalHours ?? null,
+    specialType: user.specialType,
+    vacationPeriod: user.vacationPeriod,
   };
 };
 
