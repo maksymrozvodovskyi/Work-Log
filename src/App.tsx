@@ -54,6 +54,7 @@ export default function App() {
               <Route path="/" element={<RangePage />} />
               <Route path="/range" element={<RangePage />} />
               <Route path="/reports" element={<ReportsPage />} />
+              <Route path="/reports/calendar" element={<ReportsPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/projects/timeline" element={<ProjectsTimelinePage />} />
               <Route path="/vacations" element={<VacationPage />} />

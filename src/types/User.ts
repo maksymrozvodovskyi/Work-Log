@@ -2,6 +2,14 @@ import type { UserRoleType } from "./Project";
 
 export type UserStatusType = "RED" | "YELLOW" | "GREEN" | "CLEAN" | "ARCHIVED";
 
+export type SpecialType = "VACATION" | "SICKLEAVE";
+
+export type VacationPeriodType = {
+  days: number;
+  startDate: string;
+  endDate: string;
+};
+
 export type UserRangeType = {
   id: string;
   name: string;
@@ -10,12 +18,18 @@ export type UserRangeType = {
   otherProjects: string[];
   status: UserStatusType;
   userType?: UserRoleType;
+  skills?: string[] | null;
   createdAt?: string;
   updatedAt?: string;
+  totalHours?: number | null;
+  specialType?: SpecialType;
+  vacationPeriod?: VacationPeriodType;
 };
 
 export type UserSortFieldType = "name" | "status";
 export type SortDirectionType = "asc" | "desc";
+
+export type HoursFilterType = "<8h" | "8h" | "8h>";
 
 export type GetUsersParamsType = {
   name?: string;

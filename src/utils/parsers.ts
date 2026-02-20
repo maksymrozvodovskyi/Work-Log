@@ -78,6 +78,66 @@ export const parseAsFeedbackPeriod = createParser<"7days" | "30days" | null>({
   serialize: (value: "7days" | "30days" | null): string => value ?? "",
 });
 
+const ACTIVITY_TYPES = ["CODING", "REVIEW", "STUDING", "SICKLEAVE", "VACATION"] as const;
+const HOURS_FILTERS = ["<8h", "8h", "8h>"] as const;
+const REPORTS_SORT_FIELDS = ["name", "status", "total"] as const;
+
+export const parseAsReportActivityTypes = createParser<string[]>({
+  parse: (value: string | null): string[] => {
+    if (!value?.trim()) return [];
+    return value
+      .split(",")
+      .filter((s) => s.trim() && ACTIVITY_TYPES.includes(s.trim() as (typeof ACTIVITY_TYPES)[number]))
+      .map((s) => s.trim());
+  },
+  serialize: (value: string[]): string =>
+    value.length > 0 ? value.join(",") : "",
+});
+
+export const parseAsHoursFilter = createParser<
+  (typeof HOURS_FILTERS)[number] | null
+>({
+  parse: (value: string | null): (typeof HOURS_FILTERS)[number] | null => {
+    if (!value || !HOURS_FILTERS.includes(value as (typeof HOURS_FILTERS)[number]))
+      return null;
+    return value as (typeof HOURS_FILTERS)[number];
+  },
+  serialize: (value: (typeof HOURS_FILTERS)[number] | null): string => value ?? "",
+});
+
+export const parseAsReportSortField = createParser<
+  (typeof REPORTS_SORT_FIELDS)[number]
+>({
+  parse: (value: string): (typeof REPORTS_SORT_FIELDS)[number] => {
+    if (REPORTS_SORT_FIELDS.includes(value as (typeof REPORTS_SORT_FIELDS)[number])) {
+      return value as (typeof REPORTS_SORT_FIELDS)[number];
+    }
+    return "name";
+  },
+  serialize: (value: (typeof REPORTS_SORT_FIELDS)[number]) => value,
+});
+
+export const parseAsReportDate = createParser<string>({
+  parse: (value: string | null): string => {
+    if (!value?.trim()) return "";
+    const d = new Date(value);
+    if (isNaN(d.getTime())) return "";
+    return value;
+  },
+  serialize: (value: string): string => value ?? "",
+});
+
+const REPORT_TYPES = ["missed", "work", "special", "overtime"] as const;
+export type ReportType = (typeof REPORT_TYPES)[number];
+
+export const parseAsReportType = createParser<ReportType | null>({
+  parse: (value: string | null): ReportType | null => {
+    if (!value || !REPORT_TYPES.includes(value as ReportType)) return null;
+    return value as ReportType;
+  },
+  serialize: (value: ReportType | null): string => value ?? "",
+});
+
 export const parsers = {
   sortField: createSortFieldParser,
   sortDirection: createSortDirectionParser,
