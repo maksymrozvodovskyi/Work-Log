@@ -1,0 +1,207 @@
+.tableWrapper {
+  padding: 0 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tableContainer {
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  position: relative;
+  border-radius: 5px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1px;
+  table-layout: fixed;
+}
+
+.tableHead {
+  border: 5px solid #191a1f;
+  border-radius: 5px;
+  background: #2b2c32;
+}
+
+.tableHeader {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #aeb8c2;
+  text-align: left;
+  padding: 11px 7px 11px 16px;
+  background: #2a2c32;
+}
+
+.tableContainer .tableHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.sortableHeader {
+  background: transparent;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  color: #aeb8c2;
+  border: none;
+  cursor: pointer;
+}
+
+.sortableHeader:hover .headerArrow path {
+  fill: #aeb8c2;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #aeb8c2;
+}
+
+.spacerRow {
+  height: 5px !important;
+}
+
+.spacerRow td {
+  height: 5px !important;
+  min-height: 5px;
+  max-height: 5px;
+  padding: 0 !important;
+  margin: 0;
+  background: #191a1f;
+  line-height: 0;
+  vertical-align: top;
+  font-size: 0;
+}
+
+.tableBody {
+  background: transparent;
+}
+
+.loaderCell {
+  padding: 40px 16px;
+  text-align: center;
+  vertical-align: middle;
+  min-height: 200px;
+}
+
+.tableLoader :global(.loaderContainer) {
+  position: static !important;
+  background: transparent !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tableRow {
+  background: #2a2c32;
+  border-radius: 5px;
+  height: 60px;
+  transition: background-color 0.2s;
+}
+
+.tableRow:hover {
+  background: #32343a;
+}
+
+.tableCell {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  padding: 10px 10px 10px 16px;
+  vertical-align: middle;
+}
+
+.tableCell:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.tableCell:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.avatarCell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.nameColumn {
+  min-width: 180px;
+}
+
+.userNameLink {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  text-decoration: none;
+}
+
+.userNameLink:hover {
+  text-decoration: underline;
+}
+
+.statusTag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.projectsCell {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #f5f6fa;
+  word-break: break-word;
+}
+
+.tableOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(14, 14, 17, 0.5);
+  z-index: 50;
+  backdrop-filter: blur(2px);
+}
+
+.tableContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tableContainer::-webkit-scrollbar-track {
+  background: #2a2c32;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: #8b97a3;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+  background: #aeb8c2;
+}

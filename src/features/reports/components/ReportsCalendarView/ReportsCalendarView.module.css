@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.calendarPane {
+  flex: 0 0 auto;
+  padding-right: 40px;
+  border-right: 1px dashed #494c55;
+}
+
+.timelinePane {
+  flex: 1;
+  min-width: 0;
+  padding-left: 40px;
+}

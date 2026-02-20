@@ -1,0 +1,85 @@
+.yearWrapper {
+  position: relative;
+}
+
+.monthButton,
+.yearButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.monthButton:hover,
+.yearButton:hover {
+  opacity: 0.8;
+}
+
+.monthDropdown,
+.yearDropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 140px;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #2a2c32;
+  border-radius: 8px;
+  padding: 4px;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.yearDropdown {
+  min-width: 80px;
+}
+
+.monthDropdownItem,
+.yearDropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.monthDropdownItem:hover,
+.yearDropdownItem:hover {
+  background: #32343a;
+}
+
+.monthDropdownItemSelected,
+.yearDropdownItemSelected {
+  background: #4252ea;
+  color: #fff;
+}
+
+.monthDropdownItemSelected:hover,
+.yearDropdownItemSelected:hover {
+  background: #5258f0;
+}
+
+.reportDots {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.reportDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}

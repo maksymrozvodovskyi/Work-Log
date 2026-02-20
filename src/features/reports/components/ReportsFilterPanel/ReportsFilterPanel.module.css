@@ -1,0 +1,113 @@
+.filterPanel {
+  padding: 20px;
+  background: #2a2c32;
+  border-radius: 8px;
+  min-width: 200px;
+}
+
+.trackStatusSection,
+.hoursSection {
+  margin-bottom: 24px;
+}
+
+.trackStatusSection:last-child,
+.hoursSection:last-of-type {
+  margin-bottom: 0;
+}
+
+.trackStatusHeader,
+.hoursHeader {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #aeb8c2;
+  margin-bottom: 12px;
+}
+
+.trackStatusContent,
+.hoursContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trackStatusGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.trackStatusOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #32343a;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.trackStatusOption:hover {
+  background: #3a3c42;
+}
+
+.trackStatusOptionSelected {
+  background: #4252ea;
+  border-color: #5258f0;
+}
+
+.trackStatusOptionSelected:hover {
+  background: #5258f0;
+}
+
+.trackStatusLabel {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  cursor: pointer;
+}
+
+.hoursOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hoursOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #32343a;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.hoursOption:hover {
+  background: #3a3c42;
+}
+
+.hoursOptionSelected {
+  background: #4252ea;
+  border-color: #5258f0;
+}
+
+.hoursOptionSelected:hover {
+  background: #5258f0;
+}
+
+.hoursOptionLabel {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  cursor: pointer;
+}

@@ -1,0 +1,197 @@
+.timelineSection {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.timelineHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.timelineHeader {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #f5f6fa;
+  margin: 0;
+}
+
+.timelineHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.filtersRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.pill {
+  padding: 6px 14px;
+  background: #2a2c32;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #8b97a3;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.pill:hover {
+  color: #f5f6fa;
+  background: #32343a;
+}
+
+.pillActive {
+  background: #4252ea;
+  color: #fff;
+  border-color: #5258f0;
+}
+
+.pillActive:hover {
+  background: #5258f0;
+}
+
+.searchWrapper {
+  flex: 1;
+  min-width: 200px;
+}
+
+.dashedLine {
+  height: 0;
+  border-top: 1px dashed #494c55;
+  margin-bottom: 24px;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.cardsGridCentered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.loaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* ReportUserCard */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: #2a2c32;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.card:hover {
+  border-color: #32343a;
+}
+
+.cardWork,
+.cardSpecial {
+  border-left: 4px solid #4252ea;
+}
+
+.cardStatus {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cardStatusWork {
+  color: #6bcf7f;
+}
+
+.cardStatusVacation {
+  color: #6bb4cf;
+}
+
+.cardStatusSickLeave {
+  color: #cf6b6b;
+}
+
+.cardStatusSpecial {
+  color: #cfb46b;
+}
+
+.cardContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.cardName {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  text-decoration: none;
+}
+
+.cardName:hover {
+  text-decoration: underline;
+}
+
+.cardRole {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #8b97a3;
+}
+
+.cardSeparator {
+  height: 0;
+  border-top: 1px solid #32343a;
+}
+
+.cardDetails,
+.cardVacationDays,
+.cardVacationDateRange {
+  font-family: "Montserrat", "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.42857;
+  color: #aeb8c2;
+}
+
+.cardVacationDateRange {
+  font-size: 12px;
+  color: #8b97a3;
+}

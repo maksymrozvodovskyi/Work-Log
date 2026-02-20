@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { ActivityType } from "@/types/WorkLog";
 import type { HoursFilterType } from "@/types/User";
 import { TRACK_STATUS_ORDER, trackStatusMap } from "@/features/reports/constants/trackStatusMap";
@@ -61,7 +62,7 @@ export default function ReportsFilterPanel({
               <button
                 key={option}
                 type="button"
-                className={css.hoursOption}
+                className={clsx(css.hoursOption, isSelected && css.hoursOptionSelected)}
                 onClick={() => onHoursToggle(option)}
                 aria-pressed={isSelected}
               >
