@@ -10,6 +10,22 @@
     box-sizing: border-box;
 }
 
+.avatarSmall {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #232427;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.avatarSmall .initials {
+    font-size: 11px;
+}
+
 .initials {
     font-family: "Montserrat", "Manrope", sans-serif;
     font-weight: 500;

@@ -1,0 +1,734 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  position: relative;
+}
+
+.contentRow {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-width: 0;
+  padding-right: 30px;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  padding: 0 30px;
+  padding-top: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerLeft {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.reportLink {
+  margin-right: 50px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #f5f6fa;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.reportLink:hover {
+  opacity: 0.8;
+}
+
+.mainButton {
+  border-radius: 8px;
+  background: #2b2c32;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  color: #aeb8c2;
+  padding: 5px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  border: none;
+}
+
+.mainButton:hover {
+  opacity: 0.9;
+}
+
+.mainButtonActive {
+  background: #fc7141;
+  color: #f5f6fa;
+}
+
+.calendarButton {
+  background: #2b2c32;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.3125;
+  text-align: center;
+  color: #aeb8c2;
+  padding: 6px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  border: none;
+}
+
+.calendarButton:hover {
+  opacity: 0.9;
+}
+
+.calendarButtonActive {
+  background: #fc7141;
+  color: #f5f6fa;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profileButton {
+  width: 36px;
+  height: 36px;
+  border: 0.6px solid #aeb8c2;
+  border-radius: 50%;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.notificationButton {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.notificationDot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  background: #fc7141;
+  border-radius: 50%;
+}
+
+.filterWrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 44px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 30px;
+}
+
+.dateNavWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.dateNav {
+  width: 312px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dateNavArrows {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dateNavButton {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.dateNavButton:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.dateNavButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.datePart {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.55556;
+  text-align: center;
+  color: #f5f6fa;
+}
+
+.todayButton {
+  margin-left: 8px;
+  border-radius: 8px;
+  background: #f5f6fa;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  text-align: center;
+  color: #494c55;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.todayButton:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.todayButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.filterSidebar {
+  width: 370px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filterTrackStatusDiv {
+  width: 370px;
+  background: #1e1f24;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.filterPanelHeader {
+  width: 370px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 5px 5px 0 0;
+  background: #31343b;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px;
+}
+
+.filterPanelSelectAll {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.filterPanelSelectAll:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.filterPanelSelectAll:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.filterPanelHeaderTitle {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #f5f6fa;
+}
+
+.filterPanelTrackStatusContent {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px;
+  background: #2a2c32;
+}
+
+.filterHoursDiv {
+  width: 370px;
+  height: 104px;
+  background: #1e1f24;
+  border-left: 1px solid #2a2c32;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.filterHoursHeader {
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 5px 5px 0 0;
+  background: #31343b;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px;
+}
+
+.filterPanelHoursContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px;
+  background: #2a2c32;
+}
+
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filterSectionTitle {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #aeb8c2;
+  margin: 0;
+}
+
+.activityFilterList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+  row-gap: 24px;
+}
+
+.activityFilterItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+
+.activityFilterItem:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.activityFilterCheckbox {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activityFilterLabel {
+  flex: 1;
+}
+
+.hoursFilterList {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+}
+
+.hoursFilterItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 55px;
+  height: 20px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+
+.hoursFilterItem:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hoursFilterCheckbox {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hoursFilterLabel {
+  flex: 1;
+}
+
+.tableWrapper {
+  padding: 0 10px 0 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tableHeaderContainer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.tableContainer {
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  position: relative;
+  border-radius: 5px;
+}
+
+.tableHeadHidden {
+  visibility: hidden;
+  height: 0;
+}
+
+.tableHeadHidden tr {
+  height: 0 !important;
+}
+
+.tableHeadHidden th {
+  padding: 0 !important;
+  height: 0 !important;
+}
+
+.tableHeadHidden .spacerRow {
+  height: 0 !important;
+}
+
+.tableHeadHidden .spacerRow td {
+  height: 0 !important;
+  padding: 0 !important;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 1px;
+  table-layout: fixed;
+}
+
+.tableHead {
+  border: 5px solid #191a1f;
+  border-radius: 5px;
+  background: #2b2c32;
+}
+
+.tableHeader {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #aeb8c2;
+  text-align: left;
+  padding: 11px 7px 11px 16px;
+  background: #2b2c32;
+}
+
+.tableHeader:first-child {
+  padding-left: 80px;
+}
+
+.sortableHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sortArrowsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.tableContainer .tableHeader {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #aeb8c2;
+}
+
+.tableBody {
+  background: transparent;
+}
+
+.loaderCell {
+  padding: 40px 16px;
+  text-align: center;
+  vertical-align: middle;
+  height: 400px;
+  min-height: 400px;
+}
+
+.emptyState {
+  padding: 40px 16px;
+  text-align: center;
+  vertical-align: middle;
+  height: 400px;
+  min-height: 400px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #8b97a3;
+}
+
+.tableLoader :global(.loaderContainer) {
+  position: static !important;
+  background: transparent !important;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tableOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(14, 14, 17, 0.5);
+  z-index: 50;
+  backdrop-filter: blur(2px);
+}
+
+.spacerRow {
+  height: 5px !important;
+}
+
+.spacerRow td {
+  height: 5px !important;
+  min-height: 5px;
+  max-height: 5px;
+  padding: 0 !important;
+  margin: 0;
+  background: #191a1f;
+  line-height: 0;
+  vertical-align: top;
+  font-size: 0;
+}
+
+.tableHeaderContainer .spacerRow td {
+  position: static;
+}
+
+.tableContainer .spacerRow td {
+  position: sticky;
+  top: 36px;
+  z-index: 9;
+}
+
+.tableRow {
+  background: #2a2c32;
+  border-radius: 5px;
+  height: 60px;
+  transition: background-color 0.2s;
+}
+
+.tableRow:hover {
+  background: #32343a;
+}
+
+.tableCell {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  padding: 10px 10px 10px 16px;
+  vertical-align: middle;
+}
+
+.tableCellFirst {
+  padding: 10px 10px 10px 16px;
+  vertical-align: middle;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.tableCell:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.tableCell:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.avatarCell {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.userNameLink {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  text-decoration: none;
+}
+
+
+.statusBadge {
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+}
+
+.statusNoReport {
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+}
+
+.projectsCell {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  word-break: break-word;
+}
+
+.tableContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tableContainer::-webkit-scrollbar-track {
+  background: #2a2c32;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: #8b97a3;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+  background: #aeb8c2;
+}
+
+.paginationWrapper {
+  width: 100%;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.calendarPlaceholder {
+  padding: 40px 30px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  color: #8b97a3;
+}
+
+.errorMessage {
+  padding: 20px 30px;
+  color: #ef4444;
+}

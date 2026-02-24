@@ -10,7 +10,6 @@ const BackButton = () => {
       type="button"
       className={css.backButton}
       onClick={() => navigate("/range")}
-      aria-label="Go back"
     >
       <BackArrowIcon />
     </button>

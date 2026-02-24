@@ -9,12 +9,11 @@ type FilterButtonPropsType = {
   disabled?: boolean;
 };
 
-const FilterButton = ({ onClick, ariaLabel = "Filter", className, disabled = false }: FilterButtonPropsType) => {
+const FilterButton = ({ onClick, className, disabled = false }: FilterButtonPropsType) => {
   return (
     <button
       type="button"
       className={clsx(css.filterButton, className)}
-      aria-label={ariaLabel}
       onClick={onClick}
       disabled={disabled}
     >

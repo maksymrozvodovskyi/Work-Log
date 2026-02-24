@@ -1,5 +1,6 @@
 import { createParser } from "nuqs";
 import type { SortDirectionType } from "@/types/User";
+import type { ActivityType } from "@/types/Report";
 
 const createSortFieldParser = <T extends string>(
   validFields: T[],
@@ -78,38 +79,119 @@ export const parseAsFeedbackPeriod = createParser<"7days" | "30days" | null>({
   serialize: (value: "7days" | "30days" | null): string => value ?? "",
 });
 
-const ACTIVITY_TYPES = ["CODING", "REVIEW", "STUDING", "SICKLEAVE", "VACATION"] as const;
+const ACTIVITY_TYPES = [
+  "CODING",
+  "REVIEW",
+  "STUDING",
+  "SICKLEAVE",
+  "VACATION",
+] as const;
+const ACTIVITY_TYPES_WITH_WITHOUT = [
+  ...ACTIVITY_TYPES,
+  "WITHOUT_REPORT",
+] as const;
 const HOURS_FILTERS = ["<8h", "8h", "8h>"] as const;
-const REPORTS_SORT_FIELDS = ["name", "status", "total"] as const;
+const REPORT_HOURS_FILTERS = ["LT_8", "EQ_8", "GT_8"] as const;
+const REPORTS_SORT_FIELDS = ["name", "status", "totalMinutes"] as const;
 
 export const parseAsReportActivityTypes = createParser<string[]>({
   parse: (value: string | null): string[] => {
     if (!value?.trim()) return [];
     return value
       .split(",")
-      .filter((s) => s.trim() && ACTIVITY_TYPES.includes(s.trim() as (typeof ACTIVITY_TYPES)[number]))
+      .filter(
+        (s) =>
+          s.trim() &&
+          ACTIVITY_TYPES.includes(s.trim() as (typeof ACTIVITY_TYPES)[number]),
+      )
       .map((s) => s.trim());
   },
   serialize: (value: string[]): string =>
     value.length > 0 ? value.join(",") : "",
 });
 
+export const parseAsReportActivityTypesWithWithout = createParser<
+  ActivityType[]
+>({
+  parse: (value: string | null): ActivityType[] => {
+    if (!value?.trim()) return [];
+    return value
+      .split(",")
+      .filter(
+        (s) =>
+          s.trim() &&
+          ACTIVITY_TYPES_WITH_WITHOUT.includes(
+            s.trim() as (typeof ACTIVITY_TYPES_WITH_WITHOUT)[number],
+          ),
+      )
+      .map((s) => s.trim() as ActivityType);
+  },
+  serialize: (value: ActivityType[]) =>
+    (value.length ? value.join(",") : null) as string,
+});
+
+export const parseAsReportHoursFilter = createParser<
+  (typeof REPORT_HOURS_FILTERS)[number] | null
+>({
+  parse: (
+    value: string | null,
+  ): (typeof REPORT_HOURS_FILTERS)[number] | null => {
+    if (
+      !value ||
+      !REPORT_HOURS_FILTERS.includes(
+        value as (typeof REPORT_HOURS_FILTERS)[number],
+      )
+    )
+      return null;
+    return value as (typeof REPORT_HOURS_FILTERS)[number];
+  },
+  serialize: (value: (typeof REPORT_HOURS_FILTERS)[number] | null): string =>
+    value ?? "",
+});
+
+export const parseAsReportHoursFilterArray = createParser<
+  (typeof REPORT_HOURS_FILTERS)[number][]
+>({
+  parse: (value: string | null) => {
+    if (!value?.trim()) return [];
+    return value
+      .split(",")
+      .filter(
+        (s) =>
+          s.trim() &&
+          REPORT_HOURS_FILTERS.includes(
+            s.trim() as (typeof REPORT_HOURS_FILTERS)[number],
+          ),
+      )
+      .map((s) => s.trim()) as (typeof REPORT_HOURS_FILTERS)[number][];
+  },
+  serialize: (value) => (value.length ? value.join(",") : null) as string,
+});
+
 export const parseAsHoursFilter = createParser<
   (typeof HOURS_FILTERS)[number] | null
 >({
   parse: (value: string | null): (typeof HOURS_FILTERS)[number] | null => {
-    if (!value || !HOURS_FILTERS.includes(value as (typeof HOURS_FILTERS)[number]))
+    if (
+      !value ||
+      !HOURS_FILTERS.includes(value as (typeof HOURS_FILTERS)[number])
+    )
       return null;
     return value as (typeof HOURS_FILTERS)[number];
   },
-  serialize: (value: (typeof HOURS_FILTERS)[number] | null): string => value ?? "",
+  serialize: (value: (typeof HOURS_FILTERS)[number] | null): string =>
+    value ?? "",
 });
 
 export const parseAsReportSortField = createParser<
   (typeof REPORTS_SORT_FIELDS)[number]
 >({
   parse: (value: string): (typeof REPORTS_SORT_FIELDS)[number] => {
-    if (REPORTS_SORT_FIELDS.includes(value as (typeof REPORTS_SORT_FIELDS)[number])) {
+    if (
+      REPORTS_SORT_FIELDS.includes(
+        value as (typeof REPORTS_SORT_FIELDS)[number],
+      )
+    ) {
       return value as (typeof REPORTS_SORT_FIELDS)[number];
     }
     return "name";
