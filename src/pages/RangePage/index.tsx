@@ -187,7 +187,7 @@ const RangePage = () => {
         <div className={css.filterButtonsWrapper}>
           <div className={css.filterControls}>
             <FilterButton
-              ariaLabel="Clear all filters"
+              aria-label="Clear all filters"
               onClick={handleClearFilters}
               disabled={isDisabled}
             />

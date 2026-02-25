@@ -15,7 +15,6 @@ const SearchInput = ({
   value,
   onChange,
   placeholder = "Search by name, skills etc.",
-  ariaLabel = "Search projects by name, skills etc.",
   disabled = false,
   variant = "default",
 }: SearchInputPropsType) => {
@@ -39,7 +38,6 @@ const SearchInput = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        aria-label={ariaLabel}
         disabled={disabled}
       />
       {value && !disabled && (
@@ -47,7 +45,6 @@ const SearchInput = ({
           type="button"
           onClick={handleClear}
           className={css.clearButton}
-          aria-label="Clear search"
           disabled={disabled}
         >
           <CloseIcon fill="#AEB8C2" stroke="#AEB8C2" />

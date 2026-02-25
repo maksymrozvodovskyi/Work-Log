@@ -71,7 +71,7 @@ export const TimelineFilterBar = ({
 
       <FilterButton
         onClick={onClearFilters}
-        ariaLabel="Clear all filters"
+        aria-label="Clear all filters"
         disabled={isDisabled}
       />
 
