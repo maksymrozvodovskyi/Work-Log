@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
 import type { ReportItemType, ReportSortFieldType } from "@/types/Report";
-import { activityStatusMap } from "@/types/Report";
 import SortArrows from "@/components/SortArrows";
 import Loader from "@/components/Loader";
+import ReportRow from "@/features/reports/components/ReportRow";
 import css from "@/features/reports/index.module.css";
-import Avatar from "@/components/Avatar";
 
 type TableHeaderType =
   | { label: string; sortable: true; field: ReportSortFieldType }
@@ -39,47 +37,6 @@ const ReportsTable = ({
   const { isLoading, isFetching } = loading;
 
   const disabled = isFetching;
-
-  const renderReportRow = (report: ReportItemType) => {
-    const statusInfo = activityStatusMap[report.status];
-
-    return (
-      <tr key={report.userId} className={css.tableRow}>
-        <td className={css.tableCellFirst}>
-          <div className={css.avatarCell}>
-            <Avatar name={report.name} showStatus={false} size={28} />
-            <Link to={`/users/${report.userId}`} className={css.userNameLink}>
-              {report.name}
-            </Link>
-          </div>
-        </td>
-        <td className={css.tableCell}>
-          <span
-            className={
-              report.status === "WITHOUT_REPORT"
-                ? css.statusNoReport
-                : css.statusBadge
-            }
-            style={
-              report.status !== "WITHOUT_REPORT"
-                ? { color: statusInfo?.color ?? "#94a3b8" }
-                : undefined
-            }
-          >
-            {statusInfo?.label ?? report.status}
-          </span>
-        </td>
-        <td className={css.tableCell}>
-          <div className={css.projectsCell}>
-            {report.projects.length > 0 ? report.projects.join(", ") : null}
-          </div>
-        </td>
-        <td className={css.tableCell}>
-          {report.totalMinutes > 0 ? report.total : null}
-        </td>
-      </tr>
-    );
-  };
 
   return (
     <div className={css.tableWrapper}>
@@ -137,7 +94,9 @@ const ReportsTable = ({
                 </td>
               </tr>
             ) : (
-              reports.map(renderReportRow)
+              reports.map((report) => (
+                <ReportRow key={report.userId} report={report} />
+              ))
             )}
           </tbody>
         </table>

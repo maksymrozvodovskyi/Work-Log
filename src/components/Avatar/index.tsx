@@ -7,7 +7,7 @@ type AvatarPropsType = {
   status?: UserStatusType;
   showStatus?: boolean;
   statusColor?: string;
-  size?: 28 | 36;
+  size?: "small" | "large";
 };
 
 const Avatar = ({
@@ -15,7 +15,7 @@ const Avatar = ({
   status,
   showStatus = false,
   statusColor: statusColorOverride,
-  size = 36,
+  size = "large",
 }: AvatarPropsType) => {
   const getInitials = (fullName: string): string => {
     const trimmed = fullName.trim();
@@ -30,7 +30,7 @@ const Avatar = ({
 
   return (
     <div
-      className={size === 28 ? css.avatarSmall : css.avatar}
+      className={size === "small" ? css.avatarSmall : css.avatar}
       style={statusColor ? { border: `5px solid ${statusColor}` } : undefined}
     >
       <span className={css.initials}>{initials}</span>

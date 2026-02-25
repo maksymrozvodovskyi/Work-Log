@@ -183,7 +183,7 @@ const TimeTrackerTab = () => {
                     <SquaresIcon />
                   </button>
                 </div>
-                <FilterButton ariaLabel="Filter projects" />
+                <FilterButton aria-label="Filter projects" />
               </div>
             </div>
           </div>

@@ -1,21 +1,16 @@
+import { type ComponentPropsWithoutRef } from "react";
 import clsx from "clsx";
 import css from "./FilterButton.module.css";
 import FilterIcon from "@/components/svg/FilterIcon";
 
-type FilterButtonPropsType = {
-  onClick?: () => void;
-  ariaLabel?: string;
-  className?: string;
-  disabled?: boolean;
-};
+type FilterButtonPropsType = ComponentPropsWithoutRef<"button">;
 
-const FilterButton = ({ onClick, className, disabled = false }: FilterButtonPropsType) => {
+const FilterButton = ({ className, ...props }: FilterButtonPropsType) => {
   return (
     <button
       type="button"
       className={clsx(css.filterButton, className)}
-      onClick={onClick}
-      disabled={disabled}
+      {...props}
     >
       <FilterIcon />
     </button>
