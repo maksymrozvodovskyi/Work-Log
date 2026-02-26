@@ -92,7 +92,7 @@ const ACTIVITY_TYPES_WITH_WITHOUT = [
 ] as const;
 const HOURS_FILTERS = ["<8h", "8h", "8h>"] as const;
 const REPORT_HOURS_FILTERS = ["LT_8", "EQ_8", "GT_8"] as const;
-const REPORTS_SORT_FIELDS = ["name", "status", "totalMinutes"] as const;
+const REPORTS_SORT_FIELDS = ["name", "primaryStatus", "totalMinutes"] as const;
 
 export const parseAsReportActivityTypes = createParser<string[]>({
   parse: (value: string | null): string[] => {

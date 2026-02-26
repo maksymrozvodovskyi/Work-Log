@@ -23,7 +23,7 @@ type ReportsTablePropsType = {
 
 const tableHeaders: TableHeaderType[] = [
   { label: "Name", sortable: true, field: "name" },
-  { label: "Status", sortable: true, field: "status" },
+  { label: "Status", sortable: true, field: "primaryStatus" },
   { label: "Projects", sortable: false },
   { label: "Total", sortable: true, field: "totalMinutes" },
 ];

@@ -13,7 +13,7 @@ export type HoursFilterType = "LT_8" | "EQ_8" | "GT_8";
 export type ReportItemType = {
   userId: string;
   name: string;
-  status: ActivityType;
+  statuses: ActivityType[];
   projects: string[];
   totalMinutes: number;
   total: string;
@@ -24,12 +24,15 @@ export type ReportsResponseType = {
   total: number;
   totalPages: number;
   hasMore: boolean;
+  activitiesByDate?: Record<string, ActivityType[]>;
 };
 
-export type ReportSortFieldType = "name" | "status" | "totalMinutes";
+export type ReportSortFieldType = "name" | "primaryStatus" | "totalMinutes";
 
 export type GetReportsParamsType = {
-  date: string;
+  date?: string;
+  startDate?: string;
+  endDate?: string;
   activity?: ActivityType[];
   hours?: HoursFilterType[];
   skip?: number;
@@ -37,13 +40,14 @@ export type GetReportsParamsType = {
   sortField?: ReportSortFieldType;
   sortDirection?: "asc" | "desc";
   name?: string;
+  onlyWithoutReport?: boolean;
 };
 
 export const activityStatusMap: Record<ActivityType, StatusInfoType> = {
   CODING: { label: "Coding", color: "#22c55e" },
   REVIEW: { label: "Review", color: "#3b82f6" },
   STUDING: { label: "Studying", color: "#8b5cf6" },
-  SICKLEAVE: { label: "Sick leave", color: "#ef4444" },
-  VACATION: { label: "Vacations", color: "#ef4444" },
+  SICKLEAVE: { label: "Sick leave", color: "#8095ff" },
+  VACATION: { label: "Vacations", color: "#f673a9" },
   WITHOUT_REPORT: { label: "Without report", color: "#94a3b8" },
 };

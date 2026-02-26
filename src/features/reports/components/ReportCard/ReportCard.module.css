@@ -1,0 +1,122 @@
+.reportCard {
+  border-radius: 10px;
+  width: 249px;
+  height: 105px;
+  background: #2b2c32;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.reportCardProject {
+  border-radius: 10px;
+  background: #2b2c32;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.reportCardSpecial {
+  border-radius: 10px;
+  background: #2b2c32;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.reportCardStatusSpecial {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.statusColorCoding {
+  color: #22c55e;
+}
+
+.statusColorReview {
+  color: #3b82f6;
+}
+
+.statusColorStuding {
+  color: #8b5cf6;
+}
+
+.statusColorSickLeave {
+  color: #8095ff;
+}
+
+.statusColorVacation {
+  color: #f673a9;
+}
+
+.statusColorWithoutReport {
+  color: #94a3b8;
+}
+
+.reportCardStatus {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #f5f6fa;
+}
+
+.reportCardStatusProject {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #57d58e;
+}
+
+.reportCardUser {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.reportCardName {
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #f5f6fa;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.reportCardName:hover {
+  opacity: 0.8;
+}
+
+.reportCardDivider {
+  width: 209px;
+  height: 1px;
+  background: #494c55;
+  margin: 15px 0;
+}
+
+.reportCardProjects {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-family: "Cera Pro", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #8b97a3;
+}
+
+.reportCardProjectItem {
+  color: #8b97a3;
+}
+
+.reportCardProjectHours {
+  color: #8b97a3;
+}

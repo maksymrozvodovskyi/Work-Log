@@ -24,3 +24,5 @@ export const HOURS_OPTIONS: { value: HoursFilterType; label: string }[] = [
 ];
 
 export const REPORTS_PER_PAGE = 20;
+
+export const TIMELINE_REPORTS_PER_PAGE = 10;

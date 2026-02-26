@@ -1,16 +1,28 @@
 import { memo } from "react";
+import clsx from "clsx";
 import { Link } from "react-router-dom";
 import type { ReportItemType } from "@/types/Report";
 import { activityStatusMap } from "@/types/Report";
 import Avatar from "@/components/Avatar";
 import css from "@/features/reports/index.module.css";
 
+const STATUS_COLOR_CLASSES = {
+  CODING: css.statusColorCoding,
+  REVIEW: css.statusColorReview,
+  STUDING: css.statusColorStuding,
+  SICKLEAVE: css.statusColorSickLeave,
+  VACATION: css.statusColorVacation,
+  WITHOUT_REPORT: css.statusColorWithoutReport,
+} as const;
+
 type ReportRowPropsType = {
   report: ReportItemType;
 };
 
 const ReportRow = memo(({ report }: ReportRowPropsType) => {
-  const statusInfo = activityStatusMap[report.status];
+  const primaryStatus = report.statuses[0] || "WITHOUT_REPORT";
+  const statusInfo = activityStatusMap[primaryStatus];
+  const statusColorClass = STATUS_COLOR_CLASSES[primaryStatus];
 
   return (
     <tr className={css.tableRow}>
@@ -24,18 +36,13 @@ const ReportRow = memo(({ report }: ReportRowPropsType) => {
       </td>
       <td className={css.tableCell}>
         <span
-          className={
-            report.status === "WITHOUT_REPORT"
-              ? css.statusNoReport
-              : css.statusBadge
-          }
-          style={
-            report.status !== "WITHOUT_REPORT"
-              ? { color: statusInfo?.color ?? "#94a3b8" }
-              : undefined
-          }
+          className={clsx(
+            primaryStatus === "WITHOUT_REPORT" && css.statusNoReport,
+            primaryStatus !== "WITHOUT_REPORT" && css.statusBadge,
+            statusColorClass,
+          )}
         >
-          {statusInfo?.label ?? report.status}
+          {statusInfo?.label ?? primaryStatus}
         </span>
       </td>
       <td className={css.tableCell}>
