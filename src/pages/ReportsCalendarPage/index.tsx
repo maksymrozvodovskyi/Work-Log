@@ -194,7 +194,7 @@ const ReportsCalendarPage = () => {
                 </div>
               ) : isTimelineLoading ? (
                 <div className={css.timelineLoader}>
-                  <Loader />
+                  <Loader inline />
                 </div>
               ) : (
                 <>
