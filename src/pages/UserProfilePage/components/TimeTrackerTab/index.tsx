@@ -121,18 +121,19 @@ const TimeTrackerTab = () => {
   return (
     <div className={sharedCss.content}>
       <div className={css.timeTrackerWrapper}>
-        <Calendar
-          currentDate={calendar.currentDate}
-          calendarDays={calendar.calendarDays}
-          onPreviousMonth={calendar.handlePreviousMonth}
-          onNextMonth={calendar.handleNextMonth}
-          onToday={handleToday}
-          onDayClick={handleDayClick}
-          workLogsByDate={workLogsByDate}
-          calendarWorkLogsData={calendarWorkLogsData}
-        />
+        <div className={css.timeTrackerLeftPanel}>
+          <Calendar
+            currentDate={calendar.currentDate}
+            calendarDays={calendar.calendarDays}
+            onPreviousMonth={calendar.handlePreviousMonth}
+            onNextMonth={calendar.handleNextMonth}
+            onToday={handleToday}
+            onDayClick={handleDayClick}
+            workLogsByDate={workLogsByDate}
+            calendarWorkLogsData={calendarWorkLogsData}
+          />
 
-        <div className={css.timeTrackerSection}>
+          <div className={css.timeTrackerSection}>
           <h3 className={css.timeTrackerTitle}>Time tracker</h3>
 
           <div className={css.timeTrackerContent}>
@@ -187,6 +188,7 @@ const TimeTrackerTab = () => {
               </div>
             </div>
           </div>
+        </div>
         </div>
 
         <div className={css.resultsSection}>

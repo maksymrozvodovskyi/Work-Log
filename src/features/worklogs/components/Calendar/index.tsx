@@ -22,6 +22,7 @@ type CalendarPropsType = {
   workLogsByDate?: Map<string, WorkLogByDateWithActivityType>;
   calendarWorkLogsData?: WorkLogsByTimeResponseType;
   activitiesByDate?: Record<string, ActivityType[]>;
+  disabled?: boolean;
 };
 
 export const Calendar = ({
@@ -34,10 +35,12 @@ export const Calendar = ({
   workLogsByDate,
   calendarWorkLogsData,
   activitiesByDate,
+  disabled = false,
 }: CalendarPropsType) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleDayClick = (date: Date) => {
+    if (disabled) return;
     setSelectedDate(date);
     onDayClick(date);
   };
@@ -78,6 +81,7 @@ export const Calendar = ({
             className={css.calendarNavArrow}
             aria-label="Previous month"
             onClick={onPreviousMonth}
+            disabled={disabled}
           >
             <ArrowIcon
               style={{
@@ -93,6 +97,7 @@ export const Calendar = ({
             className={css.calendarNavArrow}
             aria-label="Next month"
             onClick={onNextMonth}
+            disabled={disabled}
           >
             <ArrowIcon
               style={{
@@ -112,10 +117,11 @@ export const Calendar = ({
             {currentDate.getFullYear()}
           </span>
         </div>
-        <button 
-          type="button" 
+        <button
+          type="button"
           className={css.todayButton}
           onClick={onToday}
+          disabled={disabled}
         >
           Today
         </button>
@@ -149,6 +155,7 @@ export const Calendar = ({
                 )}
                 onClick={() => handleDayClick(day.date)}
                 aria-label={`Select ${day.date.toLocaleDateString()}`}
+                disabled={disabled}
               >
                 {dayNumber}
                 {activityColor && (
