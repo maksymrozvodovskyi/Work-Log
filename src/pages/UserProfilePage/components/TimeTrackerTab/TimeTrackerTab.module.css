@@ -3,6 +3,18 @@
     align-items: flex-start;
 }
 
+.timeTrackerLeftPanel {
+    display: flex;
+    flex-direction: row;
+    padding-right: 40px;
+}
+
+.timeTrackerSection {
+    border-left: 1px dashed #494c55;
+    margin-left: 40px;
+    padding-left: 40px;
+}
+
 .timeTrackerContent {
     display: flex;
     flex-direction: column;

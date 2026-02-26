@@ -823,8 +823,13 @@
   transition: opacity 0.2s ease;
 }
 
-.reportTab:hover {
+.reportTab:hover:not(:disabled) {
   opacity: 0.9;
+}
+
+.reportTab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .reportTabActive {

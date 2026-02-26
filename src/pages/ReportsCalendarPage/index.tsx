@@ -64,7 +64,7 @@ const ReportsCalendarPage = () => {
     setPage(1);
   };
 
-  const { data: monthData } = useQuery({
+  const { data: monthData, isLoading: isMonthLoading } = useQuery({
     queryKey: [
       REPORTS_QUERY_KEYS.reports,
       REPORTS_QUERY_KEYS.calendarMonth,
@@ -111,6 +111,9 @@ const ReportsCalendarPage = () => {
   const totalPages = timelineData?.totalPages ?? 0;
   const showPagination = totalPages > 1;
 
+  const isDisabled =
+    isMonthLoading || isTimelineLoading || isTimelineFetching;
+
   return (
     <div className={css.pageContainer}>
       <div className={css.calendarPageLayout}>
@@ -127,6 +130,7 @@ const ReportsCalendarPage = () => {
               onToday={handleToday}
               onDayClick={handleDayClick}
               activitiesByDate={activitiesByDate}
+              disabled={isDisabled}
             />
           </div>
         </div>
@@ -145,6 +149,7 @@ const ReportsCalendarPage = () => {
                     activeTab === "MISSED" && css.reportTabActive,
                   )}
                   onClick={() => handleTabChange("MISSED")}
+                  disabled={isDisabled}
                 >
                   Missed reports
                 </button>
@@ -155,6 +160,7 @@ const ReportsCalendarPage = () => {
                     activeTab === "PROJECT" && css.reportTabActive,
                   )}
                   onClick={() => handleTabChange("PROJECT")}
+                  disabled={isDisabled}
                 >
                   Work on project
                 </button>
@@ -165,6 +171,7 @@ const ReportsCalendarPage = () => {
                     activeTab === "SPECIAL" && css.reportTabActive,
                   )}
                   onClick={() => handleTabChange("SPECIAL")}
+                  disabled={isDisabled}
                 >
                   Special
                 </button>
@@ -175,6 +182,7 @@ const ReportsCalendarPage = () => {
                     activeTab === "OVERTIME" && css.reportTabActive,
                   )}
                   onClick={() => handleTabChange("OVERTIME")}
+                  disabled={isDisabled}
                 >
                   Overtime
                 </button>
@@ -184,6 +192,7 @@ const ReportsCalendarPage = () => {
                   value={search}
                   onChange={handleSearchChange}
                   placeholder="Search by name or tech."
+                  disabled={isDisabled}
                 />
               </div>
             </div>
@@ -213,6 +222,7 @@ const ReportsCalendarPage = () => {
                         currentPage={page}
                         totalPages={totalPages}
                         onPageChange={setPage}
+                        disabled={isDisabled}
                       />
                     </div>
                   )}
