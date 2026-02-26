@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import ArrowIcon from "@/components/svg/ArrowIcon";
 import { MONTH_NAMES, WEEKDAYS } from "@/features/worklogs/constants/calendar";
 import { ACTIVITY_COLOR_MAP } from "@/features/worklogs/constants/activityColors";
+import { activityStatusMap, type ActivityType } from "@/types/Report";
 import type { CalendarDayType } from "@/hooks/useCalendar";
 import type { WorkLogByDateWithActivityType } from "@/features/worklogs/utils/groupWorkLogs";
 import type { WorkLogsByTimeResponseType } from "@/types/WorkLog";
@@ -20,6 +21,7 @@ type CalendarPropsType = {
   onDayClick: (date: Date) => void;
   workLogsByDate?: Map<string, WorkLogByDateWithActivityType>;
   calendarWorkLogsData?: WorkLogsByTimeResponseType;
+  activitiesByDate?: Record<string, ActivityType[]>;
 };
 
 export const Calendar = ({
@@ -31,12 +33,19 @@ export const Calendar = ({
   onDayClick,
   workLogsByDate,
   calendarWorkLogsData,
+  activitiesByDate,
 }: CalendarPropsType) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleDayClick = (date: Date) => {
     setSelectedDate(date);
     onDayClick(date);
+  };
+
+  const getReportDayColors = (activities: ActivityType[]): string[] => {
+    return activities
+      .filter((a) => activityStatusMap[a])
+      .map((a) => activityStatusMap[a].color);
   };
 
   const getDayActivityColor = (date: Date): string | null => {
@@ -123,7 +132,11 @@ export const Calendar = ({
             const isGrayDay = !day.isCurrentMonth || day.isWeekend;
             const isCurrentMonthDay = day.isCurrentMonth && !day.isWeekend;
             const activityColor = getDayActivityColor(day.date);
-            
+            const dateKey = format(day.date, "yyyy-MM-dd");
+            const reportDayColors = getReportDayColors(
+              activitiesByDate?.[dateKey] ?? []
+            );
+
             return (
               <button
                 key={index}
@@ -143,6 +156,17 @@ export const Calendar = ({
                     className={css.calendarDayDot}
                     style={{ backgroundColor: activityColor }}
                   />
+                )}
+                {!activityColor && reportDayColors.length > 0 && (
+                  <span className={css.calendarDayDotsContainer}>
+                    {reportDayColors.map((color, i) => (
+                      <span
+                        key={i}
+                        className={css.calendarDayDotReports}
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </span>
                 )}
               </button>
             );
