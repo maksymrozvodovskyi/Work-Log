@@ -556,15 +556,17 @@
 
 .emptyState {
   padding: 40px 16px;
-  text-align: center;
-  vertical-align: middle;
-  height: 400px;
-  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42857;
   color: #8b97a3;
+  text-align: center;
 }
 
 .tableLoader :global(.loaderContainer) {
@@ -728,7 +730,177 @@
   color: #8b97a3;
 }
 
+.calendarPageLayout {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.calendarPageLeft {
+  flex-shrink: 0;
+  width: 400px;
+  background: #2b2c32;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendarPageHeaderLeft {
+  padding: 24px 30px 0 30px;
+}
+
+.calendarPageHeaderLeft .mainButton {
+  background: #484c56;
+  border-radius: 8px;
+}
+
+.calendarPageRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-right: 30px;
+}
+
+.calendarPageHeaderRight {
+  padding: 24px 0 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reportTimelineTitle {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #f5f6fa;
+}
+
+.calendarColumn {
+  flex-shrink: 0;
+  padding: 40px 30px 40px 30px;
+}
+
+.timelineColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0 30px 0 30px;
+}
+
+.reportFiltersRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding-bottom: 25px;
+  border-bottom: 1px dashed #494c55;
+}
+
+.reportTabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.reportTab {
+  border-radius: 8px;
+  padding: 8px 6px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+  text-align: center;
+  color: #f5f6fa;
+  background: #2a2c32;
+  border: none;
+  cursor: default;
+  transition: opacity 0.2s ease;
+}
+
+.reportTab:hover {
+  opacity: 0.9;
+}
+
+.reportTabActive {
+  background: #fc7141;
+  color: #f5f6fa;
+}
+
+.reportSearchWrapper {
+  flex-shrink: 0;
+}
+
+.timelineContent {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.timelineOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.timelineLoader {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.reportCardsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.loadingState {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
 .errorMessage {
   padding: 20px 30px;
   color: #ef4444;
+}
+
+.statusColorCoding {
+  color: #22c55e;
+}
+
+.statusColorReview {
+  color: #3b82f6;
+}
+
+.statusColorStuding {
+  color: #8b5cf6;
+}
+
+.statusColorSickLeave {
+  color: #8095ff;
+}
+
+.statusColorVacation {
+  color: #f673a9;
+}
+
+.statusColorWithoutReport {
+  color: #94a3b8;
 }
