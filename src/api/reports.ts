@@ -17,8 +17,8 @@ const TAB_FILTERS: Record<
   Partial<GetReportsParamsType>
 > = {
   MISSED: { onlyWithoutReport: true },
-  PROJECT: { activity: ["CODING", "REVIEW"] },
-  SPECIAL: { activity: ["STUDING", "SICKLEAVE", "VACATION"] },
+  PROJECT: { activity: ["CODING", "REVIEW", "STUDING"] },
+  SPECIAL: { activity: ["SICKLEAVE", "VACATION"] },
   OVERTIME: { hours: ["GT_8"] },
 };
 

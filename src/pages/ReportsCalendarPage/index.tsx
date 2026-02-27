@@ -111,8 +111,7 @@ const ReportsCalendarPage = () => {
   const totalPages = timelineData?.totalPages ?? 0;
   const showPagination = totalPages > 1;
 
-  const isDisabled =
-    isMonthLoading || isTimelineLoading || isTimelineFetching;
+  const isDisabled = isMonthLoading || isTimelineLoading || isTimelineFetching;
 
   return (
     <div className={css.pageContainer}>
@@ -204,6 +203,10 @@ const ReportsCalendarPage = () => {
               ) : isTimelineLoading ? (
                 <div className={css.timelineLoader}>
                   <Loader inline />
+                </div>
+              ) : reports.length === 0 ? (
+                <div className={css.emptyState}>
+                  No reports found for this date
                 </div>
               ) : (
                 <>

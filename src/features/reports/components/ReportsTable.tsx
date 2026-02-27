@@ -89,8 +89,8 @@ const ReportsTable = ({
           <tbody className={css.tableBody}>
             {reports.length === 0 && !isLoading ? (
               <tr>
-                <td colSpan={4} className={css.emptyState}>
-                  No reports found
+                <td colSpan={4} className={css.emptyStateCell}>
+                  <div className={css.emptyState}>No reports found</div>
                 </td>
               </tr>
             ) : (
