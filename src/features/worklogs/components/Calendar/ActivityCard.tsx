@@ -27,7 +27,9 @@ const getActivityColor = (activity: string): string => {
   ) {
     return ACTIVITY_COLOR_MAP[ActivityTypeValues.SICKLEAVE] || "#4A90E2";
   }
-  return ACTIVITY_COLOR_MAP[activity as keyof typeof ACTIVITY_COLOR_MAP] || "#aeb8c2";
+  return (
+    ACTIVITY_COLOR_MAP[activity as keyof typeof ACTIVITY_COLOR_MAP] || "#aeb8c2"
+  );
 };
 
 type ProjectActivitiesType = {
@@ -48,14 +50,14 @@ export const ActivityCard = ({
 
   workLogsData.projects?.forEach((projectItem) => {
     const projectName = projectItem.project?.name || "No Project";
-    
+
     projectItem.logs.forEach((log) => {
       const logDateKey = log.date.split("T")[0];
       if (logDateKey === dateKey && log.hours > 0) {
         if (!projectsMap.has(projectName)) {
           projectsMap.set(projectName, new Map());
         }
-        
+
         const projectActivities = projectsMap.get(projectName)!;
         const currentHours = projectActivities.get(log.activity) || 0;
         projectActivities.set(log.activity, currentHours + log.hours);
@@ -64,18 +66,24 @@ export const ActivityCard = ({
   });
 
   if (projectsMap.size === 0) {
-    return null;
+    return (
+      <div className={css.activityCard}>
+        <div className={css.emptyState}>No activities found for this date</div>
+      </div>
+    );
   }
 
-  const projects: ProjectActivitiesType[] = Array.from(projectsMap.entries()).map(
-    ([projectName, activitiesMap]) => ({
-      projectName,
-      activities: Array.from(activitiesMap.entries()).map(([activity, hours]) => ({
+  const projects: ProjectActivitiesType[] = Array.from(
+    projectsMap.entries(),
+  ).map(([projectName, activitiesMap]) => ({
+    projectName,
+    activities: Array.from(activitiesMap.entries()).map(
+      ([activity, hours]) => ({
         activity,
         hours,
-      })),
-    })
-  );
+      }),
+    ),
+  }));
 
   return (
     <div className={css.activityCard}>
@@ -103,4 +111,3 @@ export const ActivityCard = ({
     </div>
   );
 };
-

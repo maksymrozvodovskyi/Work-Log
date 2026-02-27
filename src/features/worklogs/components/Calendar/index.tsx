@@ -8,7 +8,6 @@ import { activityStatusMap, type ActivityType } from "@/types/Report";
 import type { CalendarDayType } from "@/hooks/useCalendar";
 import type { WorkLogByDateWithActivityType } from "@/features/worklogs/utils/groupWorkLogs";
 import type { WorkLogsByTimeResponseType } from "@/types/WorkLog";
-import { ActivityTypeValues } from "@/types/WorkLog";
 import { ActivityCard } from "./ActivityCard";
 import css from "./Calendar.module.css";
 
@@ -60,13 +59,6 @@ export const Calendar = ({
     const workLogEntry = workLogsByDate.get(dateKey);
 
     if (!workLogEntry || !workLogEntry.hasWorkHours || !workLogEntry.primaryActivity) {
-      return null;
-    }
-
-    if (
-      workLogEntry.primaryActivity === ActivityTypeValues.VACATION ||
-      workLogEntry.primaryActivity === ActivityTypeValues.SICKLEAVE
-    ) {
       return null;
     }
 

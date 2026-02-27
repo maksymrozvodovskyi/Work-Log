@@ -45,7 +45,8 @@ const ReportCard = ({ report, variant = "default" }: ReportCardPropsType) => {
       ? "Work on project"
       : (statusInfo?.label ?? primaryStatus);
 
-  const statusColorClass = variant === "special" ? STATUS_COLOR_CLASSES[primaryStatus] : null;
+  const statusColorClass =
+    variant === "special" ? STATUS_COLOR_CLASSES[primaryStatus] : null;
 
   const showBottom = variant === "project";
   const showProjects = showBottom && report.projects.length > 0;
@@ -70,8 +71,12 @@ const ReportCard = ({ report, variant = "default" }: ReportCardPropsType) => {
           <div className={css.reportCardProjects}>
             {showProjects &&
               report.projects.map((project, i, arr) => (
-                <span key={`${project}-${i}`} className={css.reportCardProjectItem}>
-                  {project}{i < arr.length - 1 && ", "}
+                <span
+                  key={`${project}-${i}`}
+                  className={css.reportCardProjectItem}
+                >
+                  {project}
+                  {i < arr.length - 1 && ", "}
                 </span>
               ))}
 
