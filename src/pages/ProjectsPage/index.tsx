@@ -7,6 +7,7 @@ import { getProjects } from "@/api/projects";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useProjectSorting } from "@/hooks/useProjectSorting";
 import { PROJECT_QUERY_KEYS } from "@/features/projects/queryKeys";
+import { useAuthStore } from "@/stores/authStore";
 import type {
   SortFieldType,
   ProjectStatusType,
@@ -23,6 +24,7 @@ import StatusFilter from "@/components/StatusFilter";
 import FilterButton from "@/components/FilterButton";
 import Pagination from "@/components/Pagination";
 import ProjectModal from "@/features/projects/components/ProjectModal";
+import Avatar from "@/components/Avatar";
 import PlusIcon from "@/components/svg/PlusIcon";
 import { PROJECTS_PER_PAGE } from "@/features/projects/constants/pagination";
 
@@ -39,6 +41,8 @@ const ProjectsPage = () => {
   const location = useLocation();
   const isTableActive = location.pathname === "/projects";
   const isTimelineActive = location.pathname === "/projects/timeline";
+
+  const { user: currentUser } = useAuthStore();
 
   const { sortField, sortDirection, handleSortChange, setSortFilters } =
     useProjectSorting();
@@ -220,7 +224,7 @@ const ProjectsPage = () => {
             className={css.profileButton}
             aria-label="User profile"
           >
-            <div className={css.profileAvatar}></div>
+            {currentUser && <Avatar name={currentUser.name} status="GREEN" />}
           </button>
         </div>
       </header>

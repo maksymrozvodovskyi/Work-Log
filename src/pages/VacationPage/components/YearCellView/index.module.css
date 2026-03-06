@@ -1,0 +1,48 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.textRow {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.42857;
+}
+
+.mainValue {
+  color: #f5f6fa;
+}
+
+.leftValue {
+  color: #909095;
+  font-family: "Montserrat", sans-serif;
+}
+
+.barRow {
+  display: flex;
+  gap: 2px;
+}
+
+.bar {
+  width: 3px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.barGreen {
+  background: #0baf6d;
+}
+
+.barRed {
+  background: #e33a7e;
+}
+
+.barEmpty {
+  background: #d8d8d8;
+}
+
+.clickable {
+  cursor: pointer;
+}

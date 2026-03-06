@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import type { ReactNode } from "react";
+import type { CSSProperties } from "react";
 import { useKeyboard } from "@/hooks/useKeyboard";
+import { useClickOutside } from "@/hooks/useClickOutside";
 import css from "./BaseModal.module.css";
 
 type BaseModalPropsType = {
@@ -12,6 +14,7 @@ type BaseModalPropsType = {
   width?: string;
   usePortal?: boolean;
   showOverlay?: boolean;
+  modalStyle?: CSSProperties;
   children: ReactNode;
 };
 
@@ -23,9 +26,14 @@ const BaseModal = ({
   width = "400px",
   usePortal = true,
   showOverlay = true,
+  modalStyle,
   children,
 }: BaseModalPropsType) => {
   useKeyboard(isOpen, onClose);
+  const modalRef = useClickOutside<HTMLDivElement>(
+    onClose,
+    isOpen && !showOverlay
+  );
 
   useEffect(() => {
     if (isOpen && usePortal) {
@@ -55,8 +63,9 @@ const BaseModal = ({
         />
       )}
       <div
+        ref={modalRef}
         className={css.modal}
-        style={{ width, zIndex }}
+        style={{ width, zIndex, ...modalStyle }}
       >
         {headerContent || (
           <div className={css.header}>

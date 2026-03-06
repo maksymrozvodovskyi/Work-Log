@@ -1,0 +1,147 @@
+.pageContainer {
+    padding: 24px 10px 0;
+}
+
+.brandTitle {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+    color: #f5f6fa;
+    margin-left: 20px;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabsItem {
+    border-radius: 8px;
+    padding: 5px 12px;
+    background: #2a2c32;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    color: #aeb8c2;
+}
+
+.tabsItemActive {
+    background: #fc7141;
+    color: #f5f6fa;
+}
+
+.appHeader {
+    display: flex;
+    justify-content: space-between;
+}
+
+.appHeaderLeft {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.notificationButton {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.profileButton {
+    width: 36px;
+    height: 36px;
+    border: 0.6px solid #aeb8c2;
+    border-radius: 50%;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.statsList {
+    display: flex;
+    gap: 40px;
+    margin-left: 50px;
+}
+
+.statsItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.allUsersValue {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+    text-align: center;
+    color: #f5f6fa;
+}
+
+.allUsersLabel {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #f5f6fa;
+}
+
+.statValue {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.4;
+    text-align: center;
+    color: #8b97a3;
+}
+
+.statLabel {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #8b97a3;
+}
+
+.appHeaderStatsWrapper {
+    display: flex;
+}
+
+.searchInputWrapper {
+    margin-top: 44px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.errorMessage {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    color: #ff0000;
+}

@@ -1,0 +1,159 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 40px 20px 28px 20px;
+}
+
+.headerTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title {
+    font-family: "Montserrat", "Manrope", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #f5f6fa;
+    margin: 0;
+}
+
+.arrowBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background: rgba(245, 246, 250, 0.01);
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.arrowBtn:hover {
+    background: rgba(245, 246, 250, 0.08);
+}
+
+.arrowBtn:hover svg path {
+    fill: #f5f6fa;
+}
+
+.userRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.userMeta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #aeb8c2;
+}
+
+.body {
+    padding: 0 20px 20px;
+}
+
+.yearsList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.yearBlock {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.yearLeft {
+    flex: 1;
+    min-width: 0;
+}
+
+.yearLabel {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #f5f6fa;
+}
+
+.yearSub {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+}
+
+.subLabel {
+    color: #909095;
+}
+
+.yearRight {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.valueBox {
+    border-radius: 8px;
+    width: 50px;
+    height: 36px;
+    background: #494c55;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #f5f6fa;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input {
+    border-radius: 8px;
+    width: 50px;
+    height: 36px;
+    background: #2a2c32;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #f5f6fa;
+    border: none;
+}
+
+.slash {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    text-align: center;
+    color: #f5f6fa;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.hint {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #8b97a3;
+    margin-top: 20px;
+}
