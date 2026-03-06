@@ -1,7 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
+import { useAuthStore } from "@/stores/authStore";
 import type { StatisticItemType } from "@/features/projects/types/timeline";
 import css from "@/features/projects/index.module.css";
+import Avatar from "@/components/Avatar";
 
 type TimelineHeaderPropsType = {
   statisticsConfig: StatisticItemType[];
@@ -11,6 +13,8 @@ export const TimelineHeader = ({ statisticsConfig }: TimelineHeaderPropsType) =>
   const location = useLocation();
   const isTableActive = location.pathname === "/projects";
   const isTimelineActive = location.pathname === "/projects/timeline";
+
+  const { user: currentUser } = useAuthStore();
 
   return (
     <header className={css.header}>
@@ -75,7 +79,7 @@ export const TimelineHeader = ({ statisticsConfig }: TimelineHeaderPropsType) =>
           className={css.profileButton}
           aria-label="User profile"
         >
-          <div className={css.profileAvatar}></div>
+          {currentUser && <Avatar name={currentUser.name} status="GREEN" />}
         </button>
       </div>
     </header>

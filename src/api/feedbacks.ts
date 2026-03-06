@@ -8,25 +8,28 @@ import type {
 } from "@/types/Feedback";
 
 export const getMyFeedbacks = async (
-  params?: GetFeedbacksParamsType
+  params?: GetFeedbacksParamsType,
 ): Promise<FeedbacksResponseType> => {
-  const { data } = await axiosInstance.get<FeedbacksResponseType>("/feedbacks", {
-    params: {
-      skip: params?.skip,
-      take: params?.take,
-      sortBy: params?.sortBy,
-      sortOrder: params?.sortOrder,
-      search: params?.search,
-      period: params?.period,
+  const { data } = await axiosInstance.get<FeedbacksResponseType>(
+    "/feedbacks",
+    {
+      params: {
+        skip: params?.skip,
+        take: params?.take,
+        sortBy: params?.sortBy,
+        sortOrder: params?.sortOrder,
+        search: params?.search,
+        period: params?.period,
+      },
     },
-  });
+  );
 
   return data;
 };
 
 export const getUserFeedbacks = async (
   userId: string,
-  params?: GetFeedbacksParamsType
+  params?: GetFeedbacksParamsType,
 ): Promise<FeedbacksResponseType> => {
   const { data } = await axiosInstance.get<FeedbacksResponseType>(
     `/users/${userId}/feedbacks`,
@@ -39,19 +42,23 @@ export const getUserFeedbacks = async (
         search: params?.search,
         period: params?.period,
       },
-    }
+    },
   );
 
   return data;
 };
 
-export const deleteFeedback = async (feedbackId: string): Promise<DeleteFeedbackResponseType> => {
-  const { data } = await axiosInstance.delete<DeleteFeedbackResponseType>(`/feedbacks/${feedbackId}`);
+export const deleteFeedback = async (
+  feedbackId: string,
+): Promise<DeleteFeedbackResponseType> => {
+  const { data } = await axiosInstance.delete<DeleteFeedbackResponseType>(
+    `/feedbacks/${feedbackId}`,
+  );
   return data;
 };
 
 export const createFeedback = async (
-  payload: CreateFeedbackPayloadType
+  payload: CreateFeedbackPayloadType,
 ): Promise<FeedbackType> => {
   const { data } = await axiosInstance.post<FeedbackType>("/feedbacks", {
     ...payload,

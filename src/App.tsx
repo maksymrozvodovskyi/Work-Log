@@ -5,12 +5,11 @@ import MainLayout from "@/layout/MainLayout";
 import AuthLayout from "@/layout/AuthLayout";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Loader from "@/components/Loader";
+import VacationTimelinePage from "./pages/VacationTimelinePage";
 
 const RangePage = lazy(() => import("@/pages/RangePage"));
 const ReportsPage = lazy(() => import("@/pages/ReportsPage"));
-const ReportsCalendarPage = lazy(
-  () => import("@/pages/ReportsCalendarPage"),
-);
+const ReportsCalendarPage = lazy(() => import("@/pages/ReportsCalendarPage"));
 const ProjectsPage = lazy(() => import("@/pages/ProjectsPage"));
 const ProjectsTimelinePage = lazy(() => import("@/pages/ProjectsTimelinePage"));
 const VacationPage = lazy(() => import("@/pages/VacationPage"));
@@ -20,15 +19,33 @@ const QAPage = lazy(() => import("@/pages/QAPage"));
 const ClientsPage = lazy(() => import("@/pages/ClientsPage"));
 const SettingsPage = lazy(() => import("@/pages/SettingsPage"));
 const UserProfilePage = lazy(() => import("@/pages/UserProfilePage/index"));
-const ResumeTab = lazy(() => import("@/pages/UserProfilePage/components/ResumeTab"));
-const TimeTrackerTab = lazy(() => import("@/pages/UserProfilePage/components/TimeTrackerTab"));
-const VacationTab = lazy(() => import("@/pages/UserProfilePage/components/VacationTab"));
-const SubTechnologiesTab = lazy(() => import("@/pages/UserProfilePage/components/SubTechnologiesTab"));
-const ProjectsTab = lazy(() => import("@/pages/UserProfilePage/components/ProjectsTab"));
-const RangeTab = lazy(() => import("@/pages/UserProfilePage/components/RangeTab"));
-const TeamTab = lazy(() => import("@/pages/UserProfilePage/components/TeamTab"));
-const OvertimeTab = lazy(() => import("@/pages/UserProfilePage/components/OvertimeTab"));
-const FeedbacksTab = lazy(() => import("@/pages/UserProfilePage/components/FeedbacksTab"));
+const ResumeTab = lazy(
+  () => import("@/pages/UserProfilePage/components/ResumeTab"),
+);
+const TimeTrackerTab = lazy(
+  () => import("@/pages/UserProfilePage/components/TimeTrackerTab"),
+);
+const VacationTab = lazy(
+  () => import("@/pages/UserProfilePage/components/VacationTab"),
+);
+const SubTechnologiesTab = lazy(
+  () => import("@/pages/UserProfilePage/components/SubTechnologiesTab"),
+);
+const ProjectsTab = lazy(
+  () => import("@/pages/UserProfilePage/components/ProjectsTab"),
+);
+const RangeTab = lazy(
+  () => import("@/pages/UserProfilePage/components/RangeTab"),
+);
+const TeamTab = lazy(
+  () => import("@/pages/UserProfilePage/components/TeamTab"),
+);
+const OvertimeTab = lazy(
+  () => import("@/pages/UserProfilePage/components/OvertimeTab"),
+);
+const FeedbacksTab = lazy(
+  () => import("@/pages/UserProfilePage/components/FeedbacksTab"),
+);
 const LoginPage = lazy(() => import("@/pages/LoginPage"));
 const ForgotPasswordPage = lazy(() => import("@/pages/ForgotPasswordPage"));
 const VerifyCodePage = lazy(() => import("@/pages/VerifyCodePage"));
@@ -57,10 +74,20 @@ export default function App() {
               <Route path="/" element={<RangePage />} />
               <Route path="/range" element={<RangePage />} />
               <Route path="/reports" element={<ReportsPage />} />
-              <Route path="/reports/calendar" element={<ReportsCalendarPage />} />
+              <Route
+                path="/reports/calendar"
+                element={<ReportsCalendarPage />}
+              />
               <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/projects/timeline" element={<ProjectsTimelinePage />} />
+              <Route
+                path="/projects/timeline"
+                element={<ProjectsTimelinePage />}
+              />
               <Route path="/vacations" element={<VacationPage />} />
+              <Route
+                path="/vacations/timeline"
+                element={<VacationTimelinePage />}
+              />
               <Route path="/announcements" element={<AnnouncementsPage />} />
               <Route path="/feedbacks" element={<FeedbacksPage />} />
               <Route path="/qa" element={<QAPage />} />
@@ -70,7 +97,10 @@ export default function App() {
                 <Route path="resume" element={<ResumeTab />} />
                 <Route path="time-tracker" element={<TimeTrackerTab />} />
                 <Route path="vacation" element={<VacationTab />} />
-                <Route path="sub-technologies" element={<SubTechnologiesTab />} />
+                <Route
+                  path="sub-technologies"
+                  element={<SubTechnologiesTab />}
+                />
                 <Route path="projects" element={<ProjectsTab />} />
                 <Route path="range" element={<RangeTab />} />
                 <Route path="team" element={<TeamTab />} />
