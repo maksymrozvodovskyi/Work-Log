@@ -1,5 +1,5 @@
 import axiosInstance from "@/lib/apiClient";
-import { UserStatusType } from "@/types/User";
+import type { UserStatusType } from "@/types/User";
 
 export type SortOrder = "asc" | "desc";
 
