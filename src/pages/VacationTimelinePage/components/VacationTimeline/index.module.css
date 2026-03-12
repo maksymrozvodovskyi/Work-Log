@@ -1,0 +1,162 @@
+.timelineContainer {
+    display: flex;
+    flex-direction: column;
+    background: #2a2c32;
+    min-width: 1410px;
+    width: max-content;
+    max-height: 787px;
+}
+
+.header {
+    display: flex;
+    width: max-content;
+    min-width: 1410px;
+}
+
+.dayColumn {
+    display: contents;
+}
+
+.dayCell {
+    flex: 0 0 30px;
+    width: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 0;
+    background: #2a2c32;
+    border-right: 1px solid #191a1f;
+}
+
+.dayNum {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #f5f6fa;
+}
+
+.dayName {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #aeb8c2;
+    text-transform: uppercase;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    min-width: 1410px;
+    width: max-content;
+}
+
+.userRow {
+    display: flex;
+    min-width: 1410px;
+    width: max-content;
+    position: relative;
+}
+
+.cell {
+    flex: 0 0 30px;
+    width: 30px;
+    min-height: 30px;
+    background: #2a2c32;
+    border-right: 1px solid #191a1f;
+}
+
+.dayCell,
+.cell,
+.monthNameColumn,
+.monthNameSpacer {
+    border-right: 1px solid #191a1f;
+}
+
+.weekend {
+    background: #191a1f !important;
+    border-right: 1px solid #2a2c32;
+}
+
+.isSaturday {
+    border-right: 1px solid #2a2c32;
+}
+
+.today {
+    background: #383d44 !important;
+}
+
+.monthNameColumn {
+    width: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 0;
+    background: #383d44;
+}
+
+.monthNameCell {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #8b97a3;
+    transform: rotate(-90deg);
+}
+
+.monthNameSpacer {
+    width: 30px;
+    flex-shrink: 0;
+    background: #383d44;
+}
+
+.barsLayer {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-items: center;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.vacationBar {
+    height: 26px;
+    margin: 2px 0;
+    background: #4caf50;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    pointer-events: auto;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+.vacationName {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.66667;
+    text-align: center;
+    color: #f5f6fa;
+    padding: 0 6px;
+    pointer-events: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.vacationBar:hover .vacationName {
+    color: #0e0e11;
+}
+
+.vacationBarSingleDay .vacationName {
+    padding: 0 2px;
+    min-width: min-content;
+    overflow: visible;
+    text-overflow: unset;
+}
