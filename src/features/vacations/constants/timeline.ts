@@ -1,0 +1,4 @@
+export const TIMELINE_PERIOD_DAYS = 44;
+export const TIMELINE_NAVIGATION_STEP_DAYS = 14;
+export const TIMELINE_ROWS_COUNT = 45;
+export const TIMELINE_CELL_WIDTH_PX = 30;
